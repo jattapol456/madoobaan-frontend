@@ -1,0 +1,102 @@
+.input-wrapper {
+  @apply flex flex-col w-full h-auto;
+
+  .tags {
+    @apply relative flex flex-wrap gap-2 w-full h-auto px-3 py-2 rounded-sm cursor-text;
+
+    .placeholder {
+      @apply absolute font-noto text-black-200;
+
+      z-index: 1;
+    }
+
+    .tag {
+      @apply w-auto h-6 px-2 font-noto bg-black-50;
+    }
+
+    .tag-input {
+      @apply relative flex-grow;
+
+      input {
+        @apply w-full h-6 font-noto outline-none;
+      }
+
+      .suggestion {
+        @apply absolute w-full h-auto bg-white shadow-lg rounded-sm;
+
+        top: 24px;
+        max-width: 240px;
+        max-height: 240px;
+        opacity: 0;
+        pointer-events: none;
+        overflow: overlay;
+        z-index: 2;
+        transition: all ease-in 0.125s;
+
+        .item {
+          @apply flex items-center h-10 px-4 font-noto;
+
+          &:hover,
+          &.active {
+            @apply bg-backdrop cursor-pointer;
+          }
+
+          &:first-child {
+            @apply mt-2;
+          }
+
+          &:last-child {
+            @apply mb-2;
+          }
+        }
+
+        &.active {
+          opacity: 1;
+          pointer-events: unset;
+          transform: translateY(theme('spacing.2'));
+        }
+      }
+    }
+
+    &::before {
+      @apply absolute top-0 left-0 w-full h-full border border-black-100 rounded-sm pointer-events-none;
+
+      content: '';
+    }
+  }
+
+  &:focus,
+  &.active {
+    @apply outline-none;
+
+    .tags {
+      @apply border-transparent;
+
+      &::before {
+        @apply border-2 border-black-700;
+      }
+    }
+  }
+
+  &[disabled] {
+    @apply pointer-events-none;
+
+    .tags {
+      @apply bg-disabled;
+
+      .tag {
+        @apply bg-black-100 text-black-300;
+      }
+
+      .tag-input {
+        input {
+          @apply bg-disabled;
+        }
+      }
+
+      &::before {
+        @apply border-0;
+      }
+    }
+  }
+}

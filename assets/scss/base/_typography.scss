@@ -1,0 +1,111 @@
+@layer base {
+  #app {
+    @apply text-black-700;
+  }
+
+  p {
+    line-height: 1.4;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-noto font-semibold;
+
+    line-height: 1.5;
+
+    small {
+      @apply ml-2 font-normal text-black-500;
+    }
+
+    font-size: 0.625em;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+
+  a {
+    @apply underline cursor-pointer;
+
+    button {
+      @apply no-underline;
+
+      &:hover {
+        @apply text-black-900;
+      }
+    }
+
+    &:hover {
+      @apply text-primary-600;
+    }
+
+    &[disabled] {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    &.link {
+      @apply font-noto font-bold no-underline text-info-500;
+
+      &:hover {
+        @apply text-info-600;
+      }
+
+      &:visited {
+        @apply text-info-700;
+      }
+    }
+  }
+
+  label {
+    @apply block font-noto font-semibold text-14px leading-none;
+
+    + .input-wrapper,
+    + .dropdown-input,
+    + .editor-wrapper,
+    + .textarea-wrapper,
+    + .suggester-wrapper,
+    + .tags {
+      @apply mt-2;
+    }
+
+    &.is-required {
+      &::after {
+        @apply ml-1 text-error-500;
+
+        content: '*';
+      }
+    }
+
+    small {
+      @apply font-normal text-14px text-black-300;
+
+      &::before {
+        content: ' ';
+      }
+    }
+  }
+
+  #webpack-hot-middle-ware-clientOverlay {
+    @apply text-white;
+  }
+}

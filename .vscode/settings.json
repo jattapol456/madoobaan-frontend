@@ -1,0 +1,36 @@
+{
+  "eslint.validate": ["vue", "javascript", "typescript"],
+  "editor.tabSize": 2,
+  "editor.suggestSelection": "first",
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+  },
+  "terminal.integrated.rendererType": "dom",
+  "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "diffEditor.renderSideBySide": true,
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "todohighlight.keywords": [
+      {
+          "text": "NOTE:",
+          "color": "white",
+          "backgroundColor": "#58cc85",
+          "overviewRulerColor": "grey"
+      }
+  ],
+
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.validate": true,
+
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+
+  "vetur.experimental.templateInterpolationService": true,
+  "vetur.validation.templateProps": true,
+  "vetur.validation.style": false,
+
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

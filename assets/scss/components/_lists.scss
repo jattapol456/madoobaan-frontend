@@ -1,0 +1,24 @@
+.skill-set {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  row-gap: theme('spacing.4');
+  column-gap: theme('spacing.8');
+  width: 100%;
+
+  .item {
+    .topic,
+    .descriptions {
+      @apply relative pl-5;
+    }
+
+    .topic {
+      &::before {
+        @apply absolute bg-primary-500 left-0 w-3 h-3 rounded-full;
+
+        top: 50%;
+        transform: translateY(-50%);
+        content: '';
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+/* purgecss start ignore */
+
+/* purgecss end ignore */
+
+@import 'tailwindcss/base';
+@import './base/fonts';
+@import './base/typography';
+@import './base/layout';
+
+@import 'tailwindcss/components';
+@import './components';
+
+@import 'tailwindcss/utilities';
+@import './utilities/mixins';
+@import './utilities/transitions';
+@import './utilities/animations';
+@import './utilities/misc';

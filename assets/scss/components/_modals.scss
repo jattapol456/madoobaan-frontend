@@ -1,0 +1,107 @@
+.modal-backdrop {
+  @apply fixed w-screen min-h-screen max-h-screen top-0 left-0 right-0 bottom-0;
+
+  background-color: rgba(0, 0, 0, 0.36);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  z-index: 10;
+
+  .modal-scroller {
+    @apply flex items-center justify-center w-full min-h-full p-5;
+
+    .modal {
+      @apply bg-white rounded-lg;
+
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
+
+      .modal-container {
+        @apply w-full h-auto p-6;
+
+        .modal-main-slot {
+          @apply w-full h-auto mt-4;
+
+          .divider {
+            &.is-leaked {
+              @apply -ml-4;
+
+              width: calc(100% + theme('width.8'));
+            }
+          }
+        }
+      }
+
+      &.is-editable {
+        max-width: 640px;
+
+        .modal-header {
+          @apply flex items-center h-16 px-8 border-b border-black-50;
+        }
+
+        .modal-container {
+          @apply p-0;
+
+          max-height: calc(100vh - 11.75rem);
+          overflow: overlay;
+
+          .modal-container-scroller {
+            @apply p-8;
+          }
+        }
+
+        .modal-bottom {
+          @apply flex justify-between items-center px-8 border-t border-black-50;
+
+          height: 4.5rem;
+        }
+      }
+    }
+  }
+
+  &.is-large {
+    .modal-scroller {
+      .modal {
+        max-width: 1024px;
+
+        .modal-container {
+          @apply p-8;
+        }
+      }
+    }
+  }
+
+  @screen sm {
+    .modal-scroller {
+      .modal {
+        &.is-editable {
+          @apply flex flex-col w-screen h-screen max-w-none rounded-none;
+
+          .modal-header {
+            @apply px-5 py-14px;
+          }
+
+          .modal-container {
+            @apply flex-grow max-h-full;
+
+            .modal-container-scroller {
+              @apply px-5 py-8;
+            }
+          }
+
+          .modal-bottom {
+            @apply gap-x-4 px-5 py-14px;
+
+            > * {
+              @apply flex-grow;
+            }
+          }
+        }
+      }
+
+      &.is-editable {
+        @apply p-0;
+      }
+    }
+  }
+}

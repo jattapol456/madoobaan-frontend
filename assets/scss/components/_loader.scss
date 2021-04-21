@@ -1,0 +1,49 @@
+.loader,
+.loader::after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+
+.loader {
+  margin: 30px auto;
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 3px solid theme('colors.black.200');
+  border-right: 3px solid theme('colors.black.200');
+  border-bottom: 3px solid theme('colors.black.200');
+  border-left: 3px solid theme('colors.black.500');
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 0.75s infinite linear;
+  animation: load8 0.75s infinite linear;
+
+  &.is-primary {
+    border-top: 3px solid theme('colors.primary.200');
+    border-right: 3px solid theme('colors.primary.200');
+    border-bottom: 3px solid theme('colors.primary.200');
+    border-left: 3px solid theme('colors.primary.500');
+  }
+}
+
+.placeholder-loader {
+  @apply relative w-full h-4;
+
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: theme('colors.black.50');
+  background: linear-gradient(
+    to right,
+    theme('colors.backdrop') 8%,
+    theme('colors.black.50') 18%,
+    theme('colors.backdrop') 33%
+  );
+  background-size: 800px 104px;
+}

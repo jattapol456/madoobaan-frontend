@@ -1,0 +1,55 @@
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease-in;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-group-enter-active {
+  transition: all 0.25s ease-in 0.25s;
+}
+
+.fade-group-leave-active {
+  transition: all 0.25s ease-in;
+}
+
+.fade-group-enter,
+.fade-group-leave-to {
+  opacity: 0;
+}
+
+.modal-box-enter-active {
+  transition: all 0.25s ease-in;
+
+  .modal {
+    transform: translateY(0%);
+    transition: all 0.25s ease-in;
+  }
+}
+
+.modal-box-leave-active {
+  transition: all 0.25s ease-out;
+
+  .modal {
+    transition: all 0.25s ease-out;
+  }
+}
+
+.modal-box-enter {
+  opacity: 0;
+
+  .modal {
+    transform: translateY(-35%);
+  }
+}
+
+.modal-box-leave-to {
+  opacity: 0;
+
+  .modal {
+    transform: translateY(35%);
+  }
+}

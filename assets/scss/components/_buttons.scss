@@ -1,0 +1,37 @@
+.button {
+  cursor: pointer;
+  transition: background-image ease-in-out 0.125s,
+    background-color ease-in-out 0.125s, color ease-in-out 0.125s;
+
+  ion-icon {
+    @apply text-6 w-6 h-6;
+  }
+
+  &.is-square {
+    @apply square-10 px-0;
+  }
+
+  &.is-loading {
+    @apply relative text-transparent;
+
+    pointer-events: none;
+
+    ion-icon {
+      @apply text-transparent;
+    }
+
+    &::after {
+      @apply absolute;
+
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid theme('colors.black.900');
+      border-bottom-color: transparent !important;
+      border-right-color: transparent !important;
+      border-radius: 100%;
+      transform: translateZ(0);
+      animation: load8 0.5s infinite linear;
+      content: '';
+    }
+  }
+}

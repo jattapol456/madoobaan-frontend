@@ -1,0 +1,23 @@
+.management-page {
+  @apply flex flex-col relative w-full pb-16;
+
+  section {
+    @apply flex flex-col w-full px-16;
+
+    .block-content {
+      @apply flex flex-col items-start w-full max-w-7xl mx-auto;
+    }
+  }
+
+  @screen md {
+    section {
+      @apply px-16;
+    }
+  }
+
+  @screen sm {
+    section {
+      @apply px-6;
+    }
+  }
+}

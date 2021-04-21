@@ -1,0 +1,24 @@
+.divider {
+  @apply relative w-full h-px bg-black-100;
+
+  &[data-text] {
+    @apply h-6 bg-transparent;
+
+    &::before {
+      @apply absolute w-full h-px bg-black-100;
+
+      top: 50%;
+      transform: translateY(-50%);
+      content: '';
+    }
+
+    &::after {
+      @apply absolute px-2 text-14px font-noto font-bold bg-white text-black-100;
+
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      content: attr(data-text);
+    }
+  }
+}

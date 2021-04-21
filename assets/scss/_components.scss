@@ -1,0 +1,31 @@
+@import './components/buttons';
+@import './components/modals';
+@import './components/tables';
+@import './components/loader';
+@import './components/labled-tags';
+@import './components/lists';
+
+ul {
+  li {
+    &:not(:first-child) {
+      @apply mt-2;
+    }
+  }
+}
+
+.flexible-profile-thumbnail {
+  @apply bg-black-50 rounded-lg overflow-hidden;
+
+  width: 100%;
+  max-width: 12rem;
+
+  .wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+
+    img {
+      @apply absolute left-0 top-0 right-0 bottom-0 w-full h-full object-cover;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+.notification {
+  @apply flex w-full p-3 font-noto rounded;
+
+  &.is-warning {
+    @apply text-primary-700 bg-primary-200;
+  }
+}
