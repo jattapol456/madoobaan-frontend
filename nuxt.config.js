@@ -19,7 +19,7 @@ export default {
   },
 
   router: {
-    middleware: ['i18n'],
+    middleware: ['i18n', 'auth'],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
