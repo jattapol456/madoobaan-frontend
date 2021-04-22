@@ -3,6 +3,7 @@
     section.mt-8
       .block-content
         h1 Madoobaan
+        h2 Try to make something on landing page.
 </template>
 
 <script lang="ts">
