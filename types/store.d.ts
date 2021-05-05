@@ -1,6 +1,9 @@
 import { NamespacedModule as MeModule } from '@/store/modules/me'
 import { NamespacedModule as LangModule } from '@/store/modules/lang'
 import { NamespacedModule as ContextModule } from '@/store/modules/context'
+import { NamespacedModule as ProjectModule } from '@/store/modules/project'
+import { NamespacedModule as AnnounceModule } from '@/store/modules/announce'
+import { NamespacedModule as BrandsModule } from '@/store/modules/brands'
 import { Store as VuexStore, CommitOptions, DispatchOptions } from 'vuex'
 
 export type Namespaced<T, N extends string> = {
@@ -11,6 +14,9 @@ export type NamespacedModules = {
   me: MeModule
   lang: LangModule
   context: ContextModule
+  project: ProjectModule
+  announce: AnnounceModule
+  brands: BrandsModule
 }
 
 export type MapState = {
@@ -28,11 +34,17 @@ export type MapTypes<
 type State = { modules: MapState }
 type Mutations = MapTypes<'me', 'mutations'> &
   MapTypes<'lang', 'mutations'> &
-  MapTypes<'context', 'mutations'>
+  MapTypes<'context', 'mutations'> &
+  MapTypes<'project', 'mutations'> &
+  MapTypes<'announce', 'mutations'> &
+  MapTypes<'brands', 'mutations'>
 type Actions = MapTypes<'me', 'actions'>
 type Getters = MapTypes<'me', 'getters'> &
   MapTypes<'lang', 'getters'> &
-  MapTypes<'context', 'getters'>
+  MapTypes<'context', 'getters'> &
+  MapTypes<'project', 'getters'> &
+  MapTypes<'announce', 'getters'> &
+  MapTypes<'brands', 'getters'>
 
 export type Store = Omit<
   VuexStore<State>,

@@ -9,7 +9,7 @@
 
     ValidationProvider(:name="name" :rules="rules" :mode="mode" :vid="vid" v-slot="{ errors }")
       input(ref="input" v-bind="$attrs" v-on="listener" :readonly="readonly" :name="name" :disabled="disabled" :class="{ 'is-error': error.length || errors.length }" v-model="model")
-    
+
 
       .message(v-if="error || descriptions || errors.length")
         p.font-noto.text-14px.leading-none.text-error-500(v-if="error || errors.length") {{ error || errors[0] }}

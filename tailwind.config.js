@@ -80,6 +80,7 @@ module.exports = {
       backdrop: '#F5F7F9',
       disabled: '#EFF1F3',
       transparent: '#FFFFFF00',
+      navColor: 'rgba(0,0,0,.25098)',
     },
 
     fontFamily: {
