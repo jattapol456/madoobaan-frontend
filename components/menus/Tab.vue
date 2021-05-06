@@ -1,36 +1,78 @@
 <template lang="pug">
-section.mt-8
-  #dynamic-component-demo.demo
-    button(v-for="tab in tabs" :key="tab" :class="['tab-button', { active: currentTab === tab }]" @click="currentTab = tab")
+#dynamic-component-demo.demo
+  .mt-8
+    button(v-for="tab in tabs" :key="tab" :class="['tab-button', { active: currentTab === tab }]" @click="onSetCurrentTab(tab)")
       | {{ tab }}
     div(class="tabContainer")
-      component.tab(:is="currentTabComponent")
+      slot(name="content")
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import Update from '@/components/menus/tabData/Update.vue'
-import Saranaroo from '@/components/menus/tabData/Saranaroo.vue'
-import HomeReview from '@/components/menus/tabData/HomeReview.vue'
+
 export default defineComponent({
-  components: {
-    Update,
-    Saranaroo,
-    HomeReview,
+  props: {
+    tabs: {
+      type: Array,
+      default: () => [
+        'อัพเดทล่าสุด',
+        'รีวิวบ้าน',
+        'สาระน่ารู้',
+        'ไลฟ์สไตล์',
+        'ข่าวสาร',
+      ],
+    },
+
+    tabContents: {
+      type: Array,
+      default: () => [
+        {
+          key: 'อัพเดทล่าสุด',
+          element: 'update',
+        },
+        {
+          key: 'รีวิวบ้าน',
+          element: 'homeReview',
+        },
+        {
+          key: 'สาระน่ารู้',
+          element: 'knowledge',
+        },
+        {
+          key: 'ไลฟ์สไตล์',
+          element: 'lifeStyle',
+        },
+        {
+          key: 'ข่าวสาร',
+          element: 'info',
+        },
+      ],
+    },
+
+    currentTab: {
+      type: String,
+      default: 'อัพเดทล่าสุด',
+    },
   },
-  data() {
-    return {
-      currentTab: 'อัพเดทล่าสุด',
-      tabs: ['อัพเดทล่าสุด', 'รีวิวบ้าน', 'สาระน่ารู้'],
-    }
-  },
+
   computed: {
     currentTabComponent() {
       if (this.currentTab === 'อัพเดทล่าสุด') {
-        return 'Update'
+        return 'update'
       } else if (this.currentTab === 'รีวิวบ้าน') {
-        return 'HomeReview'
-      } else return 'Saranaroo'
+        return 'homeReview'
+      } else if (this.currentTab === 'สาระน่ารู้') {
+        return 'knowledge'
+      } else if (this.currentTab === 'ไลฟ์สไตล์') {
+        return 'lifeStyle'
+      } else return 'info'
+    },
+  },
+
+  methods: {
+    onSetCurrentTab(tab) {
+      console.log(tab)
+      this.$emit('change', tab)
     },
   },
 })
@@ -38,12 +80,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .demo {
-  font-family: sans-serif;
-  border: 1px solid #eee;
-  border-radius: 2px;
-  padding: 20px 30px;
-  margin-top: 1em;
-  margin-bottom: 40px;
   user-select: none;
   overflow-x: auto;
 }
@@ -71,5 +107,8 @@ export default defineComponent({
 .tabContainer {
   max-width: 80vw;
   overflow: auto;
+}
+button {
+  @apply font-noto font-semibold;
 }
 </style>

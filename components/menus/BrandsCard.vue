@@ -1,6 +1,6 @@
 <template lang="pug">
-section.card-section.overflow-hidden.h-full
-  .card(class="bg-white border-black-200 border-2 p-5 w-full h-full")
+.card-section.overflow-hidden.h-full.w-56
+  .card(class="bg-white border-black-200 border-2 p-4 w-full h-full")
     .card-image.w-full.h-full
       img(:src="img")
 </template>

@@ -5,15 +5,15 @@
       button.announce-button.bg-success-500(@click="showSignUpModal") ลงประกาศฟรี
 
     .footer-contract.h-auto.py-4.space-y-5
-      .block-content.justify-between
+      .block-content.justify-between.right-0
         .justify-start
-          p.uppercase logo
+          img(src="https://www.madoobaan.com/wp-content/uploads/2021/04/sm_long_logo-2.png",width="100px")
         .justify-end
           .contract-link.space-x-5.font-semibold
-            a.no-underline Terms & Condition
-            a.no-underline Privacy Policy
+            a.no-underline(href="#") Terms & Condition
+            a.no-underline(href="#") Privacy Policy
             .text-right
-              a.no-underline วิธีการลงใบประกาศบ้านมือสอง
+              a.no-underline(href="#") วิธีการลงใบประกาศบ้านมือสอง
 
       .contract
         p Contact Us
@@ -25,10 +25,12 @@
         p 2021 MadooBaan.com - All rights reserved
 
         .icons.ml-auto
-          a.icon
+          a.icon(href="#")
             ion-icon(name="logo-facebook")
-          a.icon
+          a.icon(href="https://www.instagram.com/madoobaan/")
             ion-icon(name="logo-instagram")
+
+
 
 
 </template>

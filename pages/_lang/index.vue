@@ -1,8 +1,8 @@
 <template lang="pug">
-.landing-page
-  section.section-hero.h-screen
-    .bg-hero(style="background-image: url('https://www.madoobaan.com/wp-content/uploads/2021/03/bg-Header-3.jpg');")
-      .title.h-full.flex.flex-col.justify-center
+.management-page
+  section.section-hero.h-screen.bg-hero(style="background-image: url('https://www.madoobaan.com/wp-content/uploads/2021/03/bg-Header-3.jpg');")
+    .block-content
+      .title.h-full.w-full.flex.flex-col.justify-center
         .text-white.text-center
           h1 เว็บประกาศ ขาย เช่า บ้าน ที่ดิน ภาคเหนือ เชียงใหม่ เชียงราย
           h4 หากคุณกำลังมองหาบ้าน ที่ดิน ภาคเหนือ เชียงใหม่ เชียงราย เราช่วยคุณได้!
@@ -18,157 +18,207 @@
                 grid(class="h-20 grid grid-flow-col grid-cols-3 grid-rows-2 gap-3")
                   Dropdown(placeholder="จังหวัด" :options="dropdownProvinces" v-model="seletedProvinces")
                   Dropdown(placeholder="ประเภทอสังหาริมทรัพย์")
-                  Dropdown(placeholder="อำเภอ" :options="dropdownDistricts" v-model="seletedDistricts")
+                  Dropdown(placeholder="อำเภอ")
                   Dropdown(placeholder="จำนวนห้องนอน")
-                  Dropdown(placeholder="ตำบล" :options="dropdownsubDistricts" v-model="seletedsubDistricts")
+                  Dropdown(placeholder="ตำบล")
                   Input(placeholder="ราคา")
                 .button.mt-5 ค้นหา
 
-  section.section-zone.p-navbar
-    .title-text.items-center
-      h3 ค้นหาตามโซน
-      .flex
-        a ดูทั้งหมด
-        ion-icon(class="mt-2" name="chevron-forward")
-    .img-container.justify-between.flex.flex-none.gap-3.mt-10
-      .left-container(class="grid grid-cols-3 gap-3")
-        figure.col-span-2
-          .zone-item.drop-shadow-lg
-            img(src="https://tatapi.tourismthailand.org/tatfs/Image/CustomPOI/Picture/P03002390_1.jpeg")
-            .zone-title
-              figcaption
-                p วัดร่องขุ่น จ.เชียงราย
-        figure
-          .zone-item.drop-shadow-lg
-            img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/48.%E0%B8%AA%E0%B8%B4%E0%B8%87%E0%B8%AB%E0%B9%8C%E0%B8%9B%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%84-%E0%B8%9B%E0%B8%81-scaled-1-980x551.jpg")
-            .zone-title
-              figcaption
-                p ไร่บุญรอด จ.เชียงราย
-        figure
-          .zone-item.drop-shadow-lg
-            img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/%E0%B8%AD%E0%B8%B8%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%9E%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B9%8C.jpg")
-            .zone-title
-              figcaption
-                p อุทยานหลวงราชพฤกษ์ จ.เชียงใหม่
-        figure.col-span-2
-          .zone-item.drop-shadow-lg
-            img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%A1%E0%B8%A0%E0%B8%B9%E0%B9%80%E0%B8%82%E0%B8%B5%E0%B8%A2%E0%B8%A7.jpg")
-            .zone-title
-              figcaption
-                p หล่มภูเขียว จ.ลำปาง
-      .right-container(class="grid grid-cols-3 gap-3")
-        figure.col-span-2
-          .zone-item.drop-shadow-lg
-            img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/Pang-Ung-9.jpg")
-            .zone-title
-              figcaption
-                p ปางอุ๋ง จ.แม่ฮ่องสอน
-        figure
-          .zone-item.drop-shadow-lg
-            img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/Doi-Inthanon-ChiangMai-Traveloka-1.jpg")
-            .zone-title
-              figcaption
-                p อุทยานแห่งชาติดอยอินทนนท์ จ.เชียงใหม่
+  section.section-zone.mt-8
+    .block-content
+      .title-text
+        h3 ค้นหาตามโซน
+        .flex
+          a ดูทั้งหมด
+          ion-icon(class="mt-2" name="chevron-forward")
+      .img-container.justify-between.flex.flex-none.gap-3.mt-10
+        .left-container(class="grid grid-cols-3 gap-3")
+          figure.col-span-2
+            .zone-item.drop-shadow-lg
+              img(src="https://tatapi.tourismthailand.org/tatfs/Image/CustomPOI/Picture/P03002390_1.jpeg")
+              .zone-title
+                figcaption
+                  p วัดร่องขุ่น จ.เชียงราย
+          figure
+            .zone-item.drop-shadow-lg
+              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/48.%E0%B8%AA%E0%B8%B4%E0%B8%87%E0%B8%AB%E0%B9%8C%E0%B8%9B%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%84-%E0%B8%9B%E0%B8%81-scaled-1-980x551.jpg")
+              .zone-title
+                figcaption
+                  p ไร่บุญรอด จ.เชียงราย
+          figure
+            .zone-item.drop-shadow-lg
+              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/%E0%B8%AD%E0%B8%B8%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%9E%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B9%8C.jpg")
+              .zone-title
+                figcaption
+                  p อุทยานหลวงราชพฤกษ์ จ.เชียงใหม่
+          figure.col-span-2
+            .zone-item.drop-shadow-lg
+              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%A1%E0%B8%A0%E0%B8%B9%E0%B9%80%E0%B8%82%E0%B8%B5%E0%B8%A2%E0%B8%A7.jpg")
+              .zone-title
+                figcaption
+                  p หล่มภูเขียว จ.ลำปาง
+        .right-container(class="grid grid-cols-3 gap-3")
+          figure.col-span-2
+            .zone-item.drop-shadow-lg
+              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/Pang-Ung-9.jpg")
+              .zone-title
+                figcaption
+                  p ปางอุ๋ง จ.แม่ฮ่องสอน
+          figure
+            .zone-item.drop-shadow-lg
+              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/Doi-Inthanon-ChiangMai-Traveloka-1.jpg")
+              .zone-title
+                figcaption
+                  p อุทยานแห่งชาติดอยอินทนนท์ จ.เชียงใหม่
 
-        figure
-          .zone-item.drop-shadow-lg
-            img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/55555.jpg")
-            .zone-title
-              figcaption
-                p ล่องแก่งลำน้ำว้า จ.น่าน
+          figure
+            .zone-item.drop-shadow-lg
+              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/55555.jpg")
+              .zone-title
+                figcaption
+                  p ล่องแก่งลำน้ำว้า จ.น่าน
 
-        figure.col-span-2
-          .zone-item.drop-shadow-lg
-            img(src="https://s359.kapook.com/pagebuilder/fc39e1ff-f08f-485a-bdd9-78040adbb0bb.jpg")
-            .zone-title
-              figcaption
-                p บ้านแม่กำปอง จ.เชียงใหม่
+          figure.col-span-2
+            .zone-item.drop-shadow-lg
+              img(src="https://s359.kapook.com/pagebuilder/fc39e1ff-f08f-485a-bdd9-78040adbb0bb.jpg")
+              .zone-title
+                figcaption
+                  p บ้านแม่กำปอง จ.เชียงใหม่
 
   section.ads-carousel
-    .banner.flex.justify-center.items-center
-      splide(:options="options")
-        splide-slide
-          img(src="https://s359.kapook.com/pagebuilder/fc39e1ff-f08f-485a-bdd9-78040adbb0bb.jpg")
-        splide-slide
-          img(src="https://s359.kapook.com/pagebuilder/db8f6318-2de0-4162-871b-b4a77e2d81c3.jpg")
-        splide-slide
-          img(src="https://s359.kapook.com/pagebuilder/6d43f6bc-537f-404f-9cac-d51f43a6e679.jpg")
+    .block-content.flex.justify-center.items-center
+      .banner
+        splide(:options="options")
+          splide-slide
+            img(src="https://s359.kapook.com/pagebuilder/fc39e1ff-f08f-485a-bdd9-78040adbb0bb.jpg")
+          splide-slide
+            img(src="https://s359.kapook.com/pagebuilder/db8f6318-2de0-4162-871b-b4a77e2d81c3.jpg")
+          splide-slide
+            img(src="https://s359.kapook.com/pagebuilder/6d43f6bc-537f-404f-9cac-d51f43a6e679.jpg")
 
-  section.project.p-navbar
-    .title-text
-      h3 โครงการแนะนำ
-      .flex
-        a ดูทั้งหมด
-        ion-icon(class="mt-2" name="chevron-forward")
-    .flex.items-center.justify-center.flex-none
-      .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
-        Card(v-for="item in projectCard" :key="item.id"
-          :logo="item.logo"
-          :review="item.review"
-          :ads="item.ads"
-          :img="item.img"
-          :title="item.title"
-          :subtitle="item.subtitle"
-          :startPrice="item.startPrice"
-          :price="item.price"
-          :location="item.location")
-  section.announce.p-navbar
-    .title-text
-      h3 ประกาศมือสอง
-      .flex
-        a ดูทั้งหมด
-        ion-icon(class="mt-2" name="chevron-forward")
-    .flex.items-center.justify-center.flex-none
-      .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
-        Card(v-for="item in announceCard" :key="item.id"
-          :description="item.description"
-          :img="item.img"
-          :ads="item.ads"
-          :title="item.title"
-          :subtitle="item.subtitle"
-          :price="item.price"
-          :location="item.location")
-  section.Rent-dorm.p-navbar
-    .title-text
-      h3 เช่า/หอพัก
-      .flex
-        a ดูทั้งหมด
-        ion-icon(class="mt-2" name="chevron-forward")
-    .flex.items-center.justify-center.flex-none
-      .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
-        Card(v-for="item in announceCard" :key="item.id"
-          :img="item.img"
-          :title="item.title"
-          :subtitle="item.subtitle"
-          :startPrice="item.startPrice"
-          :price="item.price"
-          :location="item.location")
-  section.projectBrand.p-navbar
-    .title-text
-      h3 แบรนด์โครงการ
-      .flex
-        a ดูทั้งหมด
-        ion-icon(class="mt-2" name="chevron-forward")
-    .flex.items-center.justify-center.flex-none.flex-auto
-      splide(:options="brandsOptions")
-        splide-slide(v-for="item in brandsCard" :key="item.id")
-          BrandsCard(
-            :img="item.img")
-  section.p-navbar
-    //- Tab
+  section.project.mt-8
+    .block-content
+      .title-text
+        h3 โครงการแนะนำ
+        .flex
+          a ดูทั้งหมด
+          ion-icon(class="mt-2" name="chevron-forward")
+      .card
+        .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
+          Card(v-for="item in projectCards" :key="item.id"
+            :logo="item.logo"
+            :review="item.review"
+            :ads="item.ads"
+            :likeIcon="item.likeIcon"
+            :img="item.img"
+            :type="item.type"
+            :estateName="item.estateName"
+            :startPrice="item.startPrice"
+            :price="item.price"
+            :location="item.location")
+
+  section.announce.mt-8
+    .block-content
+      .title-text
+        h3 ประกาศมือสอง
+        .flex
+          a ดูทั้งหมด
+          ion-icon(class="mt-2" name="chevron-forward")
+      .card
+        .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
+          Card(v-for="item in announceCards" :key="item.id"
+            :description="item.description"
+            :img="item.img"
+            :ads="item.ads"
+            :likeIcon="item.likeIcon"
+            :type="item.type"
+            :estateName="item.estateName"
+            :price="item.price"
+            :location="item.location")
+
+  section.Rent-dorm.mt-8
+    .block-content
+      .title-text
+        h3 เช่า/หอพัก
+        .flex
+          a ดูทั้งหมด
+          ion-icon(class="mt-2" name="chevron-forward")
+      .card
+        .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
+          Card(v-for="item in announceCards" :key="item.id"
+            :img="item.img"
+            :likeIcon="item.likeIcon"
+            :estateName="item.estateName"
+            :startPrice="item.startPrice"
+            :price="item.price"
+            :location="item.location")
+
+  section.projectBrand.mt-8
+    .block-content
+      .title-text
+        h3 แบรนด์โครงการ
+        .flex
+          a ดูทั้งหมด
+          ion-icon(class="mt-2" name="chevron-forward")
+      .card
+        splide(:options="brandsOptions")
+          splide-slide(v-for="item in brandsCards" :key="item.id")
+            BrandsCard(
+              :img="item.img")
+
+  section.mt-8
+    .block-content
+      .ads-carousel.flex.justify-center.items-center.w-full.h-full
+        .first-ad
+          img(src="https://source.unsplash.com/mIqyYpSNq3o/1600x900")
+        .second-ad
+          img(src="https://source.unsplash.com/FWqWJC6leOA/1600x900")
+
+  section.mt-8
+    .block-content
+      .title-text
+        h3 บทความ
+        .flex
+          a ดูทั้งหมด
+          ion-icon(class="mt-2" name="chevron-forward")
+      .card
+        LandingBlogsSection
+
+  section.mt-8
+    .block-content
+      .title-text
+        h3 วิดีโอรีวิวโครงการ
+        .flex
+          a ดูทั้งหมด
+          ion-icon(class="mt-2" name="chevron-forward")
+      .card
+        .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
+          Card(v-for="item in articleCards" :key="item.id"
+            :img="item.img"
+            :type="item.type"
+            :title="item.title"
+            :dateCreated="item.dateCreated")
+
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { mapGetters } from 'vuex'
 
 import Input from '@/components/forms/Input.vue'
 import Dropdown from '@/components/forms/Dropdown.vue'
 import Card from '@/components/menus/Card.vue'
 import BrandsCard from '@/components/menus/BrandsCard.vue'
-import Tab from '@/components/menus/Tab.vue'
+import LandingBlogsSection from '@/components/sections/landing/LandingBlogsSection.vue'
 
-import { ANNOUNCE_CARD } from '@/mocks/landing'
+import {
+  PROJECT_CARDS,
+  ANNOUNCE_CARDS,
+  BRAND_CARDS,
+  ARTICLE_CARDS,
+  HOMEREVIEW_CARDS,
+  KNOWLEDGE_CARDS,
+  LIFESTYLE_CARDS,
+} from '@/mocks/landing'
 
 export default defineComponent({
   components: {
@@ -176,8 +226,9 @@ export default defineComponent({
     Dropdown,
     Card,
     BrandsCard,
-    Tab,
+    LandingBlogsSection,
   },
+
   data() {
     return {
       options: {
@@ -190,35 +241,64 @@ export default defineComponent({
       },
       brandsOptions: {
         rewind: false,
-        width: 1800,
+        width: 1000,
         perPage: 4,
         pauseOnHover: false,
         arrows: 'slider',
         pagination: false,
       },
+      tabs: ['tab1', 'tab2', 'tab3', 'tab4', 'tab5'],
+      currentTab: 'tab1',
     }
   },
-  computed: {
-    ...mapGetters({
-      projectCard: 'modules/project/projectCard',
-      brandsCard: 'modules/brands/brandsCard',
-    }),
 
-    announceCard() {
-      return ANNOUNCE_CARD
+  computed: {
+    projectCards() {
+      return PROJECT_CARDS
+    },
+    announceCards() {
+      return ANNOUNCE_CARDS
+    },
+    brandsCards() {
+      return BRAND_CARDS
+    },
+    articleCards() {
+      return ARTICLE_CARDS
+    },
+    homeReviewCards() {
+      return HOMEREVIEW_CARDS
+    },
+    knowledgeCards() {
+      return KNOWLEDGE_CARDS
+    },
+    lifestyleCards() {
+      return LIFESTYLE_CARDS
+    },
+  },
+
+  methods: {
+    onTabChange(tab) {
+      console.log(tab)
+      this.currentTab = tab
     },
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.landing-page {
-  @apply font-noto font-bold;
-}
 .bg-hero {
   @apply bg-cover bg-center h-full w-full inset-0 z-10;
 }
-
+.block-content {
+  height: 100%;
+  align-items: center;
+}
+.title-text {
+  @apply cursor-pointer flex items-center justify-between w-full;
+  a {
+    @apply no-underline text-5;
+  }
+}
 figcaption {
   @apply absolute w-full bottom-0 bg-black-900 h-10 bg-opacity-50 rounded-b-md;
   p {
@@ -239,11 +319,15 @@ figure figcaption {
     object-fit: cover;
   }
 }
-.title-text {
-  @apply cursor-pointer justify-between flex items-center;
-  a {
-    @apply no-underline text-5;
-  }
+.first-ad img {
+  @apply p-2 h-64 object-cover;
+
+  width: 500px;
+}
+.second-ad img {
+  @apply p-2 h-64 object-cover;
+
+  width: 500px;
 }
 @media only screen and (max-width: 1250px) {
   .right-container {
@@ -256,7 +340,7 @@ figure figcaption {
   @apply mt-12;
   img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
     justify-content: center;
     align-content: center;
@@ -266,7 +350,7 @@ figure figcaption {
 .splide__slide {
   @apply flex justify-center items-center;
 
-  height: 300px;
+  height: 200px;
   margin-top: 8px;
 }
 .splide__pagination {

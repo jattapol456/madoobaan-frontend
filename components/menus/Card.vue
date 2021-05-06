@@ -1,10 +1,10 @@
 <template lang="pug">
-section.card-section.mt-12
+.card-section.mt-12
   .card(class="bg-white w-auto h-full border-black-200 border-2")
     .card-image.relative
       .ads(v-if="ads") {{ads}}
-      .like-icon
-        ion-icon(name="heart-outline")
+      .likeIcon(v-if="likeIcon")
+        ion-icon(:src="likeIcon" name="heart-outline")
       .review(v-if="review")
         p {{review}}
       p.absolute.text-white.text-sm.mb-2.ml-2.left-0.bottom-0 {{description}}
@@ -12,17 +12,21 @@ section.card-section.mt-12
         img(:src="logo")
       img(:src="img")
     .card-header.p-4
-      .card-title.h5
-        p {{title}}
-      .card-subtitle.text-gray
-        h4 {{subtitle}}
+      .card-type.h5
+        p {{type}}
+      .card-estateName
+        h4 {{estateName}}
+      .card-title(v-if="title")
+        h4 {{title}}
     .card-body.p-4
       p {{startPrice}}
-      h4.text-info-500 {{price}} ฿
+      .price(v-if="price")
+        h4.text-info-500 {{price}} ฿
     .card-footer.p-4
-      .location.flex.text-center
+      .location.flex.text-center(v-if="location")
         ion-icon(class="left-0 w-8 h-8" name="location-sharp")
         p.mt-1 {{location}}
+      p.mt-1 {{dateCreated}}
 </template>
 
 <script lang="ts">
@@ -31,7 +35,7 @@ export default defineComponent({
   props: {
     img: {
       type: String,
-      required: true,
+      default: null,
     },
     logo: {
       type: String,
@@ -41,21 +45,25 @@ export default defineComponent({
       type: String,
       default: null,
     },
+    likeIcon: {
+      type: String,
+      default: null,
+    },
     review: {
       type: String,
       default: null,
     },
     description: {
       type: String,
-      required: true,
+      default: null,
     },
-    title: {
+    type: {
       type: String,
-      required: true,
+      default: null,
     },
-    subtitle: {
+    estateName: {
       type: String,
-      required: true,
+      default: null,
     },
     startPrice: {
       type: String,
@@ -63,11 +71,19 @@ export default defineComponent({
     },
     price: {
       type: String,
-      required: true,
+      default: null,
     },
     location: {
       type: String,
-      required: true,
+      default: null,
+    },
+    dateCreated: {
+      type: String,
+      default: null,
+    },
+    title: {
+      type: String,
+      default: null,
     },
   },
 })
@@ -76,10 +92,6 @@ export default defineComponent({
 <style lang="scss" scope>
 p {
   @apply text-black-300;
-}
-.card-section {
-  min-width: 330px;
-  max-width: 330px;
 }
 .location {
   p {
@@ -102,7 +114,7 @@ p {
   .ads {
     @apply absolute border-2 border-white text-white p-1 mt-2 ml-2 left-0;
   }
-  .like-icon {
+  .likeIcon {
     @apply flex bg-white items-center absolute rounded-full py-3 px-3 mt-2 mr-2 shadow-xl right-0 top-0;
   }
   .review {
