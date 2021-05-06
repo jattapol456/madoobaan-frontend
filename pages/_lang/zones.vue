@@ -1,6 +1,6 @@
 <template lang="pug">
 .container.min-h-screen.pt-20
-  h1 โซนทั้งหมด
+  h1 โซนทั้งหมดนะ
   .select-zone.flex.justify-items-center.pt-10
     .select-province.pr-6.pb-2  
       h3 จังหวัด
