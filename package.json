@@ -17,6 +17,7 @@
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/composition-api": "^0.23.2",
     "@nuxtjs/pwa": "^3.3.5",
+    "@splidejs/vue-splide": "^0.3.5",
     "browser-cookies": "^1.2.0",
     "cleave.js": "^1.6.0",
     "core-js": "^3.10.2",
@@ -30,10 +31,14 @@
     "rxjs": "^6.6.7",
     "sass": "^1.32.11",
     "sass-loader": "^10.1.1",
+    "swiper": "^6.5.8",
     "tiptap": "^1.32.2",
     "vee-validate": "^3.4.5",
+    "vue-awesome-swiper": "^4.1.1",
     "vue-i18n": "^8.24.3",
-    "vue-indent-pug-loader": "^0.1.1"
+    "vue-indent-pug-loader": "^0.1.1",
+    "vue-swipe": "^2.4.0",
+    "vue-swiper-2.x": "^1.0.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.13.15",

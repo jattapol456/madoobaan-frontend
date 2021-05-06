@@ -1,50 +1,54 @@
 <template lang="pug">
   footer
+    .footer-top.h-auto.py-5.space-y-5
+      h3 สมัครเป็นนายหน้ากับน่าอยู่ ช่วยเพิ่มโอกาสในการขายให้กับคุณ
+      button.announce-button.bg-success-500(@click="showSignUpModal") ลงประกาศฟรี
+
+    .footer-contract.h-auto.py-4.space-y-5
+      .block-content.justify-between.right-0
+        .justify-start
+          img(src="https://www.madoobaan.com/wp-content/uploads/2021/04/sm_long_logo-2.png",width="100px")
+        .justify-end
+          .contract-link.space-x-5.font-semibold
+            a.no-underline(href="#") Terms & Condition
+            a.no-underline(href="#") Privacy Policy
+            .text-right
+              a.no-underline(href="#") วิธีการลงใบประกาศบ้านมือสอง
+
+      .contract
+        p Contact Us
+        p Khonkaen@NaYoo.co
+        p 061-635-8542
+
     .footer-bar
       .block-content
-        p 2021 Madoobaan
+        p 2021 MadooBaan.com - All rights reserved
 
         .icons.ml-auto
-          a.icon
-            ion-icon(name="logo-twitter")
-          a.icon
+          a.icon(href="#")
             ion-icon(name="logo-facebook")
+          a.icon(href="https://www.instagram.com/madoobaan/")
+            ion-icon(name="logo-instagram")
+
+
+
+
 </template>
 
 <style lang="scss" scoped>
 footer {
-  @apply w-full bg-black-700 text-white;
-
-  .quick-journey-panel,
+  @apply w-full bg-white text-black-700;
+  .footer-contract,
   .footer-bar {
-    @apply flex flex-col items-center w-full px-16;
+    @apply flex flex-col items-center w-full px-64;
 
     .block-content {
       @apply flex w-full max-w-7xl font-noto;
     }
   }
 
-  .quick-journey-panel {
-    @apply py-12;
-
-    .block-content {
-      @apply grid grid-cols-3 gap-x-6;
-
-      .block {
-        > * {
-          max-width: 80%;
-        }
-
-        img.logo-jobbee {
-          width: 100%;
-          max-width: 134px;
-        }
-      }
-    }
-  }
-
   .footer-bar {
-    @apply justify-center bg-black-800;
+    @apply justify-center bg-white;
 
     height: 4.5rem;
 
@@ -60,6 +64,33 @@ footer {
         }
       }
     }
+  }
+  .footer-top {
+    @apply text-center text-white bg-info-400;
+
+    height: 4.5rem;
+
+    .block-content {
+      @apply items-center w-full max-w-7xl;
+    }
+  }
+
+  .footer-contract {
+    @apply justify-center bg-white;
+
+    height: 4.5rem;
+
+    .block-content {
+      @apply items-center w-full max-w-7xl;
+    }
+  }
+
+  .contract {
+    @apply items-center w-full max-w-7xl;
+  }
+
+  .announce-button {
+    @apply font-semibold p-3;
   }
 }
 </style>

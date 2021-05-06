@@ -35,6 +35,7 @@ export default {
     { src: '~/plugins/v-click-outside.ts', ssr: false },
     { src: '~/plugins/firebase.ts', ssr: false },
     { src: '~/plugins/vee-validate.ts', ssr: false },
+    { src: '~/plugins/splide.client.ts', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
