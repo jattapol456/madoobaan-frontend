@@ -33,7 +33,7 @@
                       label(for="email") อีเมล
                       Input(id="email" name="email" rules="required|email" :disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" v-model="signInData.email")
 
-                      button.button.button-primary.w-full.mt-6(:disabled="loading.signin.google" :class="{ 'is-loading': loading.signin.email }") ดำเนินการต่อ
+                      button.button.button-primary.w-full.mt-6( :disabled="loading.signin.google" :class="{ 'is-loading': loading.signin.email }") ดำเนินการต่อ
 
                   .flex.flex-col.items-center.mt-6
                     a.font-noto(@click="updateMode('signup')" :disabled="loading.signin.email || loading.signin.google || loading.signin.facebook") สร้างบัญชีใหม่
@@ -112,6 +112,8 @@ import NumberInput from '@/components/forms/NumberInput.vue'
 import Checkbox from '@/components/forms/Checkbox.vue'
 import { ValidationObserver } from 'vee-validate'
 
+import SignInEmailModal from '@/components/modals/base/SignInEmailModal.vue'
+
 import useDialog from '@/composables/interactive/useDialog'
 import { AuthenticationService, UserService } from '@/services'
 import { IResetPassword, IVerifyEmail } from '@/types/user'
@@ -130,6 +132,7 @@ export default defineComponent({
     NumberInput,
     Checkbox,
     ValidationObserver,
+    SignInEmailModal,
   },
 
   setup() {
