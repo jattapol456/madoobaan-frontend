@@ -54,17 +54,6 @@ export default defineComponent({
       },
     }
   },
-  watch: {
-    seletedProvince(to) {
-      // this.dropdownDistrict = getDistricts(to).map((e) => ({
-      //   content: e.DISTRICT_NAME,
-      //   value: e.DISTRICT_ID,
-      // }))
-    },
-    seletedDistrict(to) {
-      // (this.zones as any) = getZones(to)
-    },
-  },
   mounted() {
     console.log(this.value.totalPages)
 
