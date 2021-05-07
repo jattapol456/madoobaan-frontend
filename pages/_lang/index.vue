@@ -204,11 +204,12 @@
         h3 แบรนด์โครงการ
         .flex
           a ดูทั้งหมด
-          ion-icon.mt-2(name='chevron-forward')
-      .card
-        splide(:options='brandsOptions')
-          splide-slide(v-for='item in brandsCards', :key='item.id')
-            BrandsCard(:img='item.img')
+          ion-icon(class="mt-2" name="chevron-forward")
+      .card.items-center.flex.justify-center
+        splide(:options="brandsOptions")
+          splide-slide(v-for="item in brandsCards" :key="item.id")
+            BrandsCard(
+              :img="item.img")
 
   section.mt-8
     .block-content
@@ -251,6 +252,8 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { DropdownOption } from '@/components/menus/Dropdown.vue'
+
 import Input from '@/components/forms/Input.vue'
 import Dropdown from '@/components/forms/Dropdown.vue'
 import Card from '@/components/menus/Card.vue'
@@ -279,6 +282,45 @@ export default defineComponent({
 
 data() {
     return {
+      dropdownProvinces: [
+        {
+          content: 'น่าน',
+          value: 1,
+        },
+        {
+          content: 'พะเยา',
+          value: 2,
+        },
+        {
+          content: 'ลำปาง',
+          value: 3,
+        },
+        {
+          content: 'ลำพูน',
+          value: 4,
+        },
+        {
+          content: 'อุตรดิตถ์',
+          value: 5,
+        },
+        {
+          content: 'เชียงราย',
+          value: 6,
+        },
+        {
+          content: 'เชียงใหม่',
+          value: 7,
+        },
+        {
+          content: 'แพร่',
+          value: 8,
+        },
+        {
+          content: 'แม่ฮ่องสอน',
+          value: 8,
+        },
+      ] as DropdownOption[],
+      seletedProvinces: null,
       options: {
         rewind: true,
         width: 800,
