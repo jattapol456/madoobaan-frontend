@@ -266,6 +266,7 @@ import {
   KNOWLEDGE_CARDS,
   LIFESTYLE_CARDS,
 } from '@/mocks/landing'
+import { ZonesService } from '@/services'
 
 export default defineComponent({
   components: {

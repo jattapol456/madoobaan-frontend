@@ -1,5 +1,6 @@
 import BaseService from './modules/Base'
 import AuthenticationService from './modules/Authentication'
 import UserService from './modules/User'
+import ZonesService from './modules/Zones'
 
-export { BaseService, AuthenticationService, UserService }
+export { BaseService, AuthenticationService, UserService, ZonesService }
