@@ -29,7 +29,6 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import Dropdown from '@/components/forms/Dropdown.vue'
 import Pagination from '@/components/menus/Pagination.vue'
-import { getProvinces } from '@/helpers/getData'
 import { ZonesService } from '@/services'
 import { IinsertZone } from '@/types/zone'
 
@@ -41,15 +40,6 @@ export default defineComponent({
 
   data() {
     return {
-      seletedProvince: null,
-      dropdownProvince: [
-        ...getProvinces().map((e) => ({
-          content: e.PROVINCE_NAME,
-          value: e.PROVINCE_ID,
-        })),
-      ],
-      dropdownDistrict: [{ content: '', value: 0 }],
-      seletedDistrict: null,
       perPage: 30,
       value: {
         page: 1,
