@@ -1,33 +1,37 @@
 <template lang="pug">
-.container.min-h-screen.pt-20
-  h1 โซนทั้งหมดนะ
-  .select-zone.flex.justify-items-center.pt-10
-    .select-province.pr-6.pb-2  
-      h3 จังหวัด
-      Dropdown(:options='dropdownProvince', v-model='seletedProvince', placeholder="เลือกจังหวัด")
-    .select-district.pb-2
-      h3 อำเภอ
-      Dropdown(:options='dropdownDistrict', v-model='seletedDistrict', placeholder="เลือกอำเภอ")
+.management-page
+  section.section-hero.h-screen.bg-hero(style="background-image: url('https://www.madoobaan.com/wp-content/uploads/2021/03/bg-Header-3.jpg');")
+    .block-content
+      .title.h-full.w-full.flex.flex-col.justify-center
+        .text-white.text-center
+          h1 เว็บประกาศ ขาย เช่า บ้าน ที่ดิน ภาคเหนือ เชียงใหม่ เชียงราย
+          h4 หากคุณกำลังมองหาบ้าน ที่ดิน ภาคเหนือ เชียงใหม่ เชียงราย เราช่วยคุณได้!
 
-  .zone
-      .img-container.pt-5
-        figure(v-for='zone in zonePaginate')
-          .zone-item.drop-shadow-lg
-            img(:src='zone.img')
-            .zone-title
-              figcaption
-                h3 {{ zone.subdistrict_name }}
+  section.section-zones
+    .container.pt-10
+      h1 โซนทั้งหมด
+      .select-zone.flex.justify-items-center.pt-3
 
-  .pt-10.flex.justify-center
-    Pagination(:value='value', @change='handleChange')
+    .zone(v-if="loading.fetching.subdistrict == false")
+        .img-container.pt-5
+          figure(v-for="(item) in subdistrictList2")
+            .zone-item.drop-shadow-lg 
+              img(:src='item.img')
+              .zone-title
+                figcaption
+                  h3 {{ item.subdistrict_name }}
+
+    .pt-10.flex.justify-center
+      Pagination(:value='value', @change='handleChange')
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import Dropdown from '@/components/forms/Dropdown.vue'
 import Pagination from '@/components/menus/Pagination.vue'
-
-import { getProvinces, getDistricts, getZones } from '@/helpers/getData'
+import { getProvinces } from '@/helpers/getData'
+import { ZonesService } from '@/services'
+import { IinsertZone } from '@/types/zone'
 
 export default defineComponent({
   components: {
@@ -46,49 +50,72 @@ export default defineComponent({
       ],
       dropdownDistrict: [{ content: '', value: 0 }],
       seletedDistrict: null,
-      zones: [...getZones(null)],
       perPage: 30,
       value: {
         page: 1,
         totalPages: 1,
       },
+      subdistrictList: [] as IinsertZone[],
+      subdistrictList2: [] as IinsertZone[],
+      loading: {
+        fetching: {
+          subdistrict: false,
+        },
+      },
     }
-  },
-  computed: {
-    zonePaginate() {
-      return this.zones.slice(
-        (this.value.page - 1) * this.perPage,
-        this.value.page * this.perPage
-      )
-    },
   },
   watch: {
     seletedProvince(to) {
-      this.dropdownDistrict = getDistricts(to).map((e) => ({
-        content: e.DISTRICT_NAME,
-        value: e.DISTRICT_ID,
-      }))
+      // this.dropdownDistrict = getDistricts(to).map((e) => ({
+      //   content: e.DISTRICT_NAME,
+      //   value: e.DISTRICT_ID,
+      // }))
     },
     seletedDistrict(to) {
-      ;(this.zones as any) = getZones(to)
+      // (this.zones as any) = getZones(to)
     },
   },
   mounted() {
-    this.value.totalPages = Math.round(this.zones.length / this.perPage)
+    console.log(this.value.totalPages)
+
+    this.fetchSubdistrict()
   },
   methods: {
     handleChange(newPage) {
       this.value.page = newPage
+      this.subdistrictList2 = this.subdistrictList.slice(
+        (this.value.page - 1) * this.perPage,
+        this.value.page * this.perPage
+      )
+    },
+
+    fetchSubdistrict() {
+      this.loading.fetching.subdistrict = true
+
+      ZonesService.getSubDistrict().then((res) => {
+        this.subdistrictList = res
+        this.value.totalPages = Math.ceil(
+          this.subdistrictList.length / this.perPage
+        )
+        this.subdistrictList2 = this.subdistrictList.slice(
+          (this.value.page - 1) * this.perPage,
+          this.value.page * this.perPage
+        )
+        this.loading.fetching.subdistrict = false
+      })
     },
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.container {
-  @apply p-64;
+.bg-hero {
+  @apply bg-cover bg-center h-full w-full inset-0 z-10;
 }
-
+.block-content {
+  height: 100%;
+  align-items: center;
+}
 .img-container {
   @apply grid grid-cols-3 gap-3;
 }
