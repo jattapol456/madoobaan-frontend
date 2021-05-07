@@ -51,10 +51,9 @@
           h3.mt-10 เพิ่มรูปภาพปก
           label.label-grey.mt-3 คำแนะนำ : ควรเป็นรูปภาพแนวนอนสัดส่วน 16:9 เพื่อความสวยงาม ขนาดรูปไม่เกิน 5 MB.
           
-          input.hidden(type="file" id="myFileInput")
-          
+          input.hidden(type="file" id="myFileInput_1")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_1').click()" 
           value="Select a File").img-box.border-gray.border-redbox-border.border-2.mt-6
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
         
@@ -63,63 +62,74 @@
           label.label-grey.mt-3 เพิ่มรูปภาพบรรยากาศ สิ่งอำนวยความสะดวก
 
         div.flex
+          input.hidden(type="file" id="myFileInput_2")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_2').click()" 
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
           
+          input.hidden(type="file" id="myFileInput_3")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_3').click()" 
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
           
+          input.hidden(type="file" id="myFileInput_4")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_4').click()" 
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
           
+          input.hidden(type="file" id="myFileInput_5")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_5').click()"
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
           
+          input.hidden(type="file" id="myFileInput_6")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_6').click()"
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
           
+          input.hidden(type="file" id="myFileInput_7")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_7').click()" 
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
           
+          input.hidden(type="file" id="myFileInput_8")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_8').click()"
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
           
+          input.hidden(type="file" id="myFileInput_9")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_9').click()"
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
           
+          input.hidden(type="file" id="myFileInput_10")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_10').click()"
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
           
+          input.hidden(type="file" id="myFileInput_11")
           div.input(type="button"
-          onclick="document.getElementById('myFileInput').click()" 
+          onclick="document.getElementById('myFileInput_11').click()"
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
 
         div.mt-4
           div.flex.w-full.justify-items-center.space-x-4
             div.mt-10.w-full
-              button.button-secondary ย้อนกลับ
+              button(id="backToStep2" onClick="window.location.href = 'announcement_step_2'").button-secondary ย้อนกลับ
             div.mt-10.w-full
               button.button-secondary บันทึกแบบร่าง
-          button.button-primary.mt-5 ต่อไป
+          button(id="nextToStep4" oonClick="window.location.href = 'announcement_step_4'").button-primary.mt-5 ต่อไป
+
 </template>
 
 <script lang="ts">
