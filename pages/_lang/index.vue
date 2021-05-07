@@ -160,7 +160,7 @@
         .flex
           a ดูทั้งหมด
           ion-icon(class="mt-2" name="chevron-forward")
-      .card
+      .card.items-center.flex.justify-center
         splide(:options="brandsOptions")
           splide-slide(v-for="item in brandsCards" :key="item.id")
             BrandsCard(
@@ -203,6 +203,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { DropdownOption } from '@/components/menus/Dropdown.vue'
 
 import Input from '@/components/forms/Input.vue'
 import Dropdown from '@/components/forms/Dropdown.vue'
@@ -231,6 +232,45 @@ export default defineComponent({
 
   data() {
     return {
+      dropdownProvinces: [
+        {
+          content: 'น่าน',
+          value: 1,
+        },
+        {
+          content: 'พะเยา',
+          value: 2,
+        },
+        {
+          content: 'ลำปาง',
+          value: 3,
+        },
+        {
+          content: 'ลำพูน',
+          value: 4,
+        },
+        {
+          content: 'อุตรดิตถ์',
+          value: 5,
+        },
+        {
+          content: 'เชียงราย',
+          value: 6,
+        },
+        {
+          content: 'เชียงใหม่',
+          value: 7,
+        },
+        {
+          content: 'แพร่',
+          value: 8,
+        },
+        {
+          content: 'แม่ฮ่องสอน',
+          value: 8,
+        },
+      ] as DropdownOption[],
+      seletedProvinces: null,
       options: {
         rewind: true,
         width: 800,
@@ -287,7 +327,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .bg-hero {
-  @apply bg-cover bg-center h-full w-full inset-0 z-10;
+  @apply bg-cover bg-center h-full w-full inset-0;
 }
 .block-content {
   height: 100%;
