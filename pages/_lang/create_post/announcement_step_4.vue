@@ -2,6 +2,7 @@
 .management-page
   section 
     .block-content
+    
     div
       h1.mt-10 ลงประกาศโครงการใหม่
       .mt-8.step-bar
@@ -26,8 +27,7 @@
               b.textLabel.active สรุปประกาศ
 
       
-      .mt-12
-      div.mt-4
+      div.mt-16
         br
         h3 คุณภาพใบประกาศ
         br
@@ -59,6 +59,7 @@
               div.border.border-small2.border-gray.grid.justify-items-center
                 a.active.mt-1.no-underline(href="/th/create_post/announcement_step_3") เพิ่มวิดีโอ
                   div.mt-4
+          
           div.col-span-2.justify-items-center.text-center.mr-12
             h5 ตัวอย่างใบประกาศในหน้าค้นหา
             img.transform-scale-75(src="~/static/images/exam.png")
