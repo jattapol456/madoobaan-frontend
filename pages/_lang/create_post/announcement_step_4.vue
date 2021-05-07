@@ -2,6 +2,10 @@
 .management-page
   section 
     .block-content
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 69a796899e22c0abd7ab7e6225d195f089af7713
     div
       h1.mt-10 ลงประกาศโครงการใหม่
       .mt-8.step-bar
@@ -26,8 +30,12 @@
               b.textLabel.active สรุปประกาศ
 
       
+<<<<<<< HEAD
       .mt-12
       div.mt-4
+=======
+      div.mt-16
+>>>>>>> 69a796899e22c0abd7ab7e6225d195f089af7713
         br
         h3 คุณภาพใบประกาศ
         br
@@ -59,6 +67,10 @@
               div.border.border-small2.border-gray.grid.justify-items-center
                 a.active.mt-1.no-underline(href="/th/create_post/announcement_step_3") เพิ่มวิดีโอ
                   div.mt-4
+<<<<<<< HEAD
+=======
+          
+>>>>>>> 69a796899e22c0abd7ab7e6225d195f089af7713
           div.col-span-2.justify-items-center.text-center.mr-12
             h5 ตัวอย่างใบประกาศในหน้าค้นหา
             img.transform-scale-75(src="~/static/images/exam.png")
