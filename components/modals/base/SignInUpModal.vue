@@ -112,8 +112,6 @@ import NumberInput from '@/components/forms/NumberInput.vue'
 import Checkbox from '@/components/forms/Checkbox.vue'
 import { ValidationObserver } from 'vee-validate'
 
-import SignInEmailModal from '@/components/modals/base/SignInEmailModal.vue'
-
 import useDialog from '@/composables/interactive/useDialog'
 import { AuthenticationService, UserService } from '@/services'
 import { IResetPassword, IVerifyEmail } from '@/types/user'
@@ -132,7 +130,6 @@ export default defineComponent({
     NumberInput,
     Checkbox,
     ValidationObserver,
-    SignInEmailModal,
   },
 
   setup() {

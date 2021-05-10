@@ -3,7 +3,7 @@
   section 
     .block-content
     div
-      h1.mt-10 ลงประกาศ
+      h1.mt-24 ลงประกาศ
       .mt-8.step-bar
         .rower.mx-0.h-100
           .step.px-0.coler
