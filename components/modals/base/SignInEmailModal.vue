@@ -4,7 +4,7 @@
             div.modal
               div.modal-container
                 div.flex
-                  h2.mb-2.mt-4 เข้าสู่ระบบ
+                  h2.mb-2.mt-2 เข้าสู่ระบบ
                   buttonclass(class="button square-8 p-0 border-none ml-auto outline-none")
                     ion-icon(name="close-outline" class="w-full h-full md hydrated" role="img" aria-label="close outline")
                 div.text-center(style="background-color:rgb(240, 240, 240);h=20;")
