@@ -45,13 +45,6 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import Tab from '@/components/menus/Tab.vue'
 import Card from '@/components/menus/Card.vue'
 
-import {
-  ARTICLE_CARDS,
-  HOMEREVIEW_CARDS,
-  KNOWLEDGE_CARDS,
-  LIFESTYLE_CARDS,
-} from '@/mocks/landing'
-
 export default defineComponent({
   components: {
     Tab,
@@ -63,22 +56,6 @@ export default defineComponent({
       currentTab: 'อัพเดทล่าสุด',
     }
   },
-
-  computed: {
-    articleCards() {
-      return ARTICLE_CARDS.slice(0, 4)
-    },
-    homeReviewCards() {
-      return HOMEREVIEW_CARDS.slice(0, 4)
-    },
-    knowledgeCards() {
-      return KNOWLEDGE_CARDS.slice(0, 4)
-    },
-    lifestyleCards() {
-      return LIFESTYLE_CARDS.slice(0, 4)
-    },
-  },
-
   methods: {
     onTabChange(tab) {
       console.log(tab)

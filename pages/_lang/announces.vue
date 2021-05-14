@@ -23,17 +23,9 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 import Card from '@/components/menus/Card.vue'
 
-import { ANNOUNCE_CARDS } from '@/mocks/landing'
-
 export default defineComponent({
   components: {
     Card,
-  },
-
-  computed: {
-    announceCards() {
-      return ANNOUNCE_CARDS
-    },
   },
 })
 </script>
