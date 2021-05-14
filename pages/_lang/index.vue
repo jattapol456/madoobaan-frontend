@@ -24,7 +24,7 @@
       .title-text
         h3 ค้นหาตามโซน
         .flex
-          a ดูทั้งหมด
+          nuxt-link(to="/zones") ดูทั้งหมด
           ion-icon.mt-2(name='chevron-forward')
       .zones
         .img-container.max-w-full.flex.grid.grid-cols-6.grid-rows-2.gap-3.mt-10
@@ -34,9 +34,6 @@
               .zone-title
                 figcaption
                   p {{ item.subdistrictName }}
-
-        //- .img-container.max-w-full.flex.grid.grid-cols-2.grid-rows-2.gap-3.mt-10
-          //- .w-full.grid.grid-cols-3.grid-rows-1.gap-3(v-for="item in subdistrictList")
 
   section.ads-carousel.mt-8
     .block-content.flex.justify-center.items-center
