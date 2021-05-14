@@ -4,7 +4,7 @@
     portal-target(name="editable-modal")
     TopNav
     Nuxt
-    Footer(v-if="this.$route.name !== 'lang-users-id-setup'")
+    //- Footer(v-if="this.$route.name !== 'lang-users-id-setup'")
 </template>
 
 <script lang="ts">

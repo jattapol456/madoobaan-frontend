@@ -127,7 +127,7 @@ export default defineComponent({
     },
   },
 
-  emits: ['input'],
+  emits: ['input', 'delete'],
 
   setup(props) {
     const input = ref<InstanceType<typeof HTMLFormElement>>()
@@ -168,6 +168,10 @@ export default defineComponent({
       if (this.readonly) return
       this.input?.focus()
     },
+
+    // onDelete() {
+    //   this.$emit('delete')
+    // }
   },
 })
 </script>
