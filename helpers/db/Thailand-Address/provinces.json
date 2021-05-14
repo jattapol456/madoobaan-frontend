@@ -1,0 +1,12 @@
+[
+  { "PROVINCE_ID": 38, "PROVINCE_CODE": "50", "PROVINCE_NAME": "เชียงใหม่", "GEO_ID": 1 },
+  { "PROVINCE_ID": 39, "PROVINCE_CODE": "51", "PROVINCE_NAME": "ลำพูน", "GEO_ID": 1 },
+  { "PROVINCE_ID": 40, "PROVINCE_CODE": "52", "PROVINCE_NAME": "ลำปาง", "GEO_ID": 1 },
+  { "PROVINCE_ID": 41, "PROVINCE_CODE": "53", "PROVINCE_NAME": "อุตรดิตถ์", "GEO_ID": 1 },
+  { "PROVINCE_ID": 42, "PROVINCE_CODE": "54", "PROVINCE_NAME": "แพร่", "GEO_ID": 1 },
+  { "PROVINCE_ID": 43, "PROVINCE_CODE": "55", "PROVINCE_NAME": "น่าน", "GEO_ID": 1 },
+  { "PROVINCE_ID": 44, "PROVINCE_CODE": "56", "PROVINCE_NAME": "พะเยา", "GEO_ID": 1 },
+  { "PROVINCE_ID": 45, "PROVINCE_CODE": "57", "PROVINCE_NAME": "เชียงราย", "GEO_ID": 1 },
+  { "PROVINCE_ID": 46, "PROVINCE_CODE": "58", "PROVINCE_NAME": "แม่ฮ่องสอน", "GEO_ID": 1 }
+  
+]
