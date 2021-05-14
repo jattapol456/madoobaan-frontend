@@ -61,8 +61,8 @@
 
         span.mt-3 ข้อมูลติดต่อ*
           .grid.grid-cols-2.gap-4.mt-4
-            InputProfile(type=text, labels='ข้อมูลผู้ติดต่อ*')
             InputProfile(type=text, labels='เบอร์โทรศัพท์*')
+            InputProfile(type=text, labels='ข้อมูลผู้ติดต่อ*')
         
           .grid.grid-cols-2.gap-4(v-for="(phone, index) in phone" :key="index")
             .relativeBox
@@ -74,12 +74,10 @@
 
 
         .grid.grid-cols-2.grid-rows-2.gap-4.mt-3
-          InputProfile(type=text, labels='อีเมล*') 
-          InputProfile(type=text, labels='Facebook*')
+          InputProfile(type=text, labels='Facebook*') 
+          InputProfile(type=text, labels='อีเมล*')
           h1.text-3 *ตัวอย่าง https://www.facebook.com/profile
 
-
-        //- InputProfile.input(type=text,labels="เบอร์โทรศัพท์*",v-for="(phone, index) in phone",:key="index")
 
         .flex.space-x-2(@click="checkboxer()")
           input#vehicle1(type='checkbox',name="cc",:checked="checked")
@@ -140,16 +138,8 @@ export default defineComponent({
           value: 'earth',
         },
         {
-          label: 'อาคารพาณิชย์/สำนักงาน',
+          label: 'อาคาร',
           value: 'w',
-        },
-        {
-          label: 'หอพัก/อพาร์ทเม้นท์',
-          value: 'hotel',
-        },
-        {
-          label: 'อื่นๆ',
-          value: 'more',
         },
         ],
         phone: [] as any,
@@ -291,8 +281,7 @@ export default defineComponent({
   background: #2C72CF;
   color: white;
 }
-
-.button {
+  button {
     @apply border-info-500 text-info-500 w-full;
 }
 
