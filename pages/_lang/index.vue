@@ -1,285 +1,295 @@
 <template lang="pug">
 .management-page
-  section.section-hero.h-screen.bg-hero(style="background-image: url('https://www.madoobaan.com/wp-content/uploads/2021/03/bg-Header-3.jpg');")
+  section.h-screen.bg-hero(style='background-image: url("https://www.madoobaan.com/wp-content/uploads/2021/03/bg-Header-3.jpg")')
     .block-content
       .title.h-full.w-full.flex.flex-col.justify-center
         .text-white.text-center
           h1 เว็บประกาศ ขาย เช่า บ้าน ที่ดิน ภาคเหนือ เชียงใหม่ เชียงราย
           h4 หากคุณกำลังมองหาบ้าน ที่ดิน ภาคเหนือ เชียงใหม่ เชียงราย เราช่วยคุณได้!
         .flex.mt-8.justify-center
-          .flex.flex-col
-            .flex.items-center.items-center.justify-items-center.justify-center
-              .button-group.flex.text-white.bg-black-900.rounded-full.py-1.px-3
-                .button.rounded-full.py-3.px-6 ซื้อโครงการใหม่
-                .button(class="button-house transform hover:scale-110 motion-reduce:transform-none bg-success-500 rounded-full py-3 px-6") ซื้อบ้านมือสอง
-                .button.rounded-full.py-3.px-6 เช่า/หอพัก
-            .search-zone
-              .bg-primary-500.h-auto.w-auto.p-3.mt-3
-                grid(class="h-20 grid grid-flow-col grid-cols-3 grid-rows-2 gap-3")
-                  Dropdown(placeholder="จังหวัด" :options="dropdownProvinces" v-model="seletedProvinces")
-                  Dropdown(placeholder="ประเภทอสังหาริมทรัพย์")
-                  Dropdown(placeholder="อำเภอ")
-                  Dropdown(placeholder="จำนวนห้องนอน")
-                  Dropdown(placeholder="ตำบล")
-                  Input(placeholder="ราคา")
-                .button.mt-5 ค้นหา
+          div(class="flex flex-col w-3/4")
+            .flex.items-center.justify-center
+            .search-zone.bg-white.w-full.p-3
+              .grid.grid-cols-4.gap-4
+                .search-project.flex.justify-between
+                  Input(placeholder="พิมพ์โซน ชื่อโครงการ")
+                  .w-10.h-10.bg-info-900.right-0
+                    ion-icon(class="m-3" style="color: #FFFFFF" name="search")
+                Dropdown(placeholder='ประเภทอสังหาริมทรัพย์' :options='dropdownType' v-model='seletedType')
+                Dropdown(placeholder='จังหวัด' :options='dropdownProvinces' v-model='seletedProvinces')
+                button.button.button-primary ค้นหา
 
-  section.section-zone.mt-16
+  section.section-zones.mt-8
     .block-content
       .title-text
         h3 ค้นหาตามโซน
         .flex
           a ดูทั้งหมด
-          ion-icon(class="mt-2" name="chevron-forward")
-      .img-container.justify-between.flex.flex-none.gap-3.mt-10
-        .left-container(class="grid grid-cols-3 gap-3")
-          figure.col-span-2
+          ion-icon.mt-2(name='chevron-forward')
+      .zones
+        .img-container.max-w-full.flex.grid.grid-cols-6.grid-rows-2.gap-3.mt-10
+          figure(v-for="item in subdistrictList")
             .zone-item.drop-shadow-lg
-              img(src="https://tatapi.tourismthailand.org/tatfs/Image/CustomPOI/Picture/P03002390_1.jpeg")
+              img(:src='item.img')
               .zone-title
                 figcaption
-                  p วัดร่องขุ่น จ.เชียงราย
-          figure
-            .zone-item.drop-shadow-lg
-              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/48.%E0%B8%AA%E0%B8%B4%E0%B8%87%E0%B8%AB%E0%B9%8C%E0%B8%9B%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%84-%E0%B8%9B%E0%B8%81-scaled-1-980x551.jpg")
-              .zone-title
-                figcaption
-                  p ไร่บุญรอด จ.เชียงราย
-          figure
-            .zone-item.drop-shadow-lg
-              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/%E0%B8%AD%E0%B8%B8%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%A7%E0%B8%87%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%9E%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B9%8C.jpg")
-              .zone-title
-                figcaption
-                  p อุทยานหลวงราชพฤกษ์ จ.เชียงใหม่
-          figure.col-span-2
-            .zone-item.drop-shadow-lg
-              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%A1%E0%B8%A0%E0%B8%B9%E0%B9%80%E0%B8%82%E0%B8%B5%E0%B8%A2%E0%B8%A7.jpg")
-              .zone-title
-                figcaption
-                  p หล่มภูเขียว จ.ลำปาง
-        .right-container(class="grid grid-cols-3 gap-3")
-          figure.col-span-2
-            .zone-item.drop-shadow-lg
-              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/Pang-Ung-9.jpg")
-              .zone-title
-                figcaption
-                  p ปางอุ๋ง จ.แม่ฮ่องสอน
-          figure
-            .zone-item.drop-shadow-lg
-              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/Doi-Inthanon-ChiangMai-Traveloka-1.jpg")
-              .zone-title
-                figcaption
-                  p อุทยานแห่งชาติดอยอินทนนท์ จ.เชียงใหม่
+                  p {{ item.subdistrictName }}
 
-          figure
-            .zone-item.drop-shadow-lg
-              img(src="https://eqgroup.co.th/wp-content/uploads/2020/08/55555.jpg")
-              .zone-title
-                figcaption
-                  p ล่องแก่งลำน้ำว้า จ.น่าน
+        //- .img-container.max-w-full.flex.grid.grid-cols-2.grid-rows-2.gap-3.mt-10
+          //- .w-full.grid.grid-cols-3.grid-rows-1.gap-3(v-for="item in subdistrictList")
 
-          figure.col-span-2
-            .zone-item.drop-shadow-lg
-              img(src="https://s359.kapook.com/pagebuilder/fc39e1ff-f08f-485a-bdd9-78040adbb0bb.jpg")
-              .zone-title
-                figcaption
-                  p บ้านแม่กำปอง จ.เชียงใหม่
-
-  section.ads-carousel
+  section.ads-carousel.mt-8
     .block-content.flex.justify-center.items-center
-      .banner
-        splide(:options="options")
-          splide-slide
-            img(src="https://s359.kapook.com/pagebuilder/fc39e1ff-f08f-485a-bdd9-78040adbb0bb.jpg")
-          splide-slide
-            img(src="https://s359.kapook.com/pagebuilder/db8f6318-2de0-4162-871b-b4a77e2d81c3.jpg")
-          splide-slide
-            img(src="https://s359.kapook.com/pagebuilder/6d43f6bc-537f-404f-9cac-d51f43a6e679.jpg")
+      .swiper-container
+        swiper.swiper(:options="swiperOption")
+          swiper-slide
+            img(src='https://s359.kapook.com/pagebuilder/fc39e1ff-f08f-485a-bdd9-78040adbb0bb.jpg')
+          swiper-slide
+            img(src='https://s359.kapook.com/pagebuilder/db8f6318-2de0-4162-871b-b4a77e2d81c3.jpg')
+          swiper-slide
+            img(src='https://s359.kapook.com/pagebuilder/6d43f6bc-537f-404f-9cac-d51f43a6e679.jpg')
+          .swiper-pagination(slot="pagination")
 
-  section.project.mt-16
+
+  section.recommend.mt-8
     .block-content
       .title-text
-        h3 โครงการแนะนำ
+        h3 ประกาศแนะนำ
         .flex
           a ดูทั้งหมด
-          ion-icon(class="mt-2" name="chevron-forward")
-      .card.mt-12
-        .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
-          Card(v-for="item in projectCards" :key="item.id"
-            :logo="item.logo"
-            :review="item.review"
-            :ads="item.ads"
-            :likeIcon="item.likeIcon"
-            :img="item.img"
-            :type="item.type"
-            :estateName="item.estateName"
-            :startPrice="item.startPrice"
-            :price="item.price"
-            :location="item.location")
+          ion-icon.mt-2(name='chevron-forward')
+      .recommend
+        .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
+          Card(
+            v-for='item in recommendAnnounceList',
+            :key='item.id',
+            :logo='item.logo',
+            :review='item.review',
+            :ads='item.ads',
+            :likeIcon='item.likeIcon',
+            :coverPhoto='item.coverPhoto',
+            :type='item.type',
+            :topicName='item.topicName',
+            :salePrice='item.salePrice',
+            :startPrice='item.startPrice',
+            :subdistrict='item.subdistrict'
+            :district='item.district'
+            :province='item.province')
 
-  section.announce.mt-16
+  section.announce.mt-8
     .block-content
       .title-text
-        h3 ประกาศมือสอง
+        h3 ประกาศทั้งหมด
         .flex
           a ดูทั้งหมด
-          ion-icon(class="mt-2" name="chevron-forward")
-      .card.mt-12
-        .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
-          Card(v-for="item in announceCards" :key="item.id"
-            :description="item.description"
-            :img="item.img"
-            :ads="item.ads"
-            :likeIcon="item.likeIcon"
-            :type="item.type"
-            :estateName="item.estateName"
-            :price="item.price"
-            :location="item.location")
-
-  section.Rent-dorm.mt-16
-    .block-content
-      .title-text
-        h3 เช่า/หอพัก
-        .flex
-          a ดูทั้งหมด
-          ion-icon(class="mt-2" name="chevron-forward")
-      .card.mt-12
-        .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
-          Card(v-for="item in announceCards" :key="item.id"
-            :img="item.img"
-            :likeIcon="item.likeIcon"
-            :estateName="item.estateName"
-            :startPrice="item.startPrice"
-            :price="item.price"
-            :location="item.location")
-
-  section.projectBrand.mt-16
-    .block-content
-      .title-text
-        h3 แบรนด์โครงการ
-        .flex
-          a ดูทั้งหมด
-          ion-icon(class="mt-2" name="chevron-forward")
-      .card
-        splide(:options="brandsOptions")
-          splide-slide(v-for="item in brandsCards" :key="item.id")
-            BrandsCard(
-              :img="item.img")
+          ion-icon.mt-2(name='chevron-forward')
+      .secondHandAnnouncement
+        .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
+          Card(
+            v-for='item in allAnnounceList',
+            :key='item.id',
+            :logo='item.logo',
+            :bedroom='item.bedroom',
+            :bathroom='item.bathroom',
+            :ads='item.ads',
+            :likeIcon='item.likeIcon',
+            :coverPhoto='item.coverPhoto',
+            :type='item.type',
+            :topicName='item.topicName',
+            :salePrice='item.salePrice',
+            :subdistrict='item.subdistrict'
+            :district='item.district'
+            :province='item.province')
 
   section.mt-8
     .block-content
       .ads-carousel.flex.justify-center.items-center.w-full.h-full
         .first-ad
-          img(src="https://source.unsplash.com/mIqyYpSNq3o/1600x900")
-        .second-ad
-          img(src="https://source.unsplash.com/FWqWJC6leOA/1600x900")
-
-  section.mt-18
-    .block-content
-      .title-text
-        h3 บทความ
-        .flex
-          a ดูทั้งหมด
-          ion-icon(class="mt-2" name="chevron-forward")
-      .card.mt-4
-        LandingBlogsSection
+          img(src='https://source.unsplash.com/mIqyYpSNq3o/1600x900')
+        .second-ad(class='block sm:hidden')
+          img(src='https://source.unsplash.com/FWqWJC6leOA/1600x900')
 
   section.mt-16
     .block-content
-      .title-text
-        h3 วิดีโอรีวิวโครงการ
-        .flex
-          a ดูทั้งหมด
-          ion-icon(class="mt-2" name="chevron-forward")
-      .card.mt-12
-        .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
-          Card(v-for="item in articleCards" :key="item.id"
-            :img="item.img"
-            :type="item.type"
-            :title="item.title"
-            :dateCreated="item.dateCreated")
+      .ads-carousel.flex.justify-center.items-center.w-full.h-full
+        .second-ad(class='hidden sm:block')
+          img(src='https://source.unsplash.com/FWqWJC6leOA/1600x900')
 
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { DropdownOption } from '@/components/menus/Dropdown.vue'
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 
 import Input from '@/components/forms/Input.vue'
 import Dropdown from '@/components/forms/Dropdown.vue'
 import Card from '@/components/menus/Card.vue'
-import BrandsCard from '@/components/menus/BrandsCard.vue'
-import LandingBlogsSection from '@/components/sections/landing/LandingBlogsSection.vue'
-
-import {
-  PROJECT_CARDS,
-  ANNOUNCE_CARDS,
-  BRAND_CARDS,
-  ARTICLE_CARDS,
-  HOMEREVIEW_CARDS,
-  KNOWLEDGE_CARDS,
-  LIFESTYLE_CARDS,
-} from '@/mocks/landing'
+import { AnnouncesService, ZonesService } from '@/services'
+import { IinsertZone } from '@/types/zone'
+import { IinsertAnnounce } from '@/types/announces'
 
 export default defineComponent({
   components: {
     Input,
     Dropdown,
     Card,
-    BrandsCard,
-    LandingBlogsSection,
+    Swiper,
+    SwiperSlide,
   },
 
   data() {
     return {
-      options: {
-        rewind: true,
-        width: 800,
-        perPage: 1,
-        autoplay: false,
-        pauseOnHover: false,
-        arrows: 'slider',
+      dropdownProvinces: [
+        {
+          content: 'น่าน',
+          value: 'น่าน',
+        },
+        {
+          content: 'พะเยา',
+          value: 'พะเยา',
+        },
+        {
+          content: 'ลำปาง',
+          value: 'ลำปาง',
+        },
+        {
+          content: 'ลำพูน',
+          value: 'ลำพูน',
+        },
+        {
+          content: 'อุตรดิตถ์',
+          value: 'อุตรดิตถ์',
+        },
+        {
+          content: 'เชียงราย',
+          value: 'เชียงราย',
+        },
+        {
+          content: 'เชียงใหม่',
+          value: 'เชียงใหม่',
+        },
+        {
+          content: 'แพร่',
+          value: 'แพร่',
+        },
+        {
+          content: 'แม่ฮ่องสอน',
+          value: 'แม่ฮ่องสอน',
+        },
+      ] as DropdownOption[],
+      seletedProvinces: null,
+      dropdownType: [
+        {
+          content: 'บ้าน',
+          value: 'บ้าน',
+        },
+        {
+          content: 'คอนโด',
+          value: 'คอนโด',
+        },
+        {
+          content: 'ที่ดิน',
+          value: 'ที่ดิน',
+        },
+        {
+          content: 'อพาร์ทเม้นท์',
+          value: 'อพาร์ทเม้นท์',
+        },
+        {
+          content: 'อาคาร',
+          value: 'อาคาร',
+        },
+        {
+          content: 'ที่ดิน',
+          value: 'ที่ดิน',
+        },
+      ] as DropdownOption[],
+      seletedType: null,
+
+      subdistrictList: [] as IinsertZone[],
+      recommendAnnounceList: [] as IinsertAnnounce[],
+      allAnnounceList: [] as IinsertAnnounce[],
+
+      loading: {
+        fetching: {
+          subdistrict: false,
+          recommendAnnounce: false,
+          allAnnounce: false,
+        },
       },
-      brandsOptions: {
-        rewind: false,
-        width: 1000,
-        perPage: 4,
-        pauseOnHover: false,
-        arrows: 'slider',
-        pagination: false,
+
+      swiperOption: {
+        slidesPerView: 1,
+        loop: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'bullets',
+          clickable: true,
+        },
+        breakpoints: {
+          375: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 1,
+          },
+          1024: {
+            slidesPerView: 1,
+          },
+        },
       },
       tabs: ['tab1', 'tab2', 'tab3', 'tab4', 'tab5'],
       currentTab: 'tab1',
     }
   },
 
-  computed: {
-    projectCards() {
-      return PROJECT_CARDS
-    },
-    announceCards() {
-      return ANNOUNCE_CARDS
-    },
-    brandsCards() {
-      return BRAND_CARDS
-    },
-    articleCards() {
-      return ARTICLE_CARDS
-    },
-    homeReviewCards() {
-      return HOMEREVIEW_CARDS
-    },
-    knowledgeCards() {
-      return KNOWLEDGE_CARDS
-    },
-    lifestyleCards() {
-      return LIFESTYLE_CARDS
-    },
+  mounted() {
+    this.fetchSubdistrict()
+    this.fetchAnnounce()
   },
 
   methods: {
-    onTabChange(tab) {
-      console.log(tab)
-      this.currentTab = tab
+    fetchSubdistrict() {
+      this.loading.fetching.subdistrict = true
+
+      ZonesService.getSubDistrict().then((res) => {
+        this.subdistrictList = res.slice(0, 8)
+
+        this.loading.fetching.subdistrict = false
+        console.log(this.subdistrictList)
+      })
+    },
+    fetchAnnounce() {
+      this.loading.fetching.recommendAnnounce = true
+      this.loading.fetching.allAnnounce = true
+
+      AnnouncesService.getAllAnnounces().then((res) => {
+        this.recommendAnnounceList = res.slice(0, 4).map((item) => {
+          return {
+            ...item,
+            likeIcon: 'like',
+            ads: 'Top Ad',
+            review: 'มาดูบ้านรีวิว',
+            startPrice: 'เริ่มต้นที่',
+          }
+        })
+        this.loading.fetching.recommendAnnounce = false
+      })
+
+      AnnouncesService.getAllAnnounces().then((res) => {
+        this.allAnnounceList = res.slice(0, 4)
+      })
+      this.loading.fetching.allAnnounce = false
     },
   },
 })
@@ -287,7 +297,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .bg-hero {
-  @apply bg-cover bg-center h-full w-full inset-0 z-10;
+  @apply bg-cover bg-center h-full w-full inset-0;
 }
 .block-content {
   height: 100%;
@@ -314,48 +324,55 @@ figure figcaption {
 .zone-item {
   @apply relative;
   img {
-    @apply w-full h-56 bg-center bg-cover rounded-md;
+    @apply w-full h-56 bg-center object-cover rounded-md;
 
     object-fit: cover;
   }
 }
 .first-ad img {
-  @apply p-2 h-64 object-cover;
+  @apply p-2 object-contain;
 
-  width: 500px;
+  width: 100%;
+  height: 30vh;
 }
 .second-ad img {
-  @apply p-2 h-64 object-cover;
+  @apply p-2 object-contain;
 
-  width: 500px;
+  width: 100%;
+  height: 30vh;
 }
-@media only screen and (max-width: 1250px) {
-  .right-container {
-    figure {
-      @apply hidden;
-    }
+.img-container {
+  min-width: 100px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  figure:nth-child(1) {
+    @apply col-span-2;
+  }
+
+  figure:nth-child(3) {
+    @apply col-span-2;
+  }
+
+  figure:nth-child(6) {
+    @apply col-span-2;
+  }
+
+  figure:nth-child(8) {
+    @apply col-span-2;
   }
 }
-.splide {
-  @apply mt-12;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    justify-content: center;
-    align-content: center;
-    background-position: center;
-  }
+.swiper-container {
+  width: 100%;
+  height: 100%;
 }
-.splide__slide {
-  @apply flex justify-center items-center;
-
+.swiper {
+  display: flex;
+  width: 600px;
   height: 200px;
-  margin-top: 8px;
-}
-.splide__pagination {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>

@@ -1,22 +1,22 @@
 <template lang="pug">
   .top-navigation-bar(:class="{'sticky-header': isSticky}")
     SignInUpModal(ref="signInUpModal")
+
     .nav-container
-      .menu.flex.space-x-5
-        .logo.flex-none.px-3
+      .menus.space-x-4
+        .logo.flex-none
           img(src="https://www.madoobaan.com/wp-content/uploads/2021/04/sm_long_logo-2.png",width="300px")
-        .search.flex.justify-between
+        .search.flex.justify-around
           Input(placeholder="พิมพ์โซน ชื่อโครงการ")
-          .w-auto.bg-info-400.right-0.cursor-pointer
-            .icon.items-center.mt-2.px-3
-              ion-icon(name="search")
+          .w-10.h-10.bg-info-900.right-0
+            ion-icon(class="m-3" style="color: #FFFFFF" name="search")
 
         .right-menu
           .item.space-x-4.flex.text-white.justify-items-center.items-center.flex-wrap
-            a(href="#" class="no-underline") ซื้อโครงการใหม่
-            a(href="#" class="no-underline") ซื้อบ้านมือสอง
-            a(href="#" class="no-underline") เช่า/หอพัก
-            a(href="#" class="no-underline") บทความ
+            a ซื้อโครงการใหม่
+            a ซื้อบ้านมือสอง
+            a เช่า/หอพัก
+            a บทความ
             a(class="dropdown no-underline")
               input(type="checkbox",id="dropdownMenu",name="dropdownCheck",value="")
               .flex
@@ -25,12 +25,12 @@
               div(class="dropdown-content")
                 ul
                   li
-                    a(href="#" class="no-underline") ค้นหาตัวแทนอสังหาฯ
+                    a ค้นหาตัวแทนอสังหาฯ
                   li
-                    a(href="#" class="no-underline") ค้นหาเจ้าของโครงการ
+                    a ค้นหาเจ้าของโครงการ
 
             a(href="#" class="no-underline" @click="showSignUpModal") เข้าสู่ระบบ
-        button.rbtn.bg-success-500(@click="showSignUpModal") ลงประกาศฟรี
+        button.button.button-success.text-white(@click="showSignUpModal") ลงประกาศฟรี
         ion-icon.menubar(name="menu" @click="showMenus")
 
         template(v-if="authenticated")
@@ -40,17 +40,21 @@
               button.button.bg-transparent.square-6.p-0.border-0.ml-2.pointer-events-none
                 ion-icon(name="caret-down")
             UserDropdown(ref="userDropdown")
-    div.bg-white.w-full.absolute.mt-16.top-0(v-if="isShow")
-      div.flex.flex-col.items-center.h-full.justify-around.space-y-5.py-5
-        div ซื้อโครงการใหม่
-        div ซื้อบ้านมือสอง
-        div เช่า/หอพัก
-        div บทความ
-        hr.w-full
-        div ค้นหาตัวแทนอสังหาฯ
-        div ค้นหาเจ้าของโครงการ
-        div เข้าสู่ระบบ
-        button.rbtn.bg-success-500(@click="showSignUpModal") ลงประกาศฟรี
+
+        //- template(v-else)
+        //-   .item
+        //-     button.button.button-success.text-white(@click="showSignUpModal") ลงประกาศฟรี
+    .bg-white.w-full.absolute.mt-16.top-0(v-if="isShow")
+      .flex.flex-col.items-center.h-full.justify-around.space-y-5.py-5
+        a ซื้อโครงการใหม่
+        a ซื้อบ้านมือสอง
+        a เช่า/หอพัก
+        a บทความ
+        .bg-black-900.h-1.w-full
+        a ค้นหาตัวแทนอสังหาฯ
+        a ค้นหาเจ้าของโครงการ
+        a เข้าสู่ระบบ
+        button.button.button-success.text-white(@click="showSignUpModal") ลงประกาศฟรี
 
 
 
@@ -78,6 +82,10 @@ export default defineComponent({
     return {
       signInUpModal,
       userDropdown,
+    }
+  },
+  data() {
+    return {
       isShow: false,
       isSticky: false,
     }
@@ -85,6 +93,7 @@ export default defineComponent({
   mounted() {
     this.$nextTick(() => {
       this.checkScrollTop()
+
       document.addEventListener('scroll', () => {
         this.checkScrollTop()
       })
@@ -118,14 +127,37 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+a {
+  @apply no-underline;
+}
 .top-navigation-bar {
-  @apply fixed py-5 top-0 left-0 w-full h-16 px-16 z-50 bg-navColor transition duration-500 shadow-md items-center justify-center flex;
+  @apply fixed py-5 top-0 left-0 w-full h-16 px-16 z-50 transition duration-500 items-center justify-center flex;
+
+  &.sticky-header {
+    @apply bg-info-500;
+
+    .right-menu {
+      &:last-child {
+        .menu-item {
+          @apply text-white;
+
+          &:last-child {
+            @apply border-white;
+
+            &:hover {
+              @apply bg-white text-primary-500;
+            }
+          }
+        }
+      }
+    }
+  }
 
   .nav-container {
     @apply w-full h-full max-w-7xl;
 
-    > .menu {
-      @apply flex items-center justify-center w-full h-full;
+    > .menus {
+      @apply flex items-center justify-between w-full h-full;
 
       > .right-menu {
         @apply font-noto font-bold;
@@ -159,13 +191,6 @@ export default defineComponent({
 
   .search {
     @apply w-48;
-  }
-
-  .rbtn {
-    @apply font-semibold p-3;
-
-    display: inline-block;
-    white-space: nowrap;
   }
 
   .menubar {
@@ -207,9 +232,6 @@ export default defineComponent({
   }
 
   @media only screen and (max-width: 1250px) {
-    .myPadding {
-      padding-right: 25px;
-    }
     .menubar {
       @apply block cursor-pointer flex-none;
 

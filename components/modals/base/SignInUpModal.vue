@@ -1,107 +1,106 @@
 <template lang="pug">
-  portal(to="modal" slim)
-    transition(name="modal-box" mode="out-in")
-      .modal-backdrop(v-if="display" v-bind="$attrs")
-        .modal-scroller
-          .modal
-            .modal-container
-              .flex
-                h3 {{ mode === 'signin' ? 'เข้าสู่ระบบ' : mode === 'verify' ? 'ยืนยันตัวตน' : mode === 'resetPass' ? 'ลืมรหัสผ่าน' : 'สร้างบัญชีใหม่'}}
-                button.button.square-8.p-0.border-none.ml-auto.outline-none(@click="close" :disabled="loading.signin.email || loading.signin.google || loading.signin.facebook || loading.signup.email")
-                  ion-icon.w-full.h-full(name="close-outline")
+  transition(name="modal-box" mode="out-in")
+    .modal-backdrop(v-if="display" v-bind="$attrs")
+      .modal-scroller
+        .modal
+          .modal-container
+            .flex
+              h3 {{ mode === 'signin' ? 'เข้าสู่ระบบ' : mode === 'verify' ? 'ยืนยันตัวตน' : mode === 'resetPass' ? 'ลืมรหัสผ่าน' : 'สร้างบัญชีใหม่'}}
+              button.button.square-8.p-0.border-none.ml-auto.outline-none(@click="close" :disabled="loading.signin.email || loading.signin.google || loading.signin.facebook || loading.signup.email")
+                ion-icon.w-full.h-full(name="close-outline")
 
-              transition(name="fade-group" mode="out-in" tag="div")
-                .flex.flex-col.mt-4(v-if="mode === 'signin' && !signInData.verified" key="signin-not-verified")
-                  p.font-noto By continuing, you agree to our <br>
-                    a.underline User Agreement
-                    |  and 
-                    a.underline Privacy Policy.
+            transition(name="fade-group" mode="out-in" tag="div")
+              .flex.flex-col.mt-4(v-if="mode === 'signin' && !signInData.verified" key="signin-not-verified")
+                p.font-noto By continuing, you agree to our <br>
+                  a.underline User Agreement
+                  |  and
+                  a.underline Privacy Policy.
 
-                  .button-group.mt-6
-                    button.button.text-facebook(:disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" @click="signInWithFacebook")
-                      img(src="/images/logo/logo-facebook.svg")
-                      | เข้าสู่ระบบด้วย Facebook
+                .button-group.mt-6
+                  button.button.text-facebook(:disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" @click="signInWithFacebook")
+                    img(src="/images/logo/logo-facebook.svg")
+                    | เข้าสู่ระบบด้วย Facebook
 
-                    button.button.text-black-300(:disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" @click="signInWithGoogleAccount")
-                      img(src="/images/logo/logo-google.svg")
-                      | เข้าสู่ระบบด้วย Google
-                  
-                  .divider.mt-4(data-text="หรือ")
+                  button.button.text-black-300(:disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" @click="signInWithGoogleAccount")
+                    img(src="/images/logo/logo-google.svg")
+                    | เข้าสู่ระบบด้วย Google
 
-                  validation-observer.mt-4(ref="signInForm" v-slot="{ handleSubmit }")
-                    form(@submit.prevent="handleSubmit(fetchSignInMethods)")
-                      label(for="email") อีเมล
-                      Input(id="email" name="email" rules="required|email" :disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" v-model="signInData.email")
+                .divider.mt-4(data-text="หรือ")
 
-                      button.button.button-primary.w-full.mt-6(:disabled="loading.signin.google" :class="{ 'is-loading': loading.signin.email }") ดำเนินการต่อ
+                validation-observer.mt-4(ref="signInForm" v-slot="{ handleSubmit }")
+                  form(@submit.prevent="handleSubmit(fetchSignInMethods)")
+                    label(for="email") อีเมล
+                    Input(id="email" name="email" rules="required|email" :disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" v-model="signInData.email")
 
-                  .flex.flex-col.items-center.mt-6
-                    a.font-noto(@click="updateMode('signup')" :disabled="loading.signin.email || loading.signin.google || loading.signin.facebook") สร้างบัญชีใหม่
+                    button.button.button-primary.w-full.mt-6( :disabled="loading.signin.google" :class="{ 'is-loading': loading.signin.email }") ดำเนินการต่อ
 
-                .flex.flex-col.mt-4(v-if="mode === 'signin' && signInData.verified" key="signin-verified")
-                  validation-observer(ref="signInForm" v-slot="{ handleSubmit }")
-                    form(@submit.prevent="handleSubmit(signIn)")
-                      label(for="password") รหัสผ่าน
-                      Input(id="password" name="password" type="password" rules="required" :disabled="loading.signin.email" v-model="signInData.password")
+                .flex.flex-col.items-center.mt-6
+                  a.font-noto(@click="updateMode('signup')" :disabled="loading.signin.email || loading.signin.google || loading.signin.facebook") สร้างบัญชีใหม่
 
-                      button.button.button-primary.w-full.mt-6(:class="{ 'is-loading': loading.signin.email }") เข้าสู่ระบบ
-                
-                  .flex.items-center.mt-6.justify-between
-                    a.font-noto(@click="clearSignInData" :disabled="loading.signin.email") ใช้บัญชีอื่น
-                    a.font-noto(:disabled="loading.signin.email" @click="updateMode('resetPass')") ลืมรหัสผ่าน?
+              .flex.flex-col.mt-4(v-if="mode === 'signin' && signInData.verified" key="signin-verified")
+                validation-observer(ref="signInForm" v-slot="{ handleSubmit }")
+                  form(@submit.prevent="handleSubmit(signIn)")
+                    label(for="password") รหัสผ่าน
+                    Input(id="password" name="password" type="password" rules="required" :disabled="loading.signin.email" v-model="signInData.password")
 
-                .flex.flex-col.mt-4(v-if="mode === 'signup'" key="signup")
-                  validation-observer(ref="signUpForm" v-slot="{ handleSubmit, invalid }")
-                    form(@submit.prevent="handleSubmit(signUp)")
-                      label(for="email") อีเมล
-                      Input(id="email" rules="required|email" :disabled="loading.signup.email" v-model="signUpData.email")
+                    button.button.button-primary.w-full.mt-6(:class="{ 'is-loading': loading.signin.email }") เข้าสู่ระบบ
 
-                      label.mt-6(for="password") รหัสผ่าน
-                      Input(id="password" rules="required" type="password" vid="password" :disabled="loading.signup.email" v-model="signUpData.password")
+                .flex.items-center.mt-6.justify-between
+                  a.font-noto(@click="clearSignInData" :disabled="loading.signin.email") ใช้บัญชีอื่น
+                  a.font-noto(:disabled="loading.signin.email" @click="updateMode('resetPass')") ลืมรหัสผ่าน?
 
-                      label.mt-6(for="confirm-password") ยืนยันรหัสผ่าน
-                      Input(id="confirm-password" mode="aggressive" rules="required|confirmed:password" type="password" vid="confirmPassword" :error="passwordWrong" @input="passwordWrong = ''" :disabled="loading.signup.email" v-model="signUpData.confirmPassword")
+              .flex.flex-col.mt-4(v-if="mode === 'signup'" key="signup")
+                validation-observer(ref="signUpForm" v-slot="{ handleSubmit, invalid }")
+                  form(@submit.prevent="handleSubmit(signUp)")
+                    label(for="email") อีเมล
+                    Input(id="email" rules="required|email" :disabled="loading.signup.email" v-model="signUpData.email")
 
-                      Checkbox.mt-6(name="accept-terms-and-conditions" id="accept-terms-and-conditions" :disabled="invalid || loading.signup.email" v-model="signUpData.acceptTermsAndConditions") ฉันได้อ่านและยอมรับ 
-                        a เงื่อนไขการให้บริการ
-                        |  และ 
-                        a เงื่อนไขการเปิดเผยข้อมูล
-                      
-                      button.button.button-primary.w-full.mt-6(:disabled="!signUpData.acceptTermsAndConditions" :class="{ 'is-loading': loading.signup.email }") ดำเนินการต่อ
+                    label.mt-6(for="password") รหัสผ่าน
+                    Input(id="password" rules="required" type="password" vid="password" :disabled="loading.signup.email" v-model="signUpData.password")
 
-                  .flex.flex-col.items-center.mt-6
-                    a.font-noto(:disabled="loading.signup.email" @click="updateMode('signin')") ลงชื่อเข้าใช้
+                    label.mt-6(for="confirm-password") ยืนยันรหัสผ่าน
+                    Input(id="confirm-password" mode="aggressive" rules="required|confirmed:password" type="password" vid="confirmPassword" :error="passwordWrong" @input="passwordWrong = ''" :disabled="loading.signup.email" v-model="signUpData.confirmPassword")
 
-                .flex.flex-col.mt-4(v-if="mode === 'verify' && !signInData.verified" key="verify")
-                  p.font-noto.text-black-900 กรุณาป้อนรหัสยืนยัน 6 หลักที่ส่งไปยัง <br>
-                  p.font-noto {{signInData.email || signUpData.email}}
+                    Checkbox.mt-6(name="accept-terms-and-conditions" id="accept-terms-and-conditions" :disabled="invalid || loading.signup.email" v-model="signUpData.acceptTermsAndConditions") ฉันได้อ่านและยอมรับ
+                      a เงื่อนไขการให้บริการ
+                      |  และ
+                      a เงื่อนไขการเปิดเผยข้อมูล
 
-                  validation-observer.mt-6(ref="verifyForm" v-slot="{ handleSubmit }")
-                    form(@submit.prevent="handleSubmit(verifyEmail)")
-                      label(for="verifyCode") รหัสยืนยันจากอีเมล
-                      NumberInput(id="verifyCode" name="verifyCode" :maxlength="'6'" rules="required" :disabled="loading.signin.verifyCode" v-model="verify.verifyCode" :error="veriCodeWrong" @input="veriCodeWrong = ''")
+                    button.button.button-primary.w-full.mt-6(:disabled="!signUpData.acceptTermsAndConditions" :class="{ 'is-loading': loading.signup.email }") ดำเนินการต่อ
 
-                      button.button.button-primary.w-full.mt-8(:class="{ 'is-loading': loading.signin.verifyCode }") ยืนยัน
+                .flex.flex-col.items-center.mt-6
+                  a.font-noto(:disabled="loading.signup.email" @click="updateMode('signin')") ลงชื่อเข้าใช้
 
-                  .flex.flex-col.items-center.mt-6
-                    a.font-noto(@click="sendVerifyEmail()" :disabled="loading.signin.countTime") ส่งอีกครั้ง {{countTime > 0 ? '('+ countTime +'s)' : ''}}
+              .flex.flex-col.mt-4(v-if="mode === 'verify' && !signInData.verified" key="verify")
+                p.font-noto.text-black-900 กรุณาป้อนรหัสยืนยัน 6 หลักที่ส่งไปยัง <br>
+                p.font-noto {{signInData.email || signUpData.email}}
 
-                .flex.flex-col.mt-4(v-if="mode === 'resetPass'" key="resetPass")
-                  .w-full.mb-6.flex.flex-col.items-center.bg-backdrop.p-6
-                    img.square-20.rounded-lg.overflow-hidden.mb-4(:src="'/images/mock-up/avatar/male.png'")
-                    label.font-semibold.mb-1 Name Surname
-                    label.font-normal {{ signInData.email || signUpData.email }}
-                  .mb-4.w-full.h-auto
-                    p.font-noto เราได้ส่งลิ้งค์สำหรับเปลี่ยนรหัสผ่านไปยังอีเมล
-                    span.font-noto.font-bold.space-x-1 {{signInData.email || signUpData.email}}
-                    span {{' '}}
-                    span.font-noto แล้ว
+                validation-observer.mt-6(ref="verifyForm" v-slot="{ handleSubmit }")
+                  form(@submit.prevent="handleSubmit(verifyEmail)")
+                    label(for="verifyCode") รหัสยืนยันจากอีเมล
+                    NumberInput(id="verifyCode" name="verifyCode" :maxlength="'6'" rules="required" :disabled="loading.signin.verifyCode" v-model="verify.verifyCode" :error="veriCodeWrong" @input="veriCodeWrong = ''")
 
-                  button.button.button-primary.w-full.mt-6(:class="{ 'is-loading': loading.signin.resetPass }" @click="updateMode('signin')") เข้าสู่ระบบใหม่
+                    button.button.button-primary.w-full.mt-8(:class="{ 'is-loading': loading.signin.verifyCode }") ยืนยัน
 
-                  .flex.flex-col.items-center.mt-6
-                    a.font-noto(@click="resetPassword()" :disabled="loading.signin.countTime") ส่งอีกครั้ง {{countTime > 0 ? '('+ countTime +'s)' : ''}}
-                    
+                .flex.flex-col.items-center.mt-6
+                  a.font-noto(@click="sendVerifyEmail()" :disabled="loading.signin.countTime") ส่งอีกครั้ง {{countTime > 0 ? '('+ countTime +'s)' : ''}}
+
+              .flex.flex-col.mt-4(v-if="mode === 'resetPass'" key="resetPass")
+                .w-full.mb-6.flex.flex-col.items-center.bg-backdrop.p-6
+                  img.square-20.rounded-lg.overflow-hidden.mb-4(:src="'/images/mock-up/avatar/male.png'")
+                  label.font-semibold.mb-1 Name Surname
+                  label.font-normal {{ signInData.email || signUpData.email }}
+                .mb-4.w-full.h-auto
+                  p.font-noto เราได้ส่งลิ้งค์สำหรับเปลี่ยนรหัสผ่านไปยังอีเมล
+                  span.font-noto.font-bold.space-x-1 {{signInData.email || signUpData.email}}
+                  span {{' '}}
+                  span.font-noto แล้ว
+
+                button.button.button-primary.w-full.mt-6(:class="{ 'is-loading': loading.signin.resetPass }" @click="updateMode('signin')") เข้าสู่ระบบใหม่
+
+                .flex.flex-col.items-center.mt-6
+                  a.font-noto(@click="resetPassword()" :disabled="loading.signin.countTime") ส่งอีกครั้ง {{countTime > 0 ? '('+ countTime +'s)' : ''}}
+
 </template>
 
 <script lang="ts">
@@ -210,6 +209,7 @@ export default defineComponent({
 
     fetchSignInMethods() {
       this.loading.signin.email = true
+
       AuthenticationService.fetchSignInMethods(this.signInData.email)
         .then((res) => {
           if (res.length < 1) throw new Error(Errors.AUTH_NO_SIGNIN_METHODS)
