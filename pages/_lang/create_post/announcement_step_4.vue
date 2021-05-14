@@ -1,8 +1,7 @@
 <template lang="pug">
 .management-page
-  section 
+  section
     .block-content
-    
     div
       h1.mt-24 ลงประกาศโครงการใหม่
       .mt-8.step-bar
@@ -26,7 +25,6 @@
               .dataText.active 4
               b.textLabel.active สรุปประกาศ
 
-      
       div.mt-16
         br
         h3 คุณภาพใบประกาศ
@@ -59,7 +57,6 @@
               div.border.border-small2.border-gray.grid.justify-items-center
                 a.active.mt-1.no-underline(href="/th/create_post/announcement_step_3") เพิ่มวิดีโอ
                   div.mt-4
-          
           div.col-span-2.justify-items-center.text-center.mr-12
             h5 ตัวอย่างใบประกาศในหน้าค้นหา
             img.transform-scale-75(src="~/static/images/exam.png")
@@ -72,12 +69,10 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import Radios from '@/components/forms/Radios.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
 
 export default defineComponent({
   components: {
-    Radios,
     InputProfile,
   },
   data() {
