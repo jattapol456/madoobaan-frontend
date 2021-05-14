@@ -1,5 +1,5 @@
 <template lang="pug">
-.card-section.mt-12
+.card-section
   .card(class="bg-white w-auto h-full border-black-200 border-2")
     .card-image.relative
       .ads(v-if="ads") {{ads}}

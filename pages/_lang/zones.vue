@@ -8,33 +8,31 @@
           h4 หากคุณกำลังมองหาบ้าน ที่ดิน ภาคเหนือ เชียงใหม่ เชียงราย เราช่วยคุณได้!
 
   section.section-zones
-    .container.pt-10
-      h1 โซนทั้งหมด
-      .select-zone.flex.justify-items-center.pt-3
+    .block-content
+      .container.pt-10
+        h1 โซนทั้งหมด
 
-    .zone(v-if="loading.fetching.subdistrict == false")
-        .img-container.pt-5
-          figure(v-for="(item) in subdistrictList2")
-            .zone-item.drop-shadow-lg 
-              img(:src='item.img')
-              .zone-title
-                figcaption
-                  h3 {{ item.subdistrict_name }}
+      .zone(v-if="loading.fetching.subdistrict == false")
+          .img-container.pt-5
+            figure(v-for="(item) in subdistrictList2")
+              .zone-item.drop-shadow-lg
+                img(:src='item.img')
+                .zone-title
+                  figcaption
+                    h3 {{ item.subdistrict_name }}
 
-    .pt-10.flex.justify-center
+    .section-Pagination.pt-10.flex.justify-center
       Pagination(:value='value', @change='handleChange')
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import Dropdown from '@/components/forms/Dropdown.vue'
 import Pagination from '@/components/menus/Pagination.vue'
 import { ZonesService } from '@/services'
 import { IinsertZone } from '@/types/zone'
 
 export default defineComponent({
   components: {
-    Dropdown,
     Pagination,
   },
 
@@ -55,8 +53,6 @@ export default defineComponent({
     }
   },
   mounted() {
-    console.log(this.value.totalPages)
-
     this.fetchSubdistrict()
   },
   methods: {
@@ -109,15 +105,15 @@ export default defineComponent({
 }
 
 @screen sm {
-  .c.container {
-    @apply p-10;
-  }
   .img-container {
     @apply grid-cols-1;
   }
-}
-.text-zone {
-  @apply;
+  .container {
+    @apply p-10;
+  }
+  .section-Pagination {
+    @apply p-5;
+  }
 }
 .zone-item {
   @apply relative;
@@ -138,11 +134,5 @@ figure figcaption {
 }
 img {
   @apply w-full h-40 rounded-md object-cover;
-}
-.select-province {
-  @apply w-full;
-}
-.select-district {
-  @apply w-full;
 }
 </style>

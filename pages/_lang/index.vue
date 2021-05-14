@@ -24,7 +24,7 @@
                   Input(placeholder="ราคา")
                 .button.mt-5 ค้นหา
 
-  section.section-zone.mt-8
+  section.section-zone.mt-16
     .block-content
       .title-text
         h3 ค้นหาตามโซน
@@ -96,14 +96,14 @@
           splide-slide
             img(src="https://s359.kapook.com/pagebuilder/6d43f6bc-537f-404f-9cac-d51f43a6e679.jpg")
 
-  section.project.mt-8
+  section.project.mt-16
     .block-content
       .title-text
         h3 โครงการแนะนำ
         .flex
           a ดูทั้งหมด
           ion-icon(class="mt-2" name="chevron-forward")
-      .card
+      .card.mt-12
         .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
           Card(v-for="item in projectCards" :key="item.id"
             :logo="item.logo"
@@ -117,14 +117,14 @@
             :price="item.price"
             :location="item.location")
 
-  section.announce.mt-8
+  section.announce.mt-16
     .block-content
       .title-text
         h3 ประกาศมือสอง
         .flex
           a ดูทั้งหมด
           ion-icon(class="mt-2" name="chevron-forward")
-      .card
+      .card.mt-12
         .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
           Card(v-for="item in announceCards" :key="item.id"
             :description="item.description"
@@ -136,14 +136,14 @@
             :price="item.price"
             :location="item.location")
 
-  section.Rent-dorm.mt-8
+  section.Rent-dorm.mt-16
     .block-content
       .title-text
         h3 เช่า/หอพัก
         .flex
           a ดูทั้งหมด
           ion-icon(class="mt-2" name="chevron-forward")
-      .card
+      .card.mt-12
         .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
           Card(v-for="item in announceCards" :key="item.id"
             :img="item.img"
@@ -153,7 +153,7 @@
             :price="item.price"
             :location="item.location")
 
-  section.projectBrand.mt-8
+  section.projectBrand.mt-16
     .block-content
       .title-text
         h3 แบรนด์โครงการ
@@ -174,24 +174,24 @@
         .second-ad
           img(src="https://source.unsplash.com/FWqWJC6leOA/1600x900")
 
-  section.mt-8
+  section.mt-18
     .block-content
       .title-text
         h3 บทความ
         .flex
           a ดูทั้งหมด
           ion-icon(class="mt-2" name="chevron-forward")
-      .card
+      .card.mt-4
         LandingBlogsSection
 
-  section.mt-8
+  section.mt-16
     .block-content
       .title-text
         h3 วิดีโอรีวิวโครงการ
         .flex
           a ดูทั้งหมด
           ion-icon(class="mt-2" name="chevron-forward")
-      .card
+      .card.mt-12
         .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
           Card(v-for="item in articleCards" :key="item.id"
             :img="item.img"
@@ -219,7 +219,6 @@ import {
   KNOWLEDGE_CARDS,
   LIFESTYLE_CARDS,
 } from '@/mocks/landing'
-import { ZonesService } from '@/services'
 
 export default defineComponent({
   components: {
