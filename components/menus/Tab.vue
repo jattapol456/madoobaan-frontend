@@ -81,7 +81,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .demo {
   user-select: none;
-  overflow-x: auto;
 }
 
 .tab-button {
@@ -90,7 +89,7 @@ export default defineComponent({
   border-top-right-radius: 3px;
   border: 1px solid #ccc;
   cursor: pointer;
-  background: #f0f0f0;
+  background: #fff;
   margin-bottom: -1px;
   margin-right: -1px;
 }
@@ -103,10 +102,6 @@ export default defineComponent({
 .demo-tab {
   border: 1px solid #ccc;
   padding: 10px;
-}
-.tabContainer {
-  max-width: 80vw;
-  overflow: auto;
 }
 button {
   @apply font-noto font-semibold;

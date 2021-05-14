@@ -19,9 +19,9 @@
                   div
                     label รหัสผ่าน
                     Input.mb-6.w-full
-                  button.mb-5.button.button-primary.w-full เข้าสู่ระบบ 
+                  button.mb-5.button.button-primary.w-full เข้าสู่ระบบ
                 a ใช้บัญชีอื่น
-                a.float-right ลืมรหัสผ่าน?            
+                a.float-right ลืมรหัสผ่าน?
 </template>
 
 <script lang="ts">
@@ -29,10 +29,8 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import Input from '@/components/forms/Input.vue'
 
 export default defineComponent({
-
   components: {
     Input,
   },
 })
 </script>
-
