@@ -3,7 +3,7 @@
   section 
     .block-content
     div
-      h1.mt-10 ลงประกาศ
+      h1.mt-24 ลงประกาศ
       .mt-8.step-bar
         .rower.mx-0.h-100
           .step.px-0.coler
@@ -125,10 +125,10 @@
         div.mt-4
           div.flex.w-full.justify-items-center.space-x-4
             div.mt-10.w-full
-              button(id="backToStep2" onClick="window.location.href = 'announcement_step_2'").button-secondary ย้อนกลับ
+              button( onclick="window.location.href='http://localhost:8080/th/create_post/announcement_step_2';" value="return" ).button-secondary ย้อนกลับ
             div.mt-10.w-full
               button.button-secondary บันทึกแบบร่าง
-          button(id="nextToStep4" oonClick="window.location.href = 'announcement_step_4'").button-primary.mt-5 ต่อไป
+          button( onclick="window.location.href='http://localhost:8080/th/create_post/announcement_step_4';" value="nextpage" ).button-primary.mt-5 ต่อไป
 
 </template>
 

@@ -2,7 +2,7 @@
 .management-page
   section
     .block-content
-      h1 ลงประกาศ
+      h1.mt-24 ลงประกาศ
     .div
       .mt-5.step-bar
         .rower.mx-0.h-100
@@ -40,9 +40,9 @@
       .mt-5
         span.text-xl ที่อยู่*
           .grid.grid-cols-4.grid-rows-2.gap-4.mt-2
-            Dropdown(placeholder='จังหวัด')
-            Dropdown(placeholder='อำเภอ')
-            Dropdown(placeholder='ตำบล')
+            Dropdown(placeholder='จังหวัด',name="provi",:options="provi",@input="proviChange($event)")
+            Dropdown(placeholder='อำเภอ',name="dis",:options="dis",@input="disChange($event)")
+            Dropdown(placeholder='ตำบล',name="sub",:options="sub")
             InputProfile(type=text, labels='รหัสไปรษณีย์*')
             InputProfile(type=text, labels='บ้านเลขที่*')
             InputProfile(type=text, labels='หมู่*')
@@ -59,11 +59,18 @@
           InputProfile(type=text, labels='ลองติจูด*')
           button.button.w-full.h-14 แก้ไขละติจูด-ลองติจูด
 
-        span ข้อมูลติดต่อ*
-          .grid.grid-cols-2.grid-rows-2.gap-4.mt-3
+        span.mt-3 ข้อมูลติดต่อ*
+          .grid.grid-cols-2.gap-4.mt-4
             InputProfile(type=text, labels='ข้อมูลผู้ติดต่อ*')
             InputProfile(type=text, labels='เบอร์โทรศัพท์*')
-            span.text-info-400 +เพิ่มเบอร์โทรศัพท์*
+        
+          .grid.grid-cols-2.gap-4(v-for="(phone, index) in phone" :key="index")
+            .relativeBox
+              InputProfile.input(type=text labels="เบอร์โทรศัพท์*")
+              .deletePhone(@click="deletePhone()")
+                img(src="/delete icn.png",width="30px", alt="alt")
+          .addphone(@click="addPhone()",v-if="phone.length < 1")
+            span +เพิ่มเบอร์โทรศัพท์*
 
 
         .grid.grid-cols-2.grid-rows-2.gap-4.mt-3
@@ -71,18 +78,20 @@
           InputProfile(type=text, labels='Facebook*')
           h1.text-3 *ตัวอย่าง https://www.facebook.com/profile
 
-        .flex.space-x-2
-          input#vehicle1(type='checkbox')
-          label ผูกไอดีไลน์กับเบอร์มือถือ
 
-        .flex.mt-5
-        InputProfile.Line(type=text, labels='Line id*') 
+        //- InputProfile.input(type=text,labels="เบอร์โทรศัพท์*",v-for="(phone, index) in phone",:key="index")
+
+        .flex.space-x-2(@click="checkboxer()")
+          input#vehicle1(type='checkbox',name="cc",:checked="checked")
+          label(for="cc") ผูกไอดีไลน์กับเบอร์มือถือ
+
+        InputProfile.mt-4(type=text,v-if="!checked", labels='Line id*') 
 
         .flex.justify-between.space-x-10.mt-5
-          button.button.w-full ยกเลิก
+          button.button.w-full(onclick="window.location.href='http://localhost:8080/th/';" value="return") ยกเลิก
           button.button.w-full บันทึกแบบร่าง
         .mt-5
-        button.button.button-primary.w-full(onclick="window.location.href='http://localhost:8080/th/create_post/post2';" value="post2") ต่อไป
+        button.button.button-primary.w-full(onclick="window.location.href='http://localhost:8080/th/create_post/announcement_step_2';" value="post2") ต่อไป
 
 
 
@@ -94,6 +103,9 @@ import Radios, { Option } from '@/components/forms/Radios.vue'
 import RadiosTest from '@/components/forms/RadioTest.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
 import Dropdown from '@/components/forms/Dropdown.vue'
+import proviData from '../../../helpers/db/Thailand-Address/provinces.json'
+import disData from '../../../helpers/db/Thailand-Address/districts.json'
+import subData from '../../../helpers/db/Thailand-Address/subDistricts.json'
 
 export default defineComponent({
   components: {
@@ -108,18 +120,6 @@ export default defineComponent({
         {
           label: 'ขาย',
           value: 'sale',
-        },
-        {
-          label: 'เช่า',
-          value: 'buy',
-        },
-        {
-          label: 'ขายและเช่า',
-          value: 'test2',
-        },
-        {
-          label: 'หอพัก/อพาร์ทเม้นท์ (สำหรับเจ้าของตึก)',
-          value: 'test2',
         },
       ],
        mock2: [
@@ -152,8 +152,53 @@ export default defineComponent({
           value: 'more',
         },
         ],
+        phone: [] as any,
+        checked: false,
+        provi: [{
+          value:'',
+          content: ''
+        }] as any,
+        dis: [{
+          value:'',
+          content: ''
+        }] as any,
+        sub: [{
+          value:'asd',
+          content: 'asd'
+        }] as any,
     }
   },
+  mounted() {
+    //- console.log(this.provi.find(data => data.value == "sss"))
+    //- this.provi = zones.filter((v,i,a)=>a.findIndex(t=>(t.province_id === v.province_id))===i)
+    //- this.provi = 
+    this.provi = proviData.map((data) => {
+      return {
+        value: data.PROVINCE_ID,
+        content: data.PROVINCE_NAME
+      }
+    })
+  },
+   methods: {
+    proviChange : function(event){
+      console.log('logggggggvgg')
+      console.log(event)
+      this.dis = disData.filter(data => data.PROVINCE_ID == event)
+    },
+    disChange: function(event){
+      console.log(event)
+      this.sub = subData.filter(data => data.DISTRICT_ID == event)
+    },
+    addPhone: function(){
+      this.phone.push(1)
+    },
+    deletePhone: function(){
+      this.phone.pop()
+    },
+    checkboxer: function() {
+      this.checked = !this.checked  
+    }
+  }
 })
 </script>
 
@@ -222,6 +267,7 @@ export default defineComponent({
   color: #999 !important;
   border-color: #999 !important;
 }
+
 .active {
   border-color: #00aeef !important;
   color: #00aeef !important;
@@ -245,8 +291,29 @@ export default defineComponent({
   background: #2C72CF;
   color: white;
 }
-  button {
-    @apply border-info-500 text-info-500 w-full;
-  }
 
+.button {
+    @apply border-info-500 text-info-500 w-full;
+}
+
+.addphone {
+  cursor: pointer;
+  color: #00aeef;
+  font-weight: 900;
+  text-decoration: none !important;
+  &:hover {
+    color:rgb(178, 137, 231);
+  }
+}
+
+.relativeBox {
+  position: relative;
+}
+
+.deletePhone {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  opacity: 0.7;
+}
 </style>
