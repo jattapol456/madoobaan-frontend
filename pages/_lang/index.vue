@@ -198,8 +198,8 @@ export default defineComponent({
           value: 'อาคาร',
         },
         {
-          content: 'ที่ดิน',
-          value: 'ที่ดิน',
+          content: 'ทาวน์โฮม',
+          value: 'ทาวน์โฮม',
         },
       ] as DropdownOption[],
       seletedType: null,
