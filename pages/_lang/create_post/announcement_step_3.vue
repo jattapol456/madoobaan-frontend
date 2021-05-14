@@ -133,8 +133,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from '@nuxtjs/composition-api'
-import Radios, { Option } from '@/components/forms/Radios.vue'
+import { defineComponent } from '@nuxtjs/composition-api'
+import Radios from '@/components/forms/Radios.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
 
 export default defineComponent({
@@ -171,7 +171,6 @@ export default defineComponent({
     },
   },
 })
-
 </script>
 
 <style lang="scss" scoped>
@@ -182,7 +181,7 @@ export default defineComponent({
 .step-bar {
   height: 56px;
 }
-.c-green{
+.c-green {
   color: rgb(39, 133, 101);
 }
 
@@ -198,12 +197,12 @@ export default defineComponent({
   border-color: rgb(202, 202, 202);
 }
 
-.img-box{
+.img-box {
   width: 220px;
   height: 120px;
 }
 
-.img-box-small{
+.img-box-small {
   width: 110px;
   height: 95px;
 }
@@ -304,14 +303,13 @@ export default defineComponent({
   padding-left: 10px;
   height: 50px;
 }
-  button {
-    @apply border-info-500 text-info-500 w-full;
-  }
+button {
+  @apply border-info-500 text-info-500 w-full;
+}
 .addphone {
   cursor: pointer;
   &:hover {
-    color:red;
+    color: red;
   }
 }
-
 </style>

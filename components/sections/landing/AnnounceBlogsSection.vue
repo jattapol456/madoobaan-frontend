@@ -3,7 +3,7 @@
     template(v-slot:content)
       transition(name="fade")
         .section-card.grid.grid-cols-4.gap-6(class="sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4")
-          template(v-if="currentTab === 'ซื้อโครงการใหม่'")
+          template(v-if="currentTab === 'ประกาศแนะนำ'")
             card(v-for="item in projectCards" :key="item.id" 
               :review="item.review"
               :ads="item.ads"
@@ -43,10 +43,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import TabToPageAnnounce from '@/components/menus/TabToPageAnnounce.vue'
 import Card from '@/components/menus/Card.vue'
 
-import {
-  ANNOUNCE_CARDS,
-  PROJECT_CARDS,
-} from '@/mocks/landing'
+import { ANNOUNCE_CARDS, PROJECT_CARDS } from '@/mocks/landing'
 
 export default defineComponent({
   components: {
@@ -56,7 +53,7 @@ export default defineComponent({
 
   data() {
     return {
-      currentTab: 'ซื้อโครงการใหม่',
+      currentTab: 'ประกาศแนะนำ',
     }
   },
 
@@ -77,4 +74,3 @@ export default defineComponent({
   },
 })
 </script>
-

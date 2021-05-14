@@ -14,40 +14,32 @@ export default defineComponent({
   props: {
     tabs: {
       type: Array,
-      default: () => [
-        'ซื้อโครงการใหม่',
-        'ซื้อบ้านมือสอง',
-        'เช่า/หอพัก',
-      ],
+      default: () => ['ประกาศแนะนำ', 'ซื้อบ้านมือสอง'],
     },
 
     tabContents: {
       type: Array,
       default: () => [
         {
-          key: 'ซื้อโครงการใหม่',
+          key: 'ประกาศแนะนำ',
           element: 'buyNewProject ',
         },
         {
           key: ':ซื้อบ้านมือสอง',
           element: 'buyHomeSecondhand',
         },
-        {
-          key: 'เช่า/หอพัก',
-          element: 'Rent',
-        },
       ],
     },
 
     currentTab: {
       type: String,
-      default: 'ซื้อโครงการใหม่',
+      default: 'ประกาศแนะนำ',
     },
   },
 
   computed: {
     currentTabComponent() {
-      if (this.currentTab === 'ซื้อโครงการใหม่') {
+      if (this.currentTab === 'ประกาศแนะนำ') {
         return 'buyNewProject'
       } else if (this.currentTab === 'ซื้อบ้านมือสอง') {
         return 'buyHomeSecondhand'

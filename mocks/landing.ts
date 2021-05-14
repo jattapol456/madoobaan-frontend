@@ -80,7 +80,7 @@ export const PROJECT_CARDS = [
     startPrice: 'ราคาเริ่มต้น',
     price: '1,550,699',
     location: 'เหล่านาดี-บ้านสะอาด-บ้านโจด - บ้านเป็ด - เมืองขอนแก่น',
-  }
+  },
 ]
 export const ANNOUNCE_CARDS = [
   {
