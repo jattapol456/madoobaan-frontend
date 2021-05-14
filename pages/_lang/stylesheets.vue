@@ -193,8 +193,6 @@
 
             label Editable Modal
             button.button.button-primary.mt-3(@click="showEditableModal") Show Modal
-
-
 </template>
 
 <script lang="ts">
@@ -218,6 +216,7 @@ import Modal from '@/components/modals/base/Modal.vue'
 import EditableModal from '@/components/modals/base/EditableModal.vue'
 import PriceInput from '@/components/forms/PriceInput.vue'
 import IntegerInput from '@/components/forms/IntegerInput.vue'
+import SignInUpModal from '@/components/modals/base/SignInUpModal.vue'
 import AsyncSuggesterInput, {
   ISuggestedValue,
 } from '@/components/forms/AsyncSuggesterInput.vue'
@@ -228,6 +227,7 @@ import { IAddress } from '@/helpers/modules/Geo'
 
 export default defineComponent({
   components: {
+    SignInUpModal,
     Input,
     Dropdown,
     DatePicker,

@@ -7,6 +7,21 @@ module.exports = {
   purge: ['./src/**/*.html', './src/**/*.vue'],
 
   theme: {
+    scale:{
+      '0': '0',
+      '25': '.25',
+      '50': '.5',
+      '75': '.75',
+      '90': '.9',
+      '95': '.95',
+      '100': '1',
+      '105': '1.05',
+      '110': '1.1',
+      '125': '1.25',
+      '150': '1.5',
+      '200': '2',
+     },
+
     screens: {
       xl: { max: '1281px' },
       lg: { max: '1025px' },
@@ -186,6 +201,18 @@ module.exports = {
               backgroundImage: `linear-gradient(to right, ${theme(
                 'colors.primary.600'
               )}, ${theme('colors.primary.600')})`,
+            },
+          },
+          '&-success': {
+            backgroundImage: `linear-gradient(to right, ${theme(
+              'colors.success.400'
+            )}, ${theme('colors.success.500')})`,
+            border: 'none',
+
+            '&:hover, &:active': {
+              backgroundImage: `linear-gradient(to right, ${theme(
+                'colors.success.600'
+              )}, ${theme('colors.success.600')})`,
             },
           },
         },

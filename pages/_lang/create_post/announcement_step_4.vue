@@ -1,8 +1,8 @@
 <template lang="pug">
 .management-page
-  section 
+  section
     .block-content
-    
+
     div
       h1.mt-24 ลงประกาศโครงการใหม่
       .mt-8.step-bar
@@ -26,7 +26,7 @@
               .dataText.active 4
               b.textLabel.active สรุปประกาศ
 
-      
+
       div.mt-16
         br
         h3 คุณภาพใบประกาศ
@@ -59,7 +59,6 @@
               div.border.border-small2.border-gray.grid.justify-items-center
                 a.active.mt-1.no-underline(href="/th/create_post/announcement_step_3") เพิ่มวิดีโอ
                   div.mt-4
-          
           div.col-span-2.justify-items-center.text-center.mr-12
             h5 ตัวอย่างใบประกาศในหน้าค้นหา
             img.transform-scale-75(src="~/static/images/exam.png")
@@ -71,13 +70,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from '@nuxtjs/composition-api'
-import Radios, { Option } from '@/components/forms/Radios.vue'
+import { defineComponent } from '@nuxtjs/composition-api'
 import InputProfile from '@/components/forms/InputProfile.vue'
 
 export default defineComponent({
   components: {
-    Radios,
     InputProfile,
   },
   data() {
@@ -109,7 +106,6 @@ export default defineComponent({
     },
   },
 })
-
 </script>
 
 <style lang="scss" scoped>
@@ -120,7 +116,7 @@ export default defineComponent({
 .step-bar {
   height: 56px;
 }
-.c-green{
+.c-green {
   color: rgb(39, 133, 101);
 }
 
@@ -136,22 +132,22 @@ export default defineComponent({
   border-color: rgb(202, 202, 202);
 }
 
-.border-small{
+.border-small {
   width: 220px;
   height: 80px;
 }
 
-.border-small2{
+.border-small2 {
   width: 220px;
   height: 40px;
 }
 
-.img-box{
+.img-box {
   width: 220px;
   height: 120px;
 }
 
-.img-box-small{
+.img-box-small {
   width: 110px;
   height: 95px;
 }
@@ -254,14 +250,13 @@ export default defineComponent({
   height: 50px;
   width: 85%;
 }
-  button {
-    @apply border-info-500 text-info-500 w-full;
-  }
+button {
+  @apply border-info-500 text-info-500 w-full;
+}
 .addphone {
   cursor: pointer;
   &:hover {
-    color:red;
+    color: red;
   }
 }
-
 </style>

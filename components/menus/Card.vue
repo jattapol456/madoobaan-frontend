@@ -1,39 +1,42 @@
 <template lang="pug">
 .card-section.mt-12
-  .card(class="bg-white w-auto h-full border-black-200 border-2")
+  .card.bg-white.w-full.h-full.border-black-200.border-2
     .card-image.relative
-      .ads(v-if="ads") {{ads}}
-      .likeIcon(v-if="likeIcon")
-        ion-icon(:src="likeIcon" name="heart-outline")
-      .review(v-if="review")
-        p {{review}}
-      p.absolute.text-white.text-sm.mb-2.ml-2.left-0.bottom-0 {{description}}
-      .logo(v-if="logo")
-        img(:src="logo")
-      img(:src="img")
+      .ads(v-if='ads') {{ ads }}
+      .likeIcon(v-if='likeIcon')
+        ion-icon(:src='likeIcon', name='heart-outline')
+      .review(v-if='review')
+        p {{ review }}
+      .description(v-if='bedroom')
+        p.absolute.text-white.text-sm.mb-2.ml-2.left-0.bottom-0 {{ bedroom }} ห้องนอน {{ bathroom }} ห้องน้ำ
+      .logo(v-if='logo')
+        img(:src='logo')
+      .img-card
+        img(:src='coverPhoto')
     .card-header.p-4
       .card-type.h5
-        p {{type}}
-      .card-estateName
-        h4 {{estateName}}
-      .card-title(v-if="title")
-        h4 {{title}}
+        p {{ type }}
+      .card-topicName
+        h4 {{ topicName }}
     .card-body.p-4
-      p {{startPrice}}
-      .price(v-if="price")
-        h4.text-info-500 {{price}} ฿
+      p {{ startPrice }}
+      .price(v-if='salePrice')
+        h4.text-info-500 {{ salePrice }} ฿
     .card-footer.p-4
-      .location.flex.text-center(v-if="location")
-        ion-icon(class="left-0 w-8 h-8" name="location-sharp")
-        p.mt-1 {{location}}
-      p.mt-1 {{dateCreated}}
+      .location.flex.items-center.text-center.space-x-2
+        ion-icon.left-0.w-4.h-4(name='location-sharp')
+        .locationDetail.space-x-2
+          p {{ subdistrict }}
+          p {{ district }}
+          p {{ province }}
+      p.mt-1 {{ dateCreated }}
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
   props: {
-    img: {
+    coverPhoto: {
       type: String,
       default: null,
     },
@@ -61,7 +64,11 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    estateName: {
+    topicName: {
+      type: String,
+      default: null,
+    },
+    salePrice: {
       type: String,
       default: null,
     },
@@ -69,11 +76,15 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    price: {
+    subdistrict: {
       type: String,
       default: null,
     },
-    location: {
+    district: {
+      type: String,
+      default: null,
+    },
+    province: {
       type: String,
       default: null,
     },
@@ -81,20 +92,27 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    title: {
+    bedroom: {
+      type: String,
+      default: null,
+    },
+    bathroom: {
       type: String,
       default: null,
     },
   },
 })
 </script>
-
-<style lang="scss" scope>
+<style lang="scss" scoped>
+.card-section {
+  @apply w-full;
+}
 p {
   @apply text-black-300;
 }
 .location {
-  p {
+  .locationDetail {
+    display: flex;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -108,8 +126,9 @@ p {
 }
 
 .card-image {
-  img {
+  .img-card img {
     width: 100%;
+    object-fit: cover;
   }
   .ads {
     @apply absolute border-2 border-white text-white p-1 mt-2 ml-2 left-0;

@@ -1,8 +1,6 @@
 <template lang="pug">
-.card-section.overflow-hidden.h-full.w-56
-  .card(class="bg-white border-black-200 border-2 p-4 w-full h-full")
-    .card-image.w-full.h-full
-      img(:src="img")
+.brandsCard(class="border-black-200 border-2 p-4 bg-white")
+  img(:src="img")
 </template>
 
 <script lang="ts">
@@ -18,8 +16,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.card-image {
+.brandsCard {
+  width: 200px;
+  height: 200px;
   img {
+    object-fit: cover;
     width: 100%;
     height: 100%;
   }
