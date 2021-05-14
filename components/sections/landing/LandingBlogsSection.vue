@@ -2,7 +2,7 @@
   Tab(@change="onTabChange" :currentTab="currentTab")
     template(v-slot:content)
       transition(name="fade")
-        .grid.grid-cols-4.gap-6
+        .grid.grid-cols-4.gap-6.overflow-x-auto
           template(v-if="currentTab === 'อัพเดทล่าสุด'")
             Card(v-for="item in articleCards" :key="item.id"
               :img="item.img"

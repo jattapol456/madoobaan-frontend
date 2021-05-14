@@ -21,7 +21,6 @@ module.exports = {
       {
         semi: false,
         singleQuote: true,
-        endOfLine: true,
       },
     ],
     'no-unused-vars': 'off',

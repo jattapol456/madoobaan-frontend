@@ -203,6 +203,18 @@ module.exports = {
               )}, ${theme('colors.primary.600')})`,
             },
           },
+          '&-success': {
+            backgroundImage: `linear-gradient(to right, ${theme(
+              'colors.success.400'
+            )}, ${theme('colors.success.500')})`,
+            border: 'none',
+
+            '&:hover, &:active': {
+              backgroundImage: `linear-gradient(to right, ${theme(
+                'colors.success.600'
+              )}, ${theme('colors.success.600')})`,
+            },
+          },
         },
       }
       addComponents(buttons)
