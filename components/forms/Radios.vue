@@ -62,7 +62,7 @@ export default defineComponent({
   watch: {
     val() {
       this.$emit('input', this.val)
-      this.$emit('change`')
+      this.$emit('change')
     },
 
     value: {

@@ -1,6 +1,6 @@
 <template lang="pug">
   .radio
-    input(v-bind="$attrs" v-on="listeners" type="radio" :checked="checked" :value="value")
+    input(v-bind="$attrs" v-on="listeners" type="radio" :checked="checked" v-on:change="onChange" :value="value")
     label(:for="$attrs.id")
       slot
 </template>
@@ -22,6 +22,10 @@ export default defineComponent({
       type: [String, Boolean],
       default: '',
     },
+    id: {
+      type: [String],
+      default: '',
+    },
 
     value: {
       type: [String, Number],
@@ -30,8 +34,8 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { modelValue } = toRefs(props)
 
+    const { modelValue } = toRefs(props)
     return {
       model: modelValue,
     }
@@ -39,10 +43,12 @@ export default defineComponent({
 
   computed: {
     checked(): boolean {
+      console.log(this.model)
       return this.model === this.value
     },
 
     listeners(): Record<string, Function | Function[]> {
+      console.log('test')
       return {
         ...this.$listeners,
         change: () => this.$emit('change', this.value),
@@ -52,6 +58,7 @@ export default defineComponent({
 
   methods: {
     onChanged() {
+      console.log('change')
       this.$emit('input', this.value)
     },
   },
