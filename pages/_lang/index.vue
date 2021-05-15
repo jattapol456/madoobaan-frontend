@@ -106,7 +106,7 @@
         .second-ad(class='block sm:hidden')
           img(src='https://source.unsplash.com/FWqWJC6leOA/1600x900')
 
-  section.mt-8
+  section.mt-16
     .block-content
       .ads-carousel.flex.justify-center.items-center.w-full.h-full
         .second-ad(class='hidden sm:block')

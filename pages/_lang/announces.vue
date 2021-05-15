@@ -1,31 +1,49 @@
 <template lang="pug">
 .management-page
-  section.Rent-dorm.mt-8
+  section.mt-20
     .block-content
-      .title-text
-        h3 เช่า/หอพัก
-        .flex
-          a ดูทั้งหมด
-          ion-icon(class="mt-2" name="chevron-forward")
       .card
-        .grid.grid-cols-4.gap-6(class="sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4")
-          Card(v-for="item in announceCards" :key="item.id"
-            :img="item.img"
-            :likeIcon="item.likeIcon"
-            :estateName="item.estateName"
-            :startPrice="item.startPrice"
-            :price="item.price"
-            :location="item.location")
+        AnnounceBlogsSection
+
+  section.mt-8
+  .block-content(class="sm:grid-cols-1 md:grid-cols-1")
+    .ads-carousel.flex.justify-center.items-center.w-full.h-full.grid
+      .first-ad
+        img(src="https://source.unsplash.com/mIqyYpSNq3o/1600x900")
+      .second-ad
+        img(src="https://source.unsplash.com/FWqWJC6leOA/1600x900")
+
+  .section-Pagination.pt-10.flex.justify-center
+    Pagination(:value='value', @change='handleChange')
+      
+
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 
+import Pagination from '@/components/menus/Pagination.vue'
 import Card from '@/components/menus/Card.vue'
+import AnnounceBlogsSection from '@/components/sections/landing/AnnounceBlogsSection.vue'
 
 export default defineComponent({
   components: {
     Card,
+    AnnounceBlogsSection,
+    Pagination,
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.second-ad img {
+  @apply p-2 h-64 object-cover;
+
+  width: 500px;
+}
+.first-ad img {
+  @apply p-2 h-64 object-cover;
+
+  width: 500px;
+}
+</style>

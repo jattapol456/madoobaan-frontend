@@ -2,7 +2,6 @@
 .management-page
   section
     .block-content
-
     div
       h1.mt-24 ลงประกาศโครงการใหม่
       .mt-8.step-bar
@@ -25,7 +24,6 @@
             .progress-step
               .dataText.active 4
               b.textLabel.active สรุปประกาศ
-
 
       div.mt-16
         br
