@@ -11,8 +11,22 @@
   h2,
   h3,
   h4,
+  h5,
+  h6,
+  p,
+  span,
+  b,
+  strong,
+  small {
+    @apply font-noto;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
   h5 {
-    @apply font-noto font-semibold;
+    @apply font-semibold;
 
     line-height: 1.5;
 

@@ -26,55 +26,11 @@ import Pagination from '@/components/menus/Pagination.vue'
 import Card from '@/components/menus/Card.vue'
 import AnnounceBlogsSection from '@/components/sections/landing/AnnounceBlogsSection.vue'
 
-import {
-  PROJECT_CARDS,
-  ANNOUNCE_CARDS,
-  BRAND_CARDS,
-  ARTICLE_CARDS,
-  HOMEREVIEW_CARDS,
-  KNOWLEDGE_CARDS,
-  LIFESTYLE_CARDS,
-} from '@/mocks/landing'
-
 export default defineComponent({
   components: {
     Card,
     AnnounceBlogsSection,
     Pagination,
-  },
-
-  tabs: ['tab1', 'tab2', 'tab3'],
-  currentTab: 'tab1',
-
-  computed: {
-    projectCards() {
-      return PROJECT_CARDS
-    },
-    announceCards() {
-      return ANNOUNCE_CARDS
-    },
-    brandsCards() {
-      return BRAND_CARDS
-    },
-    articleCards() {
-      return ARTICLE_CARDS
-    },
-    homeReviewCards() {
-      return HOMEREVIEW_CARDS
-    },
-    knowledgeCards() {
-      return KNOWLEDGE_CARDS
-    },
-    lifestyleCards() {
-      return LIFESTYLE_CARDS
-    },
-  },
-
-  methods: {
-    onTabChange(tab) {
-      console.log(tab)
-      this.currentTab = tab
-    },
   },
 })
 </script>

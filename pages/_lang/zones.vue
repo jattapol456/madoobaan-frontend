@@ -12,14 +12,14 @@
       .container.pt-10
         h1 โซนทั้งหมด
 
-      .zone(v-if="loading.fetching.subdistrict == false")
-          .img-container.pt-5
-            figure(v-for="(item) in subdistrictList2")
-              .zone-item.drop-shadow-lg
-                img(:src='item.img')
-                .zone-title
-                  figcaption
-                    h3 {{ item.subdistrictName }}
+    .zone(v-if="loading.fetching.subdistrict == false")
+        .img-container.pt-5
+          figure(v-for="(item) in subdistrictList2")
+            .zone-item.drop-shadow-lg
+              img(:src='item.img')
+              .zone-title
+                figcaption
+                  h3 {{ item.subdistrictName }}
 
     .section-Pagination.pt-10.flex.justify-center
       Pagination(:value='value', @change='handleChange')
