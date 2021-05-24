@@ -86,41 +86,8 @@
           value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
             img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
 
-          input.hidden(type="file" id="myFileInput_6")
-          div.input(type="button"
-          onclick="document.getElementById('myFileInput_6').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
-            img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
 
-          input.hidden(type="file" id="myFileInput_7")
-          div.input(type="button"
-          onclick="document.getElementById('myFileInput_7').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
-            img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
-
-          input.hidden(type="file" id="myFileInput_8")
-          div.input(type="button"
-          onclick="document.getElementById('myFileInput_8').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
-            img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
-
-          input.hidden(type="file" id="myFileInput_9")
-          div.input(type="button"
-          onclick="document.getElementById('myFileInput_9').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
-            img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
-
-          input.hidden(type="file" id="myFileInput_10")
-          div.input(type="button"
-          onclick="document.getElementById('myFileInput_10').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
-            img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
-
-          input.hidden(type="file" id="myFileInput_11")
-          div.input(type="button"
-          onclick="document.getElementById('myFileInput_11').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6.ml-3
-            img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
+        
 
         div.mt-4
           div.flex.w-full.justify-items-center.space-x-4
@@ -128,7 +95,7 @@
               button( onclick="window.location.href='http://localhost:8080/th/create_post/announcement_step_2';" value="return" ).button-secondary ย้อนกลับ
             div.mt-10.w-full
               button.button-secondary บันทึกแบบร่าง
-          button( onclick="window.location.href='http://localhost:8080/th/create_post/announcement_step_4';" value="nextpage" ).button-primary.mt-5 ต่อไป
+          button( onclick="window.location.href='http://localhost:8080/th/create_post/announcement_step_4';" value="nextpage" ).button.button-primary.mt-5 ต่อไป
 
 </template>
 
@@ -290,11 +257,12 @@ export default defineComponent({
   @apply border-2 border-black-400 p-3;
 }
 
-.button-primary {
-  background: #00aeef;
+ .button-primary {
+  background: #2C72CF;
   color: white;
-  height: 50px;
-  padding-left: 10px;
+}
+  button {
+    @apply border-info-500 text-info-500 w-full;
 }
 .button-secondary {
   background-color: white;
@@ -303,9 +271,7 @@ export default defineComponent({
   padding-left: 10px;
   height: 50px;
 }
-button {
-  @apply border-info-500 text-info-500 w-full;
-}
+
 .addphone {
   cursor: pointer;
   &:hover {
