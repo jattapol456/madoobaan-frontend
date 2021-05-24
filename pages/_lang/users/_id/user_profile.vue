@@ -3,7 +3,7 @@
     section
       .block-content
         h1.text-3xl.mt-24 ผู้ใช้ทั่วไป
-      
+
       .mt-10
         li.text-lg ข้อมูลส่วนตัว
 
@@ -13,14 +13,14 @@
             span.text-4xl.text-white J
 
           .col-span-2(class='md:col-span-12')
-            InputProfile.input(type=text,labels="ชื่อ*")
+            InputProfile.input(type="text",labels="ชื่อ*")
             InputProfile.input(type="tel",labels="กรุณากรอกเบอร์โทรศัพท์*",error="กรอกเบอร์โทรศัพท์")
-            
-            //- InputProfile.input(type=text,labels="เบอร์โทรศัพท์*",v-for="(phone, index) in phone",:key="index")
+
+            //- InputProfile.input(type="text",labels="เบอร์โทรศัพท์*",v-for="(phone, index) in phone",:key="index")
 
             .boxTest(v-for="(phone, index) in phone" :key="index")
               .relativeBox
-                InputProfile.input(type=text labels="เบอร์โทรศัพท์*")
+                InputProfile.input(type="text" labels="เบอร์โทรศัพท์*")
                 .deletePhone(@click="deletePhone()")
                   img(src="/delete icn.png",width="30px", alt="alt")
             .addphone(@click="addPhone()",v-if="phone.length < 1")
@@ -31,16 +31,16 @@
               label(for="cc") ใช้เบอร์โทรศัพท์หลักเป็น Line id
 
           .col-span-2(class='md:col-span-12')
-            InputProfile.input(type=text,labels="อีเมลล์หลัก*")
-            InputProfile.input(type=text,labels="Line_Id*",v-if="!checked")
-            InputProfile.input(type=text,labels="Facebook")
+            InputProfile.input(type="text",labels="อีเมลล์หลัก*")
+            InputProfile.input(type="text",labels="Line_Id*",v-if="!checked")
+            InputProfile.input(type="text",labels="Facebook")
             h1.text-3 *ตัวอย่าง https://www.facebook.com/profile
-            
+
 
         .flex.justify-between.space-x-10.mt-20
           button.button.w-full( onclick="window.location.href='http://localhost:8080/th/';" value="return" ) ยกเลิก
           button.button.button-primary.w-full บันทึกข้อมูล
-        
+
 
 </template>
 
@@ -55,42 +55,41 @@ export default defineComponent({
     InputProfile,
   },
   data() {
-    return{
+    return {
       phone: [] as any,
-      checked: false
+      checked: false,
     }
   },
   methods: {
-    addPhone: function(){
+    addPhone() {
       this.phone.push(1)
     },
-    checkboxer: function() {
-      this.checked = !this.checked  
+    checkboxer() {
+      this.checked = !this.checked
     },
-    deletePhone: function(){
+    deletePhone() {
       this.phone.pop()
     },
-  }
+  },
 })
 </script>
 
 <style lang="scss" scoped>
-
 .button-primary {
-  background: #2C72CF;
+  background: #2c72cf;
   color: white;
 }
-  button {
-    @apply border-info-500 text-info-500 w-full;
-  }
-  
+button {
+  @apply border-info-500 text-info-500 w-full;
+}
+
 .addphone {
   cursor: pointer;
   color: #00aeef;
   font-weight: 900;
   text-decoration: none !important;
   &:hover {
-    color:rgb(178, 137, 231);
+    color: rgb(178, 137, 231);
   }
 }
 

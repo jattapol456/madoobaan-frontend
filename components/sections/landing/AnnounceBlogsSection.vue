@@ -84,7 +84,6 @@ export default defineComponent({
   mounted() {
     this.fetchAnnounce()
     this.fetchAllAnnounce()
-
   },
 
   methods: {
@@ -122,7 +121,7 @@ export default defineComponent({
         })
         this.loading.fetching.allAnnounce = false
       })
-    }
+    },
   },
 })
 </script>

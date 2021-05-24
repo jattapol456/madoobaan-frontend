@@ -25,11 +25,11 @@ export const getters: GetterTree<State, State> & Getters = {
           (prev, current) => prev.profile?.id === current.profile?.id
         )
       ),
-  profile: (state) => state.profile,
+  profile: (state): ISimpleUser | null => state.profile,
   profileSetup: (state) =>
-    (Object.keys(
-      pick(state.profile!, ['firstname', 'lastname', 'tel', 'gender'])
-    ) as []).every((key) => state.profile?.[key]),
+    (Object.keys(pick(state.profile!, ['firstname', 'lastname', 'tel'])) as [
+
+    ]).every((key) => state.profile?.[key]),
 }
 
 export type NamespacedGetters = Namespaced<Getters, 'me'>

@@ -16,19 +16,19 @@
             img(src="https://d35q2c276lvyi.cloudfront.net/voacLPBqhr8lNZiMo80cAbrAT9d90HtPZCY4upmkZjc/fill/0/540/sm/1/aHR0cHM6Ly9hcGkubmF5b28uY28vYXR0YWNobWVudHMvcG9zdHMvNTMvZ2FsbGVyeS9QZW1JU3NaQVZqeUNST3l1REJGZHpIUEpMcWtsTHFHS1hHeGZRbktCLmpwZWc")
           .body
             img(src="https://d35q2c276lvyi.cloudfront.net/GrllBxXNGQwM2uk-PCNSwIziqwutJTdj9TFugac4peA/fill/0/540/sm/1/aHR0cHM6Ly9hcGkubmF5b28uY28vYXR0YWNobWVudHMvcG9zdHMvNTMvZ2FsbGVyeS9iODM4Y2VlMmZlYjUwOTE2Y2MzZWI4ZTQ4MDJmNzc2NS5qcGVn")
-  
+
   section.mt-8
     .block-content
       h1.text-2xl รังหมาป่า
       span.colortext.text-xl.mt-2 ฿ 5,500/เดือน
-      
+
       div.text-center.justify-items-center
       h2.text-xl.mt-5 ข้อมูลเบื้องต้น
         div
           .flex.grid.grid-cols-2.grid-rows-4.gap-4
             .div
               h3.text-4 ประเภท
-              sapn.text-4 ทาวน์โฮม เช่า 
+              sapn.text-4 ทาวน์โฮม เช่า
             .div
               h3.text-4 ห้องนอน
               span.text-4 3
@@ -36,7 +36,7 @@
               h3.text-4 ห้องน้ำ
               sapn.text-4 3
             .div
-              h3.text-4 ที่จอดรถ 
+              h3.text-4 ที่จอดรถ
               span.text-4 3
             .div
               h3.text-4 ขนาดที่ดิน
@@ -46,7 +46,7 @@
               span.text-4 140 ตร.ม
             .div
               h3.text-4 สถานะ
-              span.text-4 ว่าง 
+              span.text-4 ว่าง
             .div
               h3.text-4 ทิศของบ้าน
               span.text-4 ใต้
@@ -63,10 +63,10 @@
       h1.mt-3.text-xl.space-x-20 ติดต่อโครงการ
       .flex.justify-between.w-full.px-40.space-y-3.mt-3
         .div
-          InputProfile.input.test(type=text, labels='ชื่อ*')
-          InputProfile.input.test(type=text, labels='เบอร์โทรติดต่อ*')
-          InputProfile.input.test(type=text, labels='อีเมล*')
-          InputProfile.input.test(type=text, labels='Line ID*')
+          InputProfile.input.test(type="text", labels='ชื่อ*')
+          InputProfile.input.test(type="text", labels='เบอร์โทรติดต่อ*')
+          InputProfile.input.test(type="text", labels='อีเมล*')
+          InputProfile.input.test(type="text", labels='Line ID*')
           span.text-4.opacity-50 ข้อความ*
           Textarea
 
@@ -74,11 +74,11 @@
           .div
             img.avatar.w-12.h-12(src="/icon.png")
           .div
-            span.fw-500 บริษัท สินอริยะ จำกัด 
+            span.fw-500 บริษัท สินอริยะ จำกัด
           .div
             small.text-dark-grey บริษัทอสังหาริมทรัพย์
           .div
-            span ดูโปรไฟล์ 
+            span ดูโปรไฟล์
           .div
           button.button.w-full โทรหาผู้ปล่อยเช่า
           button.button.w-full เพิ่มไลน์กับผู้ปล่อยเช่า
@@ -86,15 +86,15 @@
           .div
           span แจ้งไม่เหมาะสม
 
-              
+
 
           //- h1.text-xl.mt-5 โครงการแนะนำ
           //- LandingBlogsSection
-          
 
 
-            
-      
+
+
+
 
 </template>
 
@@ -114,7 +114,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
 .colortext {
   color: #00aeef;
   font-weight: 500;
@@ -128,18 +127,18 @@ export default defineComponent({
 }
 
 .avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    -o-object-fit: contain;
-    object-fit: contain;
-    border: 1px solid #ebeceb;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
+  border: 1px solid #ebeceb;
 }
 
 .button {
-    @apply border-info-500 text-info-500 w-full;
-  }
-  
+  @apply border-info-500 text-info-500 w-full;
+}
+
 .management-page {
   @apply flex w-full h-full max-w-7xl m-auto;
 }
@@ -157,9 +156,4 @@ export default defineComponent({
   height: 100% !important;
   width: 100%;
 }
-
 </style>
-
-
-
-

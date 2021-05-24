@@ -3,16 +3,11 @@
     SignInUpModal(ref="signInUpModal")
 
     .nav-container
-      .menus.space-x-4
-        .logo.flex-none
-          img(src="https://www.madoobaan.com/wp-content/uploads/2021/04/sm_long_logo-2.png",width="300px")
-        .search.flex.justify-around
-          Input(placeholder="พิมพ์โซน ชื่อโครงการ")
-          .w-10.h-10.bg-info-900.right-0
-            ion-icon(class="m-3" style="color: #FFFFFF" name="search")
-
+      .menus
+        nuxt-link(to="/").logo.flex-none
+          img(class="w-full h-full object-none sm:object-right sm:w-16 sm:h-24" src="https://www.madoobaan.com/wp-content/uploads/2021/04/sm_long_logo-2.png",width="300px")
         .right-menu
-          .item.space-x-4.flex.text-white.justify-items-center.items-center.flex-wrap
+          .item-menu.space-x-10.flex.text-white.justify-items-center.items-center.flex-wrap
             a ซื้อโครงการใหม่
             a ซื้อบ้านมือสอง
             a เช่า/หอพัก
@@ -29,22 +24,20 @@
                   li
                     a ค้นหาเจ้าของโครงการ
 
-            a(href="#" class="no-underline" @click="showSignUpModal") เข้าสู่ระบบ
-        button.button.button-success.text-white(@click="showSignUpModal") ลงประกาศฟรี
-        ion-icon.menubar(name="menu" @click="showMenus")
-
         template(v-if="authenticated")
+          nuxt-link(to="/th/announcement_step_1").button.button-success.text-white ลงประกาศฟรี
           .item.user-dropdown(@click="showUserDropdown")
-            .button-wrapper
-              img.square-12.rounded-lg.overflow-hidden(:src="profile && profile.imageProfileUrl ? profile.imageProfileUrl : '/images/mock-up/avatar/male.png'")
-              button.button.bg-transparent.square-6.p-0.border-0.ml-2.pointer-events-none
-                ion-icon(name="caret-down")
+            .button-wrapper.flex.items-center.pointer-events-none
+              img.rounded-full.square-12.overflow-hidden(:src="profile && profile.imageProfileUrl ? profile.imageProfileUrl : '/images/mock-up/avatar/male.png'")
+              button.button.bg-transparent.square-6.p-0.border-0.ml-2
             UserDropdown(ref="userDropdown")
 
-        //- template(v-else)
-        //-   .item
-        //-     button.button.button-success.text-white(@click="showSignUpModal") ลงประกาศฟรี
-    .bg-white.w-full.absolute.mt-16.top-0(v-if="isShow")
+        template(v-else)
+          .item
+            button.button.button-success.text-white(@click="showSignUpModal") ลงประกาศฟรี
+
+        ion-icon.menubar(name="menu" @click="showMenus")
+    .menu-list(class="bg-white w-full absolute mt-16 top-0 lg:hidden md:hidden sm:hidden" v-if="isShow")
       .flex.flex-col.items-center.h-full.justify-around.space-y-5.py-5
         a ซื้อโครงการใหม่
         a ซื้อบ้านมือสอง
@@ -53,10 +46,6 @@
         .bg-black-900.h-1.w-full
         a ค้นหาตัวแทนอสังหาฯ
         a ค้นหาเจ้าของโครงการ
-        a เข้าสู่ระบบ
-        button.button.button-success.text-white(@click="showSignUpModal") ลงประกาศฟรี
-
-
 
 </template>
 
@@ -133,21 +122,23 @@ a {
 .top-navigation-bar {
   @apply fixed py-5 top-0 left-0 w-full h-16 px-16 z-50 transition duration-500 items-center justify-center flex;
 
+  &.nav-post {
+    @apply bg-primary-50 shadow-xl;
+    .item-menu a {
+      color: #000;
+    }
+    .menubar {
+      color: #000;
+    }
+  }
+
   &.sticky-header {
     @apply bg-info-500;
 
-    .right-menu {
+    .item-menu {
       &:last-child {
         .menu-item {
           @apply text-white;
-
-          &:last-child {
-            @apply border-white;
-
-            &:hover {
-              @apply bg-white text-primary-500;
-            }
-          }
         }
       }
     }
@@ -179,18 +170,6 @@ a {
         }
       }
     }
-  }
-
-  .logo {
-    @apply left-0 top-0 cursor-pointer;
-
-    img {
-      @apply w-40 py-5 bg-center;
-    }
-  }
-
-  .search {
-    @apply w-48;
   }
 
   .menubar {

@@ -5,18 +5,18 @@
     div
       h1.mt-24 ลงประกาศโครงการใหม่
       .mt-8.step-bar
-        .rower.mx-0.h-100
-          .step.px-0.coler
+        .rower.mx-0
+          .step.px-0.color
             .progress-line.progress-active
             .progress-step
               .dataText.active 1
               b.textLabel.active ข้อมูลสำคัญ
-          .step.px-0.coler
+          .step.px-0.color
             .progress-line.progress-active
             .progress-step
               .dataText.active 2
               b.textLabel.active ข้อมูลเพิ่มเติม
-          .step.px-0.coler
+          .step.px-0.color
             .progress-step
               .dataText.active 3
               b.textLabel.active รูปภาพและวิดีโอ
@@ -46,7 +46,7 @@
                     label +10%
                     label.ml-2 เมื่อมี 6 รูปขึ้นไป
               div.border.border-small2.border-gray.grid.justify-items-center
-                a.active.mt-1.no-underline(href="/th/create_post/announcement_step_3") เพิ่มจำนวนรูปภาพ
+                nuxt-link(to="/th/announcement_step_3").active.mt-1.no-underline เพิ่มจำนวนรูปภาพ
                   div.mt-4
             div
               div.border.border-small.border-gray.mt-4.grid.justify-items-center
@@ -55,52 +55,53 @@
                     label +10%
                     label.ml-2 เมื่อมีวิดีโอ
               div.border.border-small2.border-gray.grid.justify-items-center
-                a.active.mt-1.no-underline(href="/th/create_post/announcement_step_3") เพิ่มวิดีโอ
+                nuxt-link(to="/th/announcement_step_3").active.mt-1.no-underline เพิ่มวิดีโอ
                   div.mt-4
           div.col-span-2.justify-items-center.text-center.mr-12
             h5 ตัวอย่างใบประกาศในหน้าค้นหา
             img.transform-scale-75(src="~/static/images/exam.png")
           div.mt-16.justify-items-center
               button.button-secondary.mt-5 ดูใบประกาศ
-              button.button-secondary.mt-5 แก้ไขอีกครั้ง
-              button.button-primary.mt-5 ลงประกาศ
+              button.button-secondary.mt-5(@click="backPage") แก้ไขอีกครั้ง
+              button.button-success.bg-success-500.mt-5(v-on:click="submit()") ลงประกาศ
 
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import InputProfile from '@/components/forms/InputProfile.vue'
+import { AnnouncesService } from '@/services'
 
 export default defineComponent({
   components: {
     InputProfile,
   },
+  layout: 'post',
   data() {
     return {
-      mock: [
-        {
-          label: 'ขาย',
-          value: 'sale',
-        },
-        {
-          label: 'เช่า',
-          value: 'buy',
-        },
-        {
-          label: 'ขายและเช่า',
-          value: 'test1',
-        },
-        {
-          label: 'หอพัก/อพาร์ทเม้นท์ (สำหรับเจ้าของตึก)',
-          value: 'test2',
-        },
-      ],
-      mockValue: 'sale',
+      form: {
+        houseNumber: '',
+        moo: '',
+        soi: '',
+        road: '',
+        province: '',
+        district: '',
+        subDistrict: '',
+        zipcode: '',
+        announceType: '',
+        type: '',
+      } as any,
     }
   },
   methods: {
-    onRadioChange(value) {
-      this.mockValue = value
+    nextPage() {
+      this.$router.push('/th/announcement_step_4')
+    },
+    backPage() {
+      this.$router.push('/th/announcement_step_1')
+    },
+    submit() {
+      AnnouncesService.postAnnounces(this.form).then(function (_response) {})
     },
   },
 })
@@ -174,7 +175,7 @@ export default defineComponent({
   margin-left: 15px !important;
 }
 
-.coler {
+.color {
   flex-basis: 0;
   flex-grow: 1;
   max-width: 100%;
@@ -233,8 +234,7 @@ export default defineComponent({
   @apply border-2 border-black-400 p-3;
 }
 
-.button-primary {
-  background: #00aeef;
+.button-success {
   color: white;
   height: 50px;
   padding-left: 10px;
