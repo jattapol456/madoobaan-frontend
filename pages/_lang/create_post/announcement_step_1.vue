@@ -305,4 +305,5 @@ export default defineComponent({
   top: 10px;
   opacity: 0.7;
 }
+
 </style>

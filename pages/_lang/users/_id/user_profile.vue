@@ -96,6 +96,7 @@ button {
 .management-page {
   @apply flex w-full h-full max-w-7xl m-auto;
 }
+
 .relativeBox {
   position: relative;
 }
@@ -106,4 +107,9 @@ button {
   top: 10px;
   opacity: 0.7;
 }
+<<<<<<< HEAD
 </style>
+=======
+
+</style>
+>>>>>>> c7df01ab8c9daed2c7a39925c690e6b82bd34918
