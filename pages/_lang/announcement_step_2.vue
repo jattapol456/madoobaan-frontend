@@ -182,7 +182,8 @@
 
         .flex.justify-between.space-x-2.mt-5
           button.button(@click="backPage") ย้อนกลับ
-          button.button บันทึกแบบร่าง
+          //- button.button บันทึกแบบร่าง
+          button.button(v-on:click="submit()") บันทึกแบบร่าง
         .mt-5
           button.button.button-next(to="/th/announcement_step_3" @click='nextPage') ต่อไป
 
@@ -195,6 +196,7 @@ import Dropdown from '@/components/forms/Dropdown.vue'
 import RadioForm from '@/components/forms/RadioForm.vue'
 import Checkbox from '@/components/forms/Checkbox.vue'
 import Textarea from '@/components/forms/TextArea.vue'
+import { AnnouncesService } from '@/services'
 
 export default defineComponent({
   components: {
@@ -378,6 +380,20 @@ export default defineComponent({
       facilities: [] as any,
     }
   },
+
+  mounted() {
+    const post = this.$store.getters['modules/context/post']
+
+    if (post) {
+      this.form = {
+        ...this.form,
+        ...post,
+      }
+
+      console.log('STEP 2: ', this.form)
+    }
+  },
+
   methods: {
     nextPage() {
       this.$store.dispatch('modules/context/SETUP_POST', this.form)
@@ -420,6 +436,10 @@ export default defineComponent({
     },
     onAgentChange(agent) {
       this.form.agent = agent
+    },
+
+    submit() {
+      AnnouncesService.postAnnounces(this.form).then(function (_response) {})
     },
   },
 })

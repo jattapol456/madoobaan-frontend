@@ -18,13 +18,13 @@ type AugmentedActionContext = {
 export interface Actions {
   [ActionTypes.SETUP_POST](
     { commit }: AugmentedActionContext,
-    payload: IinsertAnnounce
+    payload: IinsertAnnounce | null
   ): void
 }
 
 export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.SETUP_POST]({ commit }, payload) {
-    commit(MutationTypes.SETUP_POST, payload)
+    commit(MutationTypes.SETUP_POST, payload!)
   },
 }
 
