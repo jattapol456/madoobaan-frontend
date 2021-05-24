@@ -11,7 +11,7 @@
         div.flex.space-x-1.mt-3
           label.label-grey เลขที่สมาชิก
           label.label-grey xxxxxxxxxx
-          label.label-blue <a href="#" class="no-underline">แก้ไขโปรไฟล์ &gt;</a>
+          label.label-blue <a href="users/1/user_profile" class="no-underline">แก้ไขโปรไฟล์ &gt;</a>
     div.mt-6.w-full
       ul.ulgrey.flex.border-b.space-x-4.mt-12
         li
@@ -34,7 +34,6 @@
             button.button.button-secondary.ml-1 ลบ
             button.button.button-secondary แก้ไข
     .mt-8.flex.justify-center
-      Pagination(:value='value', @change='handleChange')
 
 </template>
 
@@ -42,41 +41,11 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import Radios from '@/components/forms/Radios.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
-import Pagination from '@/components/menus/Pagination.vue'
 
 export default defineComponent({
   components: {
     Radios,
     InputProfile,
-    Pagination,
-  },
-  data() {
-    return {
-      mock: [
-        {
-          label: 'ขาย',
-          value: 'sale',
-        },
-        {
-          label: 'เช่า',
-          value: 'buy',
-        },
-        {
-          label: 'ขายและเช่า',
-          value: 'test1',
-        },
-        {
-          label: 'หอพัก/อพาร์ทเม้นท์ (สำหรับเจ้าของตึก)',
-          value: 'test2',
-        },
-      ],
-      mockValue: 'sale',
-    }
-  },
-  methods: {
-    onRadioChange(value) {
-      this.mockValue = value
-    },
   },
 })
 </script>

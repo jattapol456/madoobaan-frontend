@@ -12520,18 +12520,18 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+swiper@5.4.2:
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-5.4.2.tgz#ed4cf60ea7100edac2703e406ae4ae2c43d33e7c"
+  integrity sha512-c6E5kDC3xAhnhdV0omIkDKLr+qNxzMfTO3Nw/T4xNAwSMoJwPvgsRoVzDBEUQbkWqwomHsvcjPMn12VQ6IHDTQ==
+  dependencies:
+    dom7 "^2.1.5"
+    ssr-window "^2.0.0"
+
 swiper@^2.7.6:
   version "2.7.6"
   resolved "https://registry.yarnpkg.com/swiper/-/swiper-2.7.6.tgz#9b6c782adde0301a35d7219cf4d850964a43687a"
   integrity sha1-m2x4Kt3gMBo11yGc9NhQlkpDaHo=
-
-swiper@^5.4.2:
-  version "5.4.5"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-5.4.5.tgz#a350f654bf68426dbb651793824925512d223c0f"
-  integrity sha512-7QjA0XpdOmiMoClfaZ2lYN6ICHcMm72LXiY+NF4fQLFidigameaofvpjEEiTQuw3xm5eksG5hzkaRsjQX57vtA==
-  dependencies:
-    dom7 "^2.1.5"
-    ssr-window "^2.0.0"
 
 symbol-tree@^3.2.4:
   version "3.2.4"
