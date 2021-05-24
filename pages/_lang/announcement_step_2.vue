@@ -182,9 +182,8 @@
 
         .flex.justify-between.space-x-2.mt-5
           button.button(@click="backPage") ย้อนกลับ
-          button.button บันทึกแบบร่าง
-        .mt-5
           button.button.button-next(to="/th/announcement_step_3" @click='nextPage') ต่อไป
+
 
 </template>
 
@@ -378,6 +377,20 @@ export default defineComponent({
       facilities: [] as any,
     }
   },
+
+  mounted() {
+    const post = this.$store.getters['modules/context/post']
+
+    if (post) {
+      this.form = {
+        ...this.form,
+        ...post,
+      }
+
+      console.log('STEP 2: ', this.form)
+    }
+  },
+
   methods: {
     nextPage() {
       this.$store.dispatch('modules/context/SETUP_POST', this.form)

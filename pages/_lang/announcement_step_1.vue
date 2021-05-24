@@ -30,14 +30,14 @@
       RadioForm(
         :options='announceType',
         name='announceType',
-        @input='onFloorChange'
+        @input='onAnnounceTypeChange'
       )
       .mt-5
       span.text-xl ประเภทอสังหาริมทรัพย์*
       RadioForm(
         :options='type',
         name='type',
-        @input='onBedroomChange'
+        @input='onTypeChange'
       )
       .mt-5
         span.text-xl ที่อยู่*
@@ -124,10 +124,7 @@
 
         .flex.justify-between.space-x-2.mt-5
           button.button(@click="backPage") ยกเลิก
-          button.button บันทึกแบบร่าง
-
-        .mt-5
-        button.button.button-next(to="/th/announcement_step_2" @click='nextPage') ต่อไป
+          button.button.button-next(to="/th/announcement_step_2" @click='nextPage') ต่อไป
 
 </template>
 
@@ -229,14 +226,22 @@ export default defineComponent({
     }
   },
   mounted() {
+    const post = this.$store.getters['modules/context/post']
+
+    this.form.type = 'คอนโด'
+    if (post) {
+      // console.log(post)
+      this.form.type = 'คอนโด'
+
+      console.log('STEP 1: ', this.form)
+    }
+
     this.province = provinceData.map((data) => {
       return {
         value: data.PROVINCE_ID,
         content: data.PROVINCE_NAME,
       }
     })
-
-    // this.form = this.$store.getters['modules/context/annouces']
   },
   methods: {
     nextPage() {
@@ -279,15 +284,15 @@ export default defineComponent({
     checkboxer() {
       this.checked = !this.checked
     },
-    onFloorChange(val) {
-      console.log(val)
-      this.form.announceType = val
-      console.log('this floor:', this.form.announceType)
+    onAnnounceTypeChange(announceType) {
+      // console.log(announceType)
+      this.form.announceType = announceType
+      // console.log('this floor:', this.form.announceType)
     },
-    onBedroomChange(bed) {
-      console.log(bed)
-      this.form.type = bed
-      console.log('this type:', this.form.type)
+    onTypeChange(type) {
+      // console.log(type)
+      this.form.type = type
+      // console.log('this type:', this.form.type)
     },
   },
 })

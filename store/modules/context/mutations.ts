@@ -28,8 +28,6 @@ export const mutations: MutationTree<State> & Mutations = {
 
   [MutationTypes.SETUP_POST](state, payload) {
     state.post = payload
-
-    console.log('ANNOUCES', payload)
   },
 }
 

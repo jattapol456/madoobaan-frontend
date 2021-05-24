@@ -31,3 +31,38 @@ export interface IinsertAnnounce {
   coverPhoto?: string
   photo?: string[]
 }
+
+export interface IAnnounce {
+  id?: number
+  type?: string
+  houseNumber?: string
+  moo?: string
+  soi?: string
+  road?: string
+  province?: string
+  district?: string
+  subdistrict?: string
+  zipcode?: string
+  floor?: string
+  bedroom?: string
+  bathroom?: string
+  parking?: string
+  direction?: string
+  furniture?: string
+  rai?: string
+  ngan?: string
+  squareWa?: string
+  squareMeter?: string
+  salePrice?: string
+  rentalCommonfee?: string
+  roomStatus?: string
+  agent?: string
+  commonFee?: string[]
+  security?: string[]
+  facilities?: string[]
+  topicName?: string
+  announceCode?: string
+  moreDetails?: string
+  coverPhoto?: string
+  photo?: string[]
+}
