@@ -16,16 +16,16 @@
                   |  and
                   a.underline Privacy Policy.
 
-                .button-group.mt-6
-                  button.button.text-facebook(:disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" @click="signInWithFacebook")
-                    img(src="/images/logo/logo-facebook.svg")
-                    | เข้าสู่ระบบด้วย Facebook
+                //- .button-group.mt-6
+                //-   button.button.text-facebook(:disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" @click="signInWithFacebook")
+                //-     img(src="/images/logo/logo-facebook.svg")
+                //-     | เข้าสู่ระบบด้วย Facebook
 
-                  button.button.text-black-300(:disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" @click="signInWithGoogleAccount")
-                    img(src="/images/logo/logo-google.svg")
-                    | เข้าสู่ระบบด้วย Google
+                //-   button.button.text-black-300(:disabled="loading.signin.email || loading.signin.google || loading.signin.facebook" @click="signInWithGoogleAccount")
+                //-     img(src="/images/logo/logo-google.svg")
+                //-     | เข้าสู่ระบบด้วย Google
 
-                .divider.mt-4(data-text="หรือ")
+                //- .divider.mt-4(data-text="หรือ")
 
                 validation-observer.mt-4(ref="signInForm" v-slot="{ handleSubmit }")
                   form(@submit.prevent="handleSubmit(fetchSignInMethods)")

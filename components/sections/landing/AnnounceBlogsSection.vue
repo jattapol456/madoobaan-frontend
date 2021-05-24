@@ -91,7 +91,6 @@ export default defineComponent({
     this.fetchAnnounce()
     this.fetchPaginationAnnounce()
     this.fetchAllAnnounce()
-
   },
 
   methods: {
@@ -128,29 +127,6 @@ export default defineComponent({
           }
         })
         this.loading.fetching.allAnnounce = false
-      })
-    },
-    handleChange(newPage) {
-      this.value.page = newPage
-      this.recommendAnnounceList2 = this.recommendAnnounceList.slice(
-        (this.value.page - 1) * this.perPage,
-        this.value.page * this.perPage
-      )
-    },
-
-    fetchPaginationAnnounce() {
-      this.loading.fetching.recommendAnnounce = true
-
-      AnnouncesService.getAllAnnounces().then((res) => {
-        this.recommendAnnounceList = res
-        this.value.totalPages = Math.ceil(
-          this.recommendAnnounceList.length / this.perPage
-        )
-        this.recommendAnnounceList2 = this.recommendAnnounceList.slice(
-          (this.value.page - 1) * this.perPage,
-          this.value.page * this.perPage
-        )
-        this.loading.fetching.recommendAnnounce = false
       })
     },
   },

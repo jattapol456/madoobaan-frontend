@@ -1,16 +1,22 @@
 <template lang="pug">
-.management-page
-  section
-    .block
-      pre {{ profile }}
+  .management-page
+    section
+      .block-content
+        UserProfile
+
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from '@nuxtjs/composition-api'
 
 import { Store } from '@/types/store'
+import UserProfile from '@/components/forms/UserProfile.vue'
 
 export default defineComponent({
+  components: {
+    UserProfile,
+  },
+  layout: 'post',
   setup() {
     const { route, store } = useContext()
 
