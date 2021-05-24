@@ -6,12 +6,12 @@
         AnnounceBlogsSection
 
   section.mt-8
-  .block-content(class="sm:grid-cols-1 md:grid-cols-1")
-    .ads-carousel.flex.justify-center.items-center.w-full.h-full.grid
-      .first-ad
-        img(src="https://source.unsplash.com/mIqyYpSNq3o/1600x900")
-      .second-ad
-        img(src="https://source.unsplash.com/FWqWJC6leOA/1600x900")
+    .block-content
+      .ads-carousel.flex.justify-center.items-center.w-full.h-full
+        .first-ad
+          img(src='https://source.unsplash.com/mIqyYpSNq3o/1600x900')
+        .second-ad(class='block sm:hidden')
+          img(src='https://source.unsplash.com/FWqWJC6leOA/1600x900')
 
   .section-Pagination.pt-10.flex.justify-center
     Pagination(:value='value', @change='handleChange')

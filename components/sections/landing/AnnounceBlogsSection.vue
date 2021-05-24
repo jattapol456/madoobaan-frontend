@@ -43,12 +43,12 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 
-import TabToPageAnnounce from '@/components/menus/TabToPageAnnounce.vue'
-import Card from '@/components/menus/Card.vue'
-
 import { ANNOUNCE_CARDS, PROJECT_CARDS } from '@/mocks/landing'
 import { IinsertAnnounce } from '@/types/announces'
 import { AnnouncesService } from '@/services'
+
+import TabToPageAnnounce from '@/components/menus/TabToPageAnnounce.vue'
+import Card from '@/components/menus/Card.vue'
 
 export default defineComponent({
   components: {
@@ -59,8 +59,14 @@ export default defineComponent({
   data() {
     return {
       currentTab: 'ประกาศแนะนำ',
+      perPage: 16,
+      value: {
+        page: 1,
+        totalPages: 1,
+      },
 
       recommendAnnounceList: [] as IinsertAnnounce[],
+      recommendAnnounceList2: [] as IinsertAnnounce[],
       allAnnounceList: [] as IinsertAnnounce[],
 
       loading: {
@@ -83,6 +89,7 @@ export default defineComponent({
 
   mounted() {
     this.fetchAnnounce()
+    this.fetchPaginationAnnounce()
     this.fetchAllAnnounce()
 
   },
@@ -122,7 +129,30 @@ export default defineComponent({
         })
         this.loading.fetching.allAnnounce = false
       })
-    }
+    },
+    handleChange(newPage) {
+      this.value.page = newPage
+      this.recommendAnnounceList2 = this.recommendAnnounceList.slice(
+        (this.value.page - 1) * this.perPage,
+        this.value.page * this.perPage
+      )
+    },
+
+    fetchPaginationAnnounce() {
+      this.loading.fetching.recommendAnnounce = true
+
+      AnnouncesService.getAllAnnounces().then((res) => {
+        this.recommendAnnounceList = res
+        this.value.totalPages = Math.ceil(
+          this.recommendAnnounceList.length / this.perPage
+        )
+        this.recommendAnnounceList2 = this.recommendAnnounceList.slice(
+          (this.value.page - 1) * this.perPage,
+          this.value.page * this.perPage
+        )
+        this.loading.fetching.recommendAnnounce = false
+      })
+    },
   },
 })
 </script>
