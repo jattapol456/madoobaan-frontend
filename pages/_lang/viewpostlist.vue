@@ -34,7 +34,6 @@
             button.button.button-secondary.ml-1 ลบ
             button.button.button-secondary แก้ไข
     .mt-8.flex.justify-center
-      Pagination(:value='value', @change='handleChange')
 
 </template>
 
@@ -42,41 +41,11 @@
 import {defineComponent, useContext } from '@nuxtjs/composition-api'
 import Radios from '@/components/forms/Radios.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
-import Pagination from '@/components/menus/Pagination.vue'
 
 export default defineComponent({
   components: {
     Radios,
     InputProfile,
-    Pagination,
-  },
-  data() {
-    return {
-      mock: [
-        {
-          label: 'ขาย',
-          value: 'sale',
-        },
-        {
-          label: 'เช่า',
-          value: 'buy',
-        },
-        {
-          label: 'ขายและเช่า',
-          value: 'test1',
-        },
-        {
-          label: 'หอพัก/อพาร์ทเม้นท์ (สำหรับเจ้าของตึก)',
-          value: 'test2',
-        },
-      ],
-      mockValue: 'sale',
-    }
-  },
-  methods: {
-    onRadioChange(value) {
-      this.mockValue = value
-    },
   },
 })
 
