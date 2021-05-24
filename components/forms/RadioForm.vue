@@ -1,9 +1,35 @@
 <template lang="pug">
-  .radio.space-x-5.mt-2
-    label.container(v-for="(option, i) in options") 
-      .text {{option.label}}
-      input.inputControl(:id="`romeo_${option.value}`",:name="name",type="radio")
-      span.checkmark
+.radio.space-x-5.mt-2
+  label.container(v-for='(option, i) in options')
+    .text {{ option.label }}
+    input.inputControl(
+      v-if='type == "custom"'
+      :id='`radio_${option.value}`',
+      :name='name',
+      type='radio',
+      :value='option.value',
+      @click="test(option.value)"
+    )
+    input.inputControl(
+      v-if='type != "custom"'
+      :id='`radio_${option.value}`',
+      :name='name',
+      type='radio',
+      :value='option.value',
+      v-model='val'
+    )
+    span.checkmark
+  label.container(v-if='type == "custom"')
+    .text ระบุเอง
+    input.inputControl(id='`radio_custom`',
+      :name='name',
+      type='radio',
+      v-model="cuss"
+      value="true"
+    )
+    span.checkmark
+  div(v-if='cuss == "true"')
+    input.custom-input(v-model='val')
 </template>
 
 <script lang="ts">
@@ -18,6 +44,10 @@ export default defineComponent({
   },
 
   props: {
+    type: {
+      type: [String],
+      default: '',
+    },
     modelValue: {
       type: [String, Boolean],
       default: '',
@@ -41,19 +71,23 @@ export default defineComponent({
           label: 'Option 1',
           value: 'option-1',
         },
-        {
-          label: 'Option 2',
-          value: 'option-2',
-        },
       ],
     },
   },
 
   setup(props) {
-
     const { modelValue } = toRefs(props)
+    // - console.log('start:', props)
+
     return {
       model: modelValue,
+    }
+  },
+  data() {
+    return {
+      val: 'option-1',
+      cuss: 'false',
+      sss: '',
     }
   },
 
@@ -64,18 +98,35 @@ export default defineComponent({
     },
 
     listeners(): Record<string, Function | Function[]> {
-      console.log('test')
       return {
         ...this.$listeners,
         change: () => this.$emit('change', this.value),
       }
     },
   },
+  watch: {
+    val() {
+      this.$emit('input', this.val)
+      this.$emit('change')
+      // - console.log('cuss :', this.cuss)
+    },
 
+    value: {
+      handler(value) {
+        this.val = value
+      },
+
+      immediate: true,
+    },
+  },
   methods: {
-    onChanged() {
-      console.log('change')
-      this.$emit('input', this.value)
+    test(text) {
+      this.cuss = 'false'
+      this.val = text
+      // - console.log('test :', this.cuss)
+    },
+    checkTrue() {
+      this.cuss = 'true'
     },
   },
 })
@@ -83,13 +134,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .radio {
-  display:block;
+  display: block;
   margin-bottom: 15px;
 }
 
 label {
   display: inline-block !important;
-  margin-left:5px;
+  margin-left: 5px;
 }
 
 .inputControl {
@@ -108,8 +159,8 @@ label {
 }
 
 .container input {
-  position: absolute;
-  opacity: 0;
+  @apply hidden;
+
   cursor: pointer;
 }
 .text {
@@ -137,7 +188,7 @@ label {
 }
 
 .checkmark::after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
@@ -147,12 +198,14 @@ label {
 }
 
 .container .checkmark::after {
- 	top: 5px;
-	left: 4.5px;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: white;
-}
+  @apply w-2 h-2 bg-white rounded-full;
 
+  left: 5px;
+  top: 5px;
+}
+input {
+  @apply px-3 font-noto border-black-100 border rounded-sm;
+
+  height: 3.5rem;
+}
 </style>

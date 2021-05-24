@@ -10,12 +10,12 @@
           div(class="flex flex-col w-3/4")
             .flex.items-center.justify-center
             .search-zone.bg-white.w-full.p-3
-              .grid.grid-cols-4.gap-4
+              div(class="grid grid-cols-4 gap-4 md:grid-cols-1 sm:grid-cols-1")
                 .search-project.flex.justify-between
                   Input(placeholder="พิมพ์โซน ชื่อโครงการ")
                   .w-10.h-10.bg-info-900.right-0
                     ion-icon(class="m-3" style="color: #FFFFFF" name="search")
-                Dropdown(placeholder='ประเภทอสังหาริมทรัพย์' :options='dropdownType' v-model='seletedType')
+                Dropdown.type(placeholder='ประเภทอสังหาริมทรัพย์' :options='dropdownType' v-model='seletedType')
                 Dropdown(placeholder='จังหวัด' :options='dropdownProvinces' v-model='seletedProvinces')
                 button.button.button-primary ค้นหา
 
@@ -27,7 +27,7 @@
           nuxt-link(to="/th/zones") ดูทั้งหมด
           ion-icon.mt-2(name='chevron-forward')
       .zones
-        .img-container.max-w-full.flex.grid.grid-cols-6.grid-rows-2.gap-3.mt-10
+        .img-container.min-w-full.flex.grid.grid-cols-6.grid-rows-2.gap-3.mt-10
           figure(v-for="item in subdistrictList")
             .zone-item.drop-shadow-lg
               img(:src='item.img')
@@ -100,16 +100,10 @@
 
   section.mt-8
     .block-content
-      .ads-carousel.flex.justify-center.items-center.w-full.h-full
+      .ads-carousel(class='flex-row flex justify-center items-center w-full h-full sm:flex-col xs:flex-col')
         .first-ad
           img(src='https://source.unsplash.com/mIqyYpSNq3o/1600x900')
-        .second-ad(class='block sm:hidden')
-          img(src='https://source.unsplash.com/FWqWJC6leOA/1600x900')
-
-  section.mt-16
-    .block-content
-      .ads-carousel.flex.justify-center.items-center.w-full.h-full
-        .second-ad(class='hidden sm:block')
+        .second-ad
           img(src='https://source.unsplash.com/FWqWJC6leOA/1600x900')
 
 </template>
@@ -326,22 +320,18 @@ figure figcaption {
     object-fit: cover;
   }
 }
-.first-ad img {
-  @apply p-2 object-contain;
-
-  width: 100%;
-  height: 30vh;
-}
+.first-ad img,
 .second-ad img {
-  @apply p-2 object-contain;
+  @apply p-3 object-cover bg-center;
 
   width: 100%;
   height: 30vh;
 }
 .img-container {
-  min-width: 100px;
+  width: 100%;
   overflow-x: auto;
   scroll-behavior: smooth;
+
   figure:nth-child(1) {
     @apply col-span-2;
   }

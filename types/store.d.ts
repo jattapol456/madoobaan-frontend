@@ -29,7 +29,7 @@ type State = { modules: MapState }
 type Mutations = MapTypes<'me', 'mutations'> &
   MapTypes<'lang', 'mutations'> &
   MapTypes<'context', 'mutations'>
-type Actions = MapTypes<'me', 'actions'>
+type Actions = MapTypes<'me', 'actions'> & MapTypes<'context', 'actions'>
 type Getters = MapTypes<'me', 'getters'> &
   MapTypes<'lang', 'getters'> &
   MapTypes<'context', 'getters'>

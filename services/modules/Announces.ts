@@ -9,4 +9,14 @@ export default class AnnouncesService extends BaseService {
   static getAllAnnounces(): Promise<IinsertAnnounce[]> {
     return this._get(`http://127.0.0.1:3000/announces`)
   }
+
+  static postAnnounces(
+    newAnnounces: Partial<IinsertAnnounce>
+  ): Promise<IinsertAnnounce> {
+    return this._post(`http://127.0.0.1:3000/announces`, newAnnounces).then(
+      (res) => {
+        return res
+      }
+    )
+  }
 }
