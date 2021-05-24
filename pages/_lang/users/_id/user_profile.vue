@@ -97,6 +97,7 @@ export default defineComponent({
 .management-page {
   @apply flex w-full h-full max-w-7xl m-auto;
 }
+
 .relativeBox {
   position: relative;
 }
@@ -107,4 +108,5 @@ export default defineComponent({
   top: 10px;
   opacity: 0.7;
 }
+
 </style>
