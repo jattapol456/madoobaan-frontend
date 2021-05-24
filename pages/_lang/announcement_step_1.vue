@@ -124,10 +124,7 @@
 
         .flex.justify-between.space-x-2.mt-5
           button.button(@click="backPage") ยกเลิก
-          button.button บันทึกแบบร่าง
-
-        .mt-5
-        button.button.button-next(to="/th/announcement_step_2" @click='nextPage') ต่อไป
+          button.button.button-next(to="/th/announcement_step_2" @click='nextPage') ต่อไป
 
 </template>
 

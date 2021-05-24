@@ -8,16 +8,15 @@
           h4 หากคุณกำลังมองหาบ้าน ที่ดิน ภาคเหนือ เชียงใหม่ เชียงราย เราช่วยคุณได้!
         .flex.mt-8.justify-center
           div(class="flex flex-col w-3/4")
-            .flex.items-center.justify-center
             .search-zone.bg-white.w-full.p-3
               div(class="grid grid-cols-4 gap-4 md:grid-cols-1 sm:grid-cols-1")
                 .search-project.flex.justify-between
-                  Input(placeholder="พิมพ์โซน ชื่อโครงการ")
+                  Input(placeholder="ชื่อใบประกาศ")
                   .w-10.h-10.bg-info-900.right-0
                     ion-icon(class="m-3" style="color: #FFFFFF" name="search")
                 Dropdown.type(placeholder='ประเภทอสังหาริมทรัพย์' :options='dropdownType' v-model='seletedType')
                 Dropdown(placeholder='จังหวัด' :options='dropdownProvinces' v-model='seletedProvinces')
-                button.button.button-primary ค้นหา
+                button.button.button-primary(@click='searchPage') ค้นหา
 
   section.section-zones.mt-8
     .block-content
@@ -281,6 +280,9 @@ export default defineComponent({
         this.allAnnounceList = res.slice(0, 4)
       })
       this.loading.fetching.allAnnounce = false
+    },
+    searchPage() {
+      this.$router.push('/th/announces')
     },
   },
 })
