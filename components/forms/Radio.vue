@@ -34,7 +34,6 @@ export default defineComponent({
   },
 
   setup(props) {
-
     const { modelValue } = toRefs(props)
     return {
       model: modelValue,

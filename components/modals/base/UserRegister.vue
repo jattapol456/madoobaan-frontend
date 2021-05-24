@@ -36,7 +36,6 @@ import Input from '@/components/forms/Input.vue'
 import Checkbox from '@/components/forms/Checkbox.vue'
 
 export default defineComponent({
-
   components: {
     Checkbox,
     Input,
@@ -45,7 +44,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
 .button-primary {
   font-weight: 900;
   height: 40px;
@@ -126,4 +124,3 @@ figure figcaption {
   align-items: center;
 }
 </style>
-

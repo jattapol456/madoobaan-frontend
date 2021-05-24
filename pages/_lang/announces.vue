@@ -15,7 +15,7 @@
 
   .section-Pagination.pt-10.flex.justify-center
     Pagination(:value='value', @change='handleChange')
-      
+
 
 </template>
 
