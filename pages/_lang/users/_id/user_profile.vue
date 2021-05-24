@@ -55,42 +55,41 @@ export default defineComponent({
     InputProfile,
   },
   data() {
-    return{
+    return {
       phone: [] as any,
-      checked: false
+      checked: false,
     }
   },
   methods: {
-    addPhone: function(){
+    addPhone() {
       this.phone.push(1)
     },
-    checkboxer: function() {
-      this.checked = !this.checked  
+    checkboxer() {
+      this.checked = !this.checked
     },
-    deletePhone: function(){
+    deletePhone() {
       this.phone.pop()
     },
-  }
+  },
 })
 </script>
 
 <style lang="scss" scoped>
-
 .button-primary {
-  background: #2C72CF;
+  background: #2c72cf;
   color: white;
 }
-  button {
-    @apply border-info-500 text-info-500 w-full;
-  }
-  
+button {
+  @apply border-info-500 text-info-500 w-full;
+}
+
 .addphone {
   cursor: pointer;
   color: #00aeef;
   font-weight: 900;
   text-decoration: none !important;
   &:hover {
-    color:rgb(178, 137, 231);
+    color: rgb(178, 137, 231);
   }
 }
 

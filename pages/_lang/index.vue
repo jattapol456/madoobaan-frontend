@@ -1,6 +1,6 @@
 <template lang="pug">
 .management-page
-  section.h-screen.bg-hero(style='background-image: url("https://www.madoobaan.com/wp-content/uploads/2021/03/bg-Header-3.jpg")')
+  section.section-hero.h-screen.bg-hero(style="background-image: url('https://www.madoobaan.com/wp-content/uploads/2021/03/bg-Header-3.jpg');")
     .block-content
       .title.h-full.w-full.flex.flex-col.justify-center
         .text-white.text-center

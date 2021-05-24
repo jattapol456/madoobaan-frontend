@@ -11,7 +11,7 @@
         div.flex.space-x-1.mt-3
           label.label-grey เลขที่สมาชิก
           label.label-grey xxxxxxxxxx
-          label.label-blue <a href="#" class="no-underline">แก้ไขโปรไฟล์ &gt;</a>
+          label.label-blue <a href="users/1/user_profile" class="no-underline">แก้ไขโปรไฟล์ &gt;</a>
     div.mt-6.w-full
       ul.ulgrey.flex.border-b.space-x-4.mt-12
         li
@@ -39,8 +39,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from '@nuxtjs/composition-api'
-import Radios, { Option } from '@/components/forms/Radios.vue'
+import {defineComponent, useContext } from '@nuxtjs/composition-api'
+import Radios from '@/components/forms/Radios.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
 import Pagination from '@/components/menus/Pagination.vue'
 
