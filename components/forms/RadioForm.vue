@@ -7,6 +7,7 @@
       :id='`radio_${option.value}`',
       :name='name',
       type='radio',
+      v-model="value2"
       :value='option.value',
       @click="test(option.value)"
     )
@@ -88,6 +89,7 @@ export default defineComponent({
       val: 'option-1',
       cuss: 'false',
       sss: '',
+      value2: this.value,
     }
   },
 
@@ -118,6 +120,24 @@ export default defineComponent({
 
       immediate: true,
     },
+  },
+  created() {
+    // - const t = this.options
+    // -   .map(function (e: any) {
+    // -     return e.value
+    // -   })
+    // -   .indexOf(this.value)
+    // - console.log('t:', t)
+    // - console.log('value:', this.value)
+    setTimeout(() => {
+      this.value2 = this.value
+      console.log('this value', this.value)
+      if (parseInt(this.value.toString()) > 3) {
+        console.log('cuss : trueee')
+        this.cuss = 'true'
+      }
+    }, 100)
+    console.log('this value', this.value)
   },
   methods: {
     test(text) {

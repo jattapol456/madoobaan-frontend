@@ -8,13 +8,13 @@
     form.w-full(@submit.prevent='handleSubmit(submit)')
       button.hidden(type='submit')
       .grid.grid-cols-5.gap-8.mt-10
-        //- .w-32.h-32.rounded-full.bg-black-500.flex.items-center.justify-center.relative
-        //-   input.absolute.w-full.h-full.opacity-0(type='file')
-        //-   span.text-4xl.text-white J
+        .w-32.h-32.rounded-full.bg-black-500.flex.items-center.justify-center.relative
+          input.absolute.w-full.h-full.opacity-0(type='file')
+          span.text-4xl.text-white J
 
-        div
-          .imagePreviewWrapper(:style="{ 'background-image': `url(${previewImage})` }" @click="selectImage")
-          input.hidden(ref="fileInput" type="file" @input="pickFile")
+        //- div
+        //-   .imagePreviewWrapper(:style="{ 'background-image': `url(${previewImage})` }" @click="selectImage")
+        //-   input.hidden(ref="fileInput" type="file" @input="pickFile")
 
         .col-span-2.space-y-5(class='md:col-span-12')
           InputProfile#firstname(
@@ -154,21 +154,21 @@ export default defineComponent({
       })
     },
 
-    selectImage() {
-      this.$refs.fileInput.click()
-    },
-    pickFile() {
-      const input = this.$refs.fileInput
-      const file = input.files
-      if (file && file[0]) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          this.previewImage = e.target.result
-        }
-        reader.readAsDataURL(file[0])
-        this.$emit('input', file[0])
-      }
-    },
+    // selectImage() {
+    //   this.$refs.fileInput.click()
+    // },
+    // pickFile() {
+    //   const input = this.$refs.fileInput
+    //   const file = input.files
+    //   if (file && file[0]) {
+    //     const reader = new FileReader()
+    //     reader.onload = (e) => {
+    //       this.previewImage = e.target.result
+    //     }
+    //     reader.readAsDataURL(file[0])
+    //     this.$emit('input', file[0])
+    //   }
+    // },
   },
 })
 </script>

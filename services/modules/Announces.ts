@@ -1,4 +1,4 @@
-import { IAnnounce, IinsertAnnounce } from '@/types/announces'
+import { IinsertAnnounce } from '@/types/announces'
 
 import BaseService from './Base'
 
@@ -26,7 +26,7 @@ export default class AnnouncesService extends BaseService {
   /**
    * [GET] get announces by ID
    */
-  static getAnnounceById(id: number): Promise<IAnnounce> {
+  static getAnnounceById(id: number): Promise<IinsertAnnounce> {
     return this._get(`http://127.0.0.1:3000/announces/${id}`)
   }
 }

@@ -93,6 +93,18 @@ export default defineComponent({
       } as any,
     }
   },
+  mounted() {
+    const post = this.$store.getters['modules/context/post']
+
+    if (post) {
+      this.form = {
+        ...this.form,
+        ...post,
+      }
+
+      console.log('STEP 4: ', this.form)
+    }
+  },
   methods: {
     nextPage() {
       this.$router.push('/th/announcement_step_4')

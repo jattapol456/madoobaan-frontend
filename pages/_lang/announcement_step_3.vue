@@ -100,8 +100,46 @@ export default defineComponent({
     InputProfile,
   },
   layout: 'post',
+  data() {
+    return {
+      form: {
+        bathroom: '',
+        bedroom: '',
+        floor: '',
+        parking: '',
+        agent: '',
+        direction: '',
+        furniture: '',
+        roomStatus: '',
+        rai: '',
+        ngan: '',
+        squareWa: '',
+        squareMeter: '',
+        salePrice: '',
+        rentalCommonfee: '',
+        commonFee: [],
+        security: [],
+        facilities: [],
+        topicName: '',
+        moreDetails: '',
+      } as any,
+    }
+  },
+  mounted() {
+    const post = this.$store.getters['modules/context/post']
+
+    if (post) {
+      this.form = {
+        ...this.form,
+        ...post,
+      }
+
+      console.log('STEP 3: ', this.form)
+    }
+  },
   methods: {
     nextPage() {
+      this.$store.dispatch('modules/context/SETUP_POST', this.form)
       this.$router.push('/th/announcement_step_4')
     },
     backPage() {
