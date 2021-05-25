@@ -2,119 +2,89 @@
 .management-page
   section.Rent-dorm.mt-8
     .block-content
-    div.flex.w-full.space-x-4.items-center
-      img.img-circle.mt-24(src="~/static/images/profile.png")
-      div
-        div.mt-20.flex.space-x-4
-          h3 Fname
-          h3 Lname
-        div.flex.space-x-1.mt-3
-          label.label-grey เลขที่สมาชิก
-          label.label-grey xxxxxxxxxx
-          label.label-blue <a href="users/1/user_profile" class="no-underline">แก้ไขโปรไฟล์ &gt;</a>
-    div.mt-6.w-full
-      ul.ulgrey.flex.border-b.space-x-4.mt-12
-        li
-          h5.activeborder <a href="#" class="no-underline">ประกาศของฉัน</a>
-        li
-          h5 <a href="#" class="no-underline">ประกาศที่ดูล่าสุด</a>
-        li
-          h5 <a href="#" class="no-underline">รายการที่ชื่นชอบ</a>
-      div.w-full.ml-1
-        label.mt-3.mb-1.ml-1.label-grey {จำนวน} ประกาศ
-        div.grid.grid-cols-2.flex
-          div.flex
-            img.img-box-small(src="~/static/images/examviewpost.png")
-            div.w-full.mt-4.ml-2.space-y-2
-              label {Topic}
-              div.flex.space-x-1
-                label.label-blue ฿
-                label.label-blue {Price}
-          div.flex.mt-4.flex.flex-row-reverse
-            button.button.button-secondary.ml-1 ลบ
-            button.button.button-secondary แก้ไข
-    .mt-8.flex.justify-center
-      Pagination(:value='value', @change='handleChange')
-
+      div.flex.w-full.space-x-4.items-center
+        img.img-circle.mt-24(src="#")
+        div
+          div.mt-20.flex.space-x-4
+            h3 {{user.title}}
+          div.flex.space-x-1.mt-3
+            label.label-grey เลขที่สมาชิก
+            label.label-grey {{user.id}}
+            label.label-blue <a href="#" class="no-underline">แก้ไขโปรไฟล์ &gt;</a>
+      div.mt-6.w-full
+        ul.ulgrey.flex.border-b.space-x-4.mt-12
+          li
+            h5.activeborder <a href="#" class="no-underline">ประกาศของฉัน</a>
+          li
+            h5 <a href="#" class="no-underline">ประกาศที่ดูล่าสุด</a>
+          li
+            h5 <a href="#" class="no-underline">รายการที่ชื่นชอบ</a>
+        div.w-full.ml-1
+          label.mt-3.mb-1.ml-1.label-grey {จำนวน} ประกาศ
+          div.grid.grid-cols-2.flex
+            div.flex
+              img.img-box-small(src="~/static/images/examviewpost.png")
+              div.w-full.mt-4.ml-2.space-y-2
+                label {Topic}
+                div.flex.space-x-1
+                  label.label-blue ฿
+                  label.label-blue {Price}
+            div.flex.mt-4.flex.flex-row-reverse
+              button.button.button-secondary.ml-1 ลบ
+              button.button.button-secondary แก้ไข
+      .mt-8.flex.justify-center
 </template>
 
 <script lang="ts">
-import {defineComponent, useContext } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 import Radios from '@/components/forms/Radios.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
-import Pagination from '@/components/menus/Pagination.vue'
 
 export default defineComponent({
   components: {
     Radios,
     InputProfile,
-    Pagination,
   },
-  data() {
-    return {
-      mock: [
-        {
-          label: 'ขาย',
-          value: 'sale',
-        },
-        {
-          label: 'เช่า',
-          value: 'buy',
-        },
-        {
-          label: 'ขายและเช่า',
-          value: 'test1',
-        },
-        {
-          label: 'หอพัก/อพาร์ทเม้นท์ (สำหรับเจ้าของตึก)',
-          value: 'test2',
-        },
-      ],
-      mockValue: 'sale',
-    }
-  },
-  methods: {
-    onRadioChange(value) {
-      this.mockValue = value
-    },
+  async asyncData({ params, $axios }) {
+    const user = await $axios.$get(`https://jsonplaceholder.typicode.com/photos/${params.id}`)
+    return { user }
   },
 })
-
 </script>
 
 <style lang="scss" scoped>
 .management-page {
   @apply flex w-full h-full max-w-7xl m-auto;
 }
-.ulgrey{
+.ulgrey {
   border-color: rgba(229, 231, 235);
 }
 
 .activeborder {
-  background-color:white;
+  background-color: white;
   display: inline-block;
   border-left-width: 2px;
   border-top-width: 2px;
   border-right-width: 2px;
-  border-top-left-radius: 0.25rem/* 4px */;
-  border-top-right-radius: 0.25rem/* 4px */;
-  padding-top: 0.5rem/* 8px */;
-  padding-bottom: 0.5rem/* 8px */;
-  padding-left: 1rem/* 16px */;
-  padding-right: 1rem/* 16px */;
+  border-top-left-radius: 0.25rem /* 4px */;
+  border-top-right-radius: 0.25rem /* 4px */;
+  padding-top: 0.5rem /* 8px */;
+  padding-bottom: 0.5rem /* 8px */;
+  padding-left: 1rem /* 16px */;
+  padding-right: 1rem /* 16px */;
   font-weight: 600;
   border-color: rgba(229, 231, 235);
   color: rgb(59, 69, 85);
 }
 
-h5{
+h5 {
   color: gray;
 }
 
 .step-bar {
   height: 56px;
 }
-.c-green{
+.c-green {
   color: rgb(39, 133, 101);
 }
 
@@ -136,22 +106,22 @@ h5{
   border-color: gray;
 }
 
-.border-small{
+.border-small {
   width: 220px;
   height: 80px;
 }
 
-.border-small2{
+.border-small2 {
   width: 220px;
   height: 40px;
 }
 
-.img-box{
+.img-box {
   width: 220px;
   height: 120px;
 }
 
-.img-box-small{
+.img-box-small {
   width: 110px;
   height: 100px;
 }
@@ -184,7 +154,7 @@ h5{
   margin-left: 15px !important;
 }
 
-.coler {
+.color {
   flex-basis: 0;
   flex-grow: 1;
   max-width: 100%;
@@ -262,14 +232,13 @@ h5{
   text-align: center;
   font-size: 6px;
 }
-  button {
-    @apply border-info-500 text-info-500 w-full;
-  }
+button {
+  @apply border-info-500 text-info-500 w-full;
+}
 .addphone {
   cursor: pointer;
   &:hover {
-    color:red;
+    color: red;
   }
 }
-
 </style>
