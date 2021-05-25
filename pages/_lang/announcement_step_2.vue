@@ -29,16 +29,16 @@
       .Form.grid.grid-cols-2.grid-rows-2.mt-8
         .flex-col
           span.text-xl จำนวนชั้น
-          RadioForm(:options='floor' type="custom" name='floor' @input='onFloorChange')
+          RadioForm(:options='floor' :value="form.floor" type="custom" name='floor' @input='onFloorChange')
         .flex-col
           span.text-xl จำนวนห้องนอน
-          RadioForm(:options='bedroom' type="custom" name='bedroom' @input='onBedroomChange')
+          RadioForm(:options='bedroom' :value="form.bedroom" type="custom" name='bedroom' @input='onBedroomChange')
         .flex-col
           span.text-xl จำนวนห้องน้ำ
-          RadioForm(:options='bathroom' type="custom" name='bathroom' @input='onBathroomChange')
+          RadioForm(:options='bathroom' :value="form.bathroom" type="custom" name='bathroom' @input='onBathroomChange')
         .flex-col
           span.text-xl จำนวนที่จอดรถ
-          RadioForm(:options='parking' type="custom" name='parking' @input='onParkingChange')
+          RadioForm(:options='parking' :value="form.parking" type="custom" name='parking' @input='onParkingChange')
 
       .text1.grid.grid-cols-4.gap-3
         span ทิศของหน้าบ้าน
@@ -66,7 +66,7 @@
           Dropdown.roomStatus(placeholder='ไม่แสดง' name="roomStatus" :options="roomStatus" v-model='form.roomStatus')
         .div.col-end-4
           span เปิดรับตัวแทนจำหน่าย
-          RadioForm(:options='agent', name='agent' @input='onAgentChange')
+          RadioForm(:options='agent', name='agent' :value="form.agent" @input='onAgentChange')
 
       h4 สิ่งอำนวยความสะดวก
       span ส่วนกลาง
@@ -97,7 +97,7 @@
           label.ml-2 ลานจอดรถใต้ดิน
         .grid.grid-cols-2.gap-4(v-for="(data, index) in commonFee" :key="index")
           .relativeBox
-            InputProfile.input(type="text" labels="ส่วนกลาง*" v-model="form.commonFee")
+            InputProfile.input(type="text" labels="ส่วนกลาง*" v-model="form.commonFeeCustom")
             .deleteInput(@click="deleteDetailCommonFee()")
               img(src="/delete icn.png",width="30px", alt="alt")
         .addInput(@click="addDetailCommonFee()",v-if="commonFee.length < 1")
@@ -128,7 +128,7 @@
           label.ml-2 ระบบตรวจสอบจับควันไฟ(Smoke detector)
         .grid.grid-cols-2.gap-4(v-for="(data, index) in security" :key="index")
           .relativeBox
-            InputProfile.input(type="text" labels="ความปลอดภัย*")
+            InputProfile.input(type="text" labels="ความปลอดภัย*" v-model="form.securityCustom")
             .deleteInput(@click="deleteDetailSecurity()")
               img(src="/delete icn.png",width="30px", alt="alt")
         .addInput(@click="addDetailSecurity()",v-if="security.length < 1")
@@ -166,7 +166,7 @@
           label.ml-2 ลู่จ๊อกกิ้ง
         .grid.grid-cols-2.gap-4(v-for="(data, index) in facilities" :key="index")
           .relativeBox
-            InputProfile.input(type="text" labels="สิ่งอำนวยความสะดวกในการออกกำลังกาย*" )
+            InputProfile.input(type="text" labels="สิ่งอำนวยความสะดวกในการออกกำลังกาย*" v-model="form.facilitiesCustom")
             .deleteInput(@click="deleteDetailFacilities()")
               img(src="/delete icn.png",width="30px", alt="alt")
         .addInput(@click="addDetailFacilities()",v-if="facilities.length < 1")
@@ -175,7 +175,6 @@
       h4.mt-4 หัวข้อประกาศ*
         .mt-3.grid.grid-cols-12.gap-3
           InputProfile.col-span-10(type="text", labels='หัวข้อภาษาไทย*', placeholder="เช่น พี่เบิร์นสุดจ๊าบอยากขายบ้าน" v-model="form.topicName")
-          InputProfile.col-span-2(type="text", labels='รหัสประกาศ*' v-model="form.announceCode")
 
       h4 รายละเอียดเพิ่มเติม*
         Textarea(type="text" v-model="form.moreDetails")
@@ -222,10 +221,12 @@ export default defineComponent({
         salePrice: '',
         rentalCommonfee: '',
         commonFee: [],
+        commonFeeCustom: '',
         security: [],
+        securityCustom: '',
         facilities: [],
+        facilitiesCustom: '',
         topicName: '',
-        announceCode: '',
         moreDetails: '',
       } as any,
       direction: [
@@ -383,16 +384,22 @@ export default defineComponent({
 
     if (post) {
       this.form = {
-        ...this.form,
         ...post,
       }
 
-      console.log('STEP 2: ', this.form)
+      console.log('STEP 2 form: ', this.form)
+      console.log('STEP 2 post: ', post)
     }
   },
 
   methods: {
     nextPage() {
+      this.form.commonFee = [...this.form.commonFee, this.form.commonFee]
+      delete this.form.commonFee
+      this.form.security = [...this.form.security, this.form.security]
+      delete this.form.security
+      this.form.facilities = [...this.form.facilities, this.form.facilities]
+      delete this.form.facilities
       this.$store.dispatch('modules/context/SETUP_POST', this.form)
       this.$router.push('/th/announcement_step_3')
     },
@@ -420,19 +427,29 @@ export default defineComponent({
     },
 
     onFloorChange(floor) {
-      this.form.floor = floor
+      if (floor) {
+        this.form.floor = floor
+      }
     },
     onBedroomChange(bedroom) {
-      this.form.bedroom = bedroom
+      if (bedroom) {
+        this.form.bedroom = bedroom
+      }
     },
     onBathroomChange(bathroom) {
-      this.form.bathroom = bathroom
+      if (bathroom) {
+        this.form.bathroom = bathroom
+      }
     },
     onParkingChange(parking) {
-      this.form.parking = parking
+      if (parking) {
+        this.form.parking = parking
+      }
     },
     onAgentChange(agent) {
-      this.form.agent = agent
+      if (agent) {
+        this.form.agent = agent
+      }
     },
   },
 })

@@ -30,6 +30,7 @@
       RadioForm(
         :options='announceType',
         name='announceType',
+        :value="form.announceType"
         @input='onAnnounceTypeChange'
       )
       .mt-5
@@ -37,6 +38,7 @@
       RadioForm(
         :options='type',
         name='type',
+        :value="form.type"
         @input='onTypeChange'
       )
       .mt-5
@@ -228,12 +230,13 @@ export default defineComponent({
   mounted() {
     const post = this.$store.getters['modules/context/post']
 
-    this.form.type = 'คอนโด'
     if (post) {
-      // console.log(post)
-      this.form.type = 'คอนโด'
+      this.form = {
+        ...post,
+      }
 
-      console.log('STEP 1: ', this.form)
+      console.log('STEP 1 form: ', this.form)
+      console.log('STEP 1 post: ', post)
     }
 
     this.province = provinceData.map((data) => {
@@ -258,6 +261,7 @@ export default defineComponent({
         zipcode: this.zipcode.find((e) => e.value === this.form.zipcode)
           ?.content,
       }
+      // console.log(this.form)
 
       this.$store.dispatch('modules/context/SETUP_POST', this.form)
       this.$router.push('/th/announcement_step_2')
@@ -266,33 +270,35 @@ export default defineComponent({
       this.$router.push('/')
     },
     provinceChange(event) {
-      console.log(event)
+      // console.log(event)
       this.district = districtData.filter((data) => data.PROVINCE_ID === event)
     },
     districtChange(event) {
-      console.log(event)
+      // console.log(event)
       this.subDistrict = subDistrictData.filter(
         (data) => data.DISTRICT_ID === event
       )
     },
     subDistrictChange(event) {
-      console.log(event)
+      // console.log(event)
       this.zipcode = zipcodeData.filter(
         (data) => data.SUB_DISTRICT_ID === event
       )
     },
+
     checkboxer() {
       this.checked = !this.checked
     },
+
     onAnnounceTypeChange(announceType) {
-      // console.log(announceType)
-      this.form.announceType = announceType
-      // console.log('this floor:', this.form.announceType)
+      if (announceType) {
+        this.form.announceType = announceType
+      }
     },
     onTypeChange(type) {
-      // console.log(type)
-      this.form.type = type
-      // console.log('this type:', this.form.type)
+      if (type) {
+        this.form.type = type
+      }
     },
   },
 })

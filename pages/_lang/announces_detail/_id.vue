@@ -22,8 +22,8 @@
 
     .header.mt-5.grid.grid-cols-3
       .showdetail.col-start-1.col-span-2
-        h1.text-2xl รังหมาป่า
-        span.colortext.text-xl.mt-2 ฿ 5,500/เดือน
+        h1.text-2xl {{$route.params.id}} {{ posts.topicName }}
+        span.colortext.text-xl.mt-2 {{ salePrice }} ฿
         h2.text-2xl.mt-5 ข้อมูลเบื้องต้น
           .flex.grid.grid-cols-2.grid-rows-4.gap-4
             .div
@@ -52,8 +52,7 @@
               span.text-4 ใต้
           h1.mt-5.text-3xl รายละเอียด
             .space-y-3.mt-3.text-4
-              p.text-black-400 โครงการ ทีเปซ-โนนม่วง บริหารงานโดย บริษัท ที สเปซ พร็อพเพอร์ตี้ จำกัด เริ่มก่อสร้างตั้งแต่ปี 2562 บนพื้นที่กว่า 28 ไร่ รวมทั้งหมด 144 ยูนิต โดยโครงการนี้มีแบบบ้าน 2 แบบด้วยกัน คือ แบบบ้านเดี่ยว2 ชั้น และ บ้านแฝด 2 ชั้น พื้นที่ส่วนกลางมีสิ่งอำนวยความสะดวกมากมาย ทั้งคลับเฮ้าส์ ฟิตเนสเซ็นเตอร์ รวมไปถึงสนามเด็กเล่นและสวนสาธารณะ พร้อมทั้งมี รปภ. ประจำตลอด 24 ชม. และกล้อง CCTV ทั่วโครงการอีกด้วย  การเข้าออกง่าย สะดวกสบาย ด้วยระบบ Easy Pass พร้อมทั้งถนนสาธารณะหลักกว้างถึง 12 เมตร และถนนหน้าบ้านกว้างถึง 9 เมตร
-          //- button.button.w-40.mt-2.text-5 อ่านเพิ่มเติม
+              p.text-black-400 {{ moreDetails }}
 
           h1.mt-5.space-y-3.text-2xl สิ่งอำนวยความสะดวก
           .flex.grid.grid-cols-2.px-3
@@ -66,11 +65,11 @@
 
           h1.mt-8.text-2xl ติดต่อโครงการ
           .flex.space-y-3.mt-3.justify-between
-            .div
-              InputProfile(type=text, labels='*ชื่อ')
-              InputProfile(type=text, labels='*เบอร์โทรติดต่อ')
-              InputProfile(type=text, labels='อีเมล')
-              InputProfile(type=text, labels='Line ID')
+            .div.space-y-3
+              InputProfile(type="text", labels='*ชื่อ' disabled)
+              InputProfile(type="text", labels='*เบอร์โทรติดต่อ' disabled)
+              InputProfile(type="text", labels='อีเมล' disabled)
+              InputProfile(type="text", labels='Line ID' disabled)
               span.text-4.opacity-50 *ข้อความ
               Textarea
             .space-y-3.text-center.text-4
@@ -176,8 +175,57 @@ export default defineComponent({
     LandingBlogsSection,
     Card,
   },
+  layout: 'post',
+  props: {
+    coverPhoto: {
+      type: String,
+      default: null,
+    },
+    logo: {
+      type: String,
+      default: null,
+    },
+    moreDetails: {
+      type: String,
+      default: null,
+    },
+    type: {
+      type: String,
+      default: null,
+    },
+    topicName: {
+      type: String,
+      default: null,
+    },
+    salePrice: {
+      type: String,
+      default: null,
+    },
+    subdistrict: {
+      type: String,
+      default: null,
+    },
+    district: {
+      type: String,
+      default: null,
+    },
+    province: {
+      type: String,
+      default: null,
+    },
+    bedroom: {
+      type: String,
+      default: null,
+    },
+    bathroom: {
+      type: String,
+      default: null,
+    },
+  },
   data() {
     return {
+      posts: {},
+
       recommendAnnounceList: [] as IinsertAnnounce[],
       allAnnounceList: [] as IinsertAnnounce[],
 
@@ -189,7 +237,12 @@ export default defineComponent({
       },
     }
   },
-  mounted() {
+  async mounted() {
+    const data = await fetch(
+      `http://127.0.0.1:3000/announces/${this.$route.params.id}`
+    )
+    this.posts = await data.json()
+
     this.fetchAnnounce()
   },
   methods: {
