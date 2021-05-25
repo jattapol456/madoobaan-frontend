@@ -204,7 +204,6 @@ export default defineComponent({
       loading: {
         fetching: {
           subdistrict: false,
-          recommendAnnounce: false,
           allAnnounce: false,
         },
       },
@@ -260,21 +259,7 @@ export default defineComponent({
       })
     },
     fetchAnnounce() {
-      this.loading.fetching.recommendAnnounce = true
       this.loading.fetching.allAnnounce = true
-
-      AnnouncesService.getAllAnnounces().then((res) => {
-        this.recommendAnnounceList = res.slice(0, 4).map((item) => {
-          return {
-            ...item,
-            likeIcon: 'like',
-            ads: 'Top Ad',
-            review: 'มาดูบ้านรีวิว',
-            startPrice: 'เริ่มต้นที่',
-          }
-        })
-        this.loading.fetching.recommendAnnounce = false
-      })
 
       AnnouncesService.getAllAnnounces().then((res) => {
         this.allAnnounceList = res.slice(0, 4)

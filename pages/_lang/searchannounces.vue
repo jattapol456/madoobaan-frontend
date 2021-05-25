@@ -17,11 +17,11 @@
   section.announce.mt-8
     .block-content
       .title-text
-        h3 ประกาศทั้งหมด
+        h3 ประกาศ
       .secondHandAnnouncement
         .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
           Card(
-            v-for='(item) in allAnnounceList2',
+            v-for='item in allAnnounceList',
             :key='item.id',
             :logo='item.logo',
             :bedroom='item.bedroom',
@@ -44,10 +44,8 @@
       .second-ad
         img(src='https://source.unsplash.com/FWqWJC6leOA/1600x900')
 
-  section.mt-8
-  .block-content
-    .section-Pagination.pt-10.flex.justify-center
-      Pagination(:value='value', @change='handleChange')
+  .section-Pagination.pt-10.flex.justify-center
+    Pagination(:value='value', @change='handleChange')
 
 
 </template>
@@ -141,18 +139,13 @@ export default defineComponent({
         },
       ] as DropdownOption[],
       seletedType: null,
-      perPage: 16,
-      value: {
-        page: 1,
-        totalPages: 1,
-      },
 
       subdistrictList: [] as IinsertZone[],
       allAnnounceList: [] as IinsertAnnounce[],
-      allAnnounceList2: [] as IinsertAnnounce[],
 
       loading: {
         fetching: {
+          subdistrict: false,
           allAnnounce: false,
         },
       },
@@ -186,6 +179,8 @@ export default defineComponent({
           },
         },
       },
+      tabs: ['tab1', 'tab2', 'tab3', 'tab4', 'tab5'],
+      currentTab: 'tab1',
     }
   },
 
@@ -194,25 +189,11 @@ export default defineComponent({
   },
 
   methods: {
-    handleChange(newPage) {
-      this.value.page = newPage
-      this.allAnnounceList2 = this.allAnnounceList.slice(
-        (this.value.page - 1) * this.perPage,
-        this.value.page * this.perPage
-      )
-    },
     fetchAnnounce() {
       this.loading.fetching.allAnnounce = true
 
       AnnouncesService.getAllAnnounces().then((res) => {
-        this.allAnnounceList = res
-        this.value.totalPages = Math.ceil(
-          this.allAnnounceList.length / this.perPage
-        )
-        this.allAnnounceList2 = this.allAnnounceList.slice(
-          (this.value.page - 1) * this.perPage,
-          this.value.page * this.perPage
-        )
+        this.allAnnounceList = res.slice()
       })
       this.loading.fetching.allAnnounce = false
     },
