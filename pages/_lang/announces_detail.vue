@@ -19,7 +19,7 @@
 
   section.mt-8
     .block-content
-    
+
     .header.mt-5.grid.grid-cols-3
       .showdetail.col-start-1.col-span-2
         h1.text-2xl รังหมาป่า
@@ -67,7 +67,7 @@
           h1.mt-8.text-2xl ติดต่อโครงการ
           .flex.space-y-3.mt-3.justify-between
             .div
-              InputProfile(type=text, labels='*ชื่อ') 
+              InputProfile(type=text, labels='*ชื่อ')
               InputProfile(type=text, labels='*เบอร์โทรติดต่อ')
               InputProfile(type=text, labels='อีเมล')
               InputProfile(type=text, labels='Line ID')
@@ -81,10 +81,10 @@
               .div.text
                 small.text-dark-grey บริษัทอสังหาริมทรัพย์
               .div
-                span ดูโปรไฟล์  
+                span ดูโปรไฟล์
               .div.text-5
               button.button.w-full.justify-between
-                ion-icon(name="call-outline")  
+                ion-icon(name="call-outline")
                 labes.w-full.left-0.mr-4 โทรหาผู้ขาย
               button.button.w-full.justify-between
                 ion-icon(name="chatbox-ellipses-outline")
@@ -104,17 +104,17 @@
         .div.text-5
           span ดูโปรไฟล์
         .text-5
-        button.button.bg-info-500.text-primary-50.w-full.justify-between 
+        button.button.bg-info-500.text-primary-50.w-full.justify-between
           ion-icon(name="mail-outline")
           labels.mr-20 ส่งข้อความ
         button.button.w-full.justify-between
-          ion-icon(name="call-outline")  
+          ion-icon(name="call-outline")
           labes.w-full.left-0.mr-8 โทรหาผู้ขาย
         button.button.w-full.justify-between
           ion-icon(name="chatbox-ellipses-outline")
           labes.mr-8 แชทกับผู้ปล่อยเช่า
-        
-    
+
+
 
   section.mt-8
     .block-content
@@ -156,7 +156,7 @@
             :district='item.district',
             :province='item.province'
           )
-          
+
 </template>
 
 <script lang="ts">
@@ -270,7 +270,6 @@ export default defineComponent({
 
 .showmore {
   max-width: 63%;
-
 }
 
 .send {
@@ -279,12 +278,5 @@ export default defineComponent({
   color: #fff;
   background-color: #00aeef;
   padding: 0.5rem;
-
 }
-
-
 </style>
-
-
-
-

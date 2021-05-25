@@ -178,8 +178,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .input-wrapper {
-  @apply relative mb-3;
-  
+  @apply relative;
 
   input {
     @apply w-full px-3 font-noto border-black-100 border rounded-sm;
