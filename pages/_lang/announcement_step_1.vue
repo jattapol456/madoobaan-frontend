@@ -47,29 +47,30 @@
             Dropdown#province(
               placeholder='จังหวัด',
               name='province',
+              :value='form.province'
               :options='province',
               @input='provinceChange($event)',
-              v-model='form.province'
             )
             Dropdown#district(
               placeholder='อำเภอ',
+              :value='form.district'
               name='district',
               :options='district',
               @input='districtChange($event)',
-              v-model='form.district'
             )
             Dropdown#subDistrict(
               placeholder='ตำบล',
+              :value='form.subDistrict'
               name='subDistrict',
               :options='subDistrict',
               @input='subDistrictChange($event)',
-              v-model='form.subDistrict'
             )
             Dropdown#zipcode(
               placeholder='รหัสไปรษณีย์',
+              :value='form.zipcode'
               name='zipcode',
               :options='zipcode',
-              v-model='form.zipcode'
+              @input='zipCodeChange($event)',
             )
             InputProfile#houseNumber(
               type="text",
@@ -126,7 +127,7 @@
 
         .flex.justify-between.space-x-2.mt-5
           button.button(@click="backPage") ยกเลิก
-          button.button.button-next(to="/th/announcement_step_2" @click='nextPage') ต่อไป
+          button.button.button-next(@click='nextPage') ต่อไป
 
 </template>
 
@@ -157,7 +158,11 @@ export default defineComponent({
         province: '',
         district: '',
         subDistrict: '',
+        provinceName: '',
+        districtName: '',
+        subDistrictName: '',
         zipcode: '',
+        zipcodeName: '',
         announceType: '',
         type: '',
       } as any,
@@ -232,8 +237,13 @@ export default defineComponent({
 
     if (post) {
       this.form = {
+        ...this.form,
         ...post,
       }
+      this.provinceChange(this.form.province)
+      this.districtChange(this.form.district)
+      this.subDistrictChange(this.form.subDistrict)
+      this.zipCodeChange(this.form.zipcode)
 
       console.log('STEP 1 form: ', this.form)
       console.log('STEP 1 post: ', post)
@@ -249,20 +259,21 @@ export default defineComponent({
   methods: {
     nextPage() {
       this.form = {
+        ...this.form,
         announceType: this.form.announceType,
         type: this.form.type,
-        province: this.province.find((e) => e.value === this.form.province)
+        provinceName: this.province.find((e) => e.value === this.form.province)
           ?.content,
-        district: this.district.find((e) => e.value === this.form.district)
+        districtName: this.district.find((e) => e.value === this.form.district)
           ?.content,
-        subDistrict: this.subDistrict.find(
+        subDistrictName: this.subDistrict.find(
           (e) => e.value === this.form.subDistrict
         )?.content,
-        zipcode: this.zipcode.find((e) => e.value === this.form.zipcode)
+        zipcodeName: this.zipcode.find((e) => e.value === this.form.zipcode)
           ?.content,
       }
       // console.log(this.form)
-
+      console.log('next form : ', this.form)
       this.$store.dispatch('modules/context/SETUP_POST', this.form)
       this.$router.push('/th/announcement_step_2')
     },
@@ -270,22 +281,38 @@ export default defineComponent({
       this.$router.push('/')
     },
     provinceChange(event) {
-      // console.log(event)
-      this.district = districtData.filter((data) => data.PROVINCE_ID === event)
+      console.log(event)
+      if (event) {
+        this.form.province = event
+        this.district = districtData.filter(
+          (data) => data.PROVINCE_ID === event
+        )
+      }
     },
     districtChange(event) {
-      // console.log(event)
-      this.subDistrict = subDistrictData.filter(
-        (data) => data.DISTRICT_ID === event
-      )
+      console.log(event)
+      if (event) {
+        this.form.district = event
+        this.subDistrict = subDistrictData.filter(
+          (data) => data.DISTRICT_ID === event
+        )
+      }
     },
     subDistrictChange(event) {
-      // console.log(event)
-      this.zipcode = zipcodeData.filter(
-        (data) => data.SUB_DISTRICT_ID === event
-      )
+      console.log(event)
+      if (event) {
+        this.form.subDistrict = event
+        this.zipcode = zipcodeData.filter(
+          (data) => data.SUB_DISTRICT_ID === event
+        )
+      }
     },
-
+    zipCodeChange(event) {
+      console.log(event)
+      if (event) {
+        this.form.zipcode = parseInt(event)
+      }
+    },
     checkboxer() {
       this.checked = !this.checked
     },

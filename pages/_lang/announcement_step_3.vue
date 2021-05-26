@@ -103,25 +103,8 @@ export default defineComponent({
   data() {
     return {
       form: {
-        bathroom: '',
-        bedroom: '',
-        floor: '',
-        parking: '',
-        agent: '',
-        direction: '',
-        furniture: '',
-        roomStatus: '',
-        rai: '',
-        ngan: '',
-        squareWa: '',
-        squareMeter: '',
-        salePrice: '',
-        rentalCommonfee: '',
-        commonFee: [],
-        security: [],
-        facilities: [],
-        topicName: '',
-        moreDetails: '',
+        coverPhoto: '',
+        photo: [],
       } as any,
     }
   },

@@ -1,7 +1,7 @@
 <template lang="pug">
-.card-section.mt-12
+NuxtLink.card-section.mt-12.text-decoration-none(:to="`/th/announces_detail/${ idCard }`")
   .card.bg-white.w-full.h-full.border-black-200.border-2
-    .card-image.relative
+    .card-image.relative.text-decoration-none
       .ads(v-if='ads') {{ ads }}
       .likeIcon(v-if='likeIcon')
         ion-icon(:src='likeIcon', name='heart-outline')
@@ -26,9 +26,9 @@
       .location.flex.items-center.text-center.space-x-2
         ion-icon.left-0.w-4.h-4(name='location-sharp')
         .locationDetail.space-x-2
-          p {{ subdistrict }}
-          p {{ district }}
-          p {{ province }}
+          p {{ subDistrictName }}
+          p {{ districtName }}
+          p {{ provinceName }}
       p.mt-1 {{ dateCreated }}
 </template>
 
@@ -38,6 +38,10 @@ export default defineComponent({
   props: {
     coverPhoto: {
       type: String,
+      default: null,
+    },
+    idCard: {
+      type: Number,
       default: null,
     },
     logo: {
@@ -69,22 +73,22 @@ export default defineComponent({
       default: null,
     },
     salePrice: {
-      type: String,
+      type: Number,
       default: null,
     },
     startPrice: {
       type: String,
       default: null,
     },
-    subdistrict: {
+    subDistrictName: {
       type: String,
       default: null,
     },
-    district: {
+    districtName: {
       type: String,
       default: null,
     },
-    province: {
+    provinceName: {
       type: String,
       default: null,
     },
@@ -123,6 +127,9 @@ p {
   p {
     margin: 0;
   }
+}
+.text-decoration-none {
+  text-decoration: none !important;
 }
 
 .card-image {

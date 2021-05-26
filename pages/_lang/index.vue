@@ -11,7 +11,7 @@
             .search-zone.bg-white.w-full.p-3
               div(class="grid grid-cols-4 gap-4 md:grid-cols-1 sm:grid-cols-1")
                 .search-project.flex.justify-between
-                  Input(placeholder="ชื่อใบประกาศ")
+                  Input(placeholder="ชื่อใบประกาศ" v-model="search.input")
                   .w-10.h-10.bg-info-900.right-0
                     ion-icon(class="m-3" style="color: #FFFFFF" name="search")
                 Dropdown.type(placeholder='ประเภทอสังหาริมทรัพย์' :options='dropdownType' v-model='seletedType')
@@ -32,7 +32,7 @@
               img(:src='item.img')
               .zone-title
                 figcaption
-                  p {{ item.subdistrictName }}
+                  p {{ item.subDistrictName }}
 
   section.ads-carousel.mt-8
     .block-content.flex.justify-center.items-center
@@ -59,6 +59,7 @@
           Card(
             v-for='item in recommendAnnounceList',
             :key='item.id',
+            :idCard='item.id',
             :logo='item.logo',
             :review='item.review',
             :ads='item.ads',
@@ -85,6 +86,7 @@
             v-for='item in allAnnounceList',
             :key='item.id',
             :logo='item.logo',
+            :idCard='item.id',
             :bedroom='item.bedroom',
             :bathroom='item.bathroom',
             :ads='item.ads',
@@ -130,6 +132,9 @@ export default defineComponent({
 
   data() {
     return {
+      search: {
+        input: '',
+      },
       dropdownProvinces: [
         {
           content: 'น่าน',
@@ -238,8 +243,6 @@ export default defineComponent({
           },
         },
       },
-      tabs: ['tab1', 'tab2', 'tab3', 'tab4', 'tab5'],
-      currentTab: 'tab1',
     }
   },
 
@@ -249,6 +252,19 @@ export default defineComponent({
   },
 
   methods: {
+    shuffle(array) {
+      let currentIndex = array.length
+      let temporaryValue
+      let randomIndex
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
+      }
+      return array
+    },
     fetchSubdistrict() {
       this.loading.fetching.subdistrict = true
 
@@ -264,15 +280,17 @@ export default defineComponent({
       this.loading.fetching.allAnnounce = true
 
       AnnouncesService.getAllAnnounces().then((res) => {
-        this.recommendAnnounceList = res.slice(0, 4).map((item) => {
-          return {
-            ...item,
-            likeIcon: 'like',
-            ads: 'Top Ad',
-            review: 'มาดูบ้านรีวิว',
-            startPrice: 'เริ่มต้นที่',
-          }
-        })
+        this.recommendAnnounceList = this.shuffle(res)
+          .slice(0, 4)
+          .map((item) => {
+            return {
+              ...item,
+              likeIcon: 'like',
+              ads: 'Top Ad',
+              review: 'มาดูบ้านรีวิว',
+              startPrice: 'เริ่มต้นที่',
+            }
+          })
         this.loading.fetching.recommendAnnounce = false
       })
 
@@ -282,7 +300,9 @@ export default defineComponent({
       this.loading.fetching.allAnnounce = false
     },
     searchPage() {
-      this.$router.push('/th/announces')
+      this.$router.push(
+        `/th/announces?name=${this.search.input}&type=${this.seletedType}&provinceName=${this.seletedProvinces}`
+      )
     },
   },
 })
