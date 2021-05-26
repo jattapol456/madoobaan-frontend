@@ -19,7 +19,7 @@
               img(:src='item.img')
               .zone-title
                 figcaption
-                  h3 {{ item.subdistrictName }}
+                  h3 {{ item.subDistrictName }}
 
     .section-Pagination.pt-10.flex.justify-center
       Pagination(:value='value', @change='handleChange')

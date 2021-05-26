@@ -22,46 +22,49 @@
 
     .header.mt-5.grid.grid-cols-3
       .showdetail.col-start-1.col-span-2
-        h1.text-2xl {{$route.params.id}} {{ posts.topicName }}
-        span.colortext.text-xl.mt-2 {{ salePrice }} ฿
+        h1.text-2xl {{posts.topicName}}
+        span.colortext.text-xl.mt-2 {{ posts.salePrice }} ฿
         h2.text-2xl.mt-5 ข้อมูลเบื้องต้น
           .flex.grid.grid-cols-2.grid-rows-4.gap-4
             .div
               h3.text-4.text-black-400 ประเภท
-              sapn.text-4 ทาวน์โฮม เช่า
+              sapn.text-4 {{ posts.type }}
             .div
               h3.text-4.text-black-400 ห้องนอน
-              span.text-4 3
+              span.text-4 {{ posts.bedroom }}
             .div
               h3.text-4.text-black-400 ห้องน้ำ
-              sapn.text-4 3
+              sapn.text-4 {{ posts.bathroom }}
             .div
               h3.text-4.text-black-400 ที่จอดรถ
-              span.text-4 3
+              span.text-4 {{ posts.parking }}
             .div
               h3.text-4.text-black-400 ขนาดที่ดิน
-              span.text-4 24 ตร.วา
+              span.text-4 {{ posts.squareMeter }} ตร.วา
             .div
               h3.text-4.text-black-400 พื้นที่ใช้สอย
-              span.text-4 140 ตร.ม
+              span.text-4 {{ posts.squareWa }} ตร.ม
             .div
               h3.text-4.text-black-400 สถานะ
-              span.text-4 ว่าง
+              span.text-4 {{ posts.roomStatus }}
             .div
               h3.text-4.text-black-400 ทิศของบ้าน
-              span.text-4 ใต้
+              span.text-4 {{ posts.direction }}
           h1.mt-5.text-3xl รายละเอียด
             .space-y-3.mt-3.text-4
-              p.text-black-400 {{ moreDetails }}
+              p.text-black-400 {{ posts.moreDetails }}
 
           h1.mt-5.space-y-3.text-2xl สิ่งอำนวยความสะดวก
-          .flex.grid.grid-cols-2.px-3
+          .flex.grid.grid-cols-3.px-3
+            .div.space-x-1
+              span.text-xl สิ่งอำนวยความสะดวก
+              li.text-black-400.text-4 {{ posts.commonFee }}
             .div.space-x-1
               span.text-xl ส่วนกลาง
-              li.text-black-400.text-4 สวนหย่อม
+              li.text-black-400.text-4 {{ posts.facilities }}
             .div.space-x-1
               span.text-xl ระบบความปลอดภัย
-              li.text-black-400.text-4 เจ้าหน้าที่รักษาความปลอดภัย
+              li.text-black-400.text-4 {{ posts.security }}
 
           h1.mt-8.text-2xl ติดต่อโครงการ
           .flex.space-y-3.mt-3.justify-between
@@ -123,6 +126,7 @@
           Card(
             v-for='item in recommendAnnounceList',
             :key='item.id',
+            :idCard='item.id',
             :logo='item.logo',
             :review='item.review',
             :ads='item.ads',
@@ -142,6 +146,7 @@
           Card(
             v-for='item in allAnnounceList',
             :key='item.id',
+            :idCard='item.id',
             :logo='item.logo',
             :bedroom='item.bedroom',
             :bathroom='item.bathroom',
@@ -176,52 +181,6 @@ export default defineComponent({
     Card,
   },
   layout: 'post',
-  props: {
-    coverPhoto: {
-      type: String,
-      default: null,
-    },
-    logo: {
-      type: String,
-      default: null,
-    },
-    moreDetails: {
-      type: String,
-      default: null,
-    },
-    type: {
-      type: String,
-      default: null,
-    },
-    topicName: {
-      type: String,
-      default: null,
-    },
-    salePrice: {
-      type: String,
-      default: null,
-    },
-    subdistrict: {
-      type: String,
-      default: null,
-    },
-    district: {
-      type: String,
-      default: null,
-    },
-    province: {
-      type: String,
-      default: null,
-    },
-    bedroom: {
-      type: String,
-      default: null,
-    },
-    bathroom: {
-      type: String,
-      default: null,
-    },
-  },
   data() {
     return {
       posts: {},
@@ -241,7 +200,9 @@ export default defineComponent({
     const data = await fetch(
       `http://127.0.0.1:3000/announces/${this.$route.params.id}`
     )
-    this.posts = await data.json()
+    const raw = await data.clone().json()
+    // - console.log(raw.topicName)
+    this.posts = raw
 
     this.fetchAnnounce()
   },
