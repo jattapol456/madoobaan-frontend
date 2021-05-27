@@ -29,4 +29,17 @@ export default class AnnouncesService extends BaseService {
   static getAnnounceById(id: number): Promise<IinsertAnnounce> {
     return this._get(`http://127.0.0.1:3000/announces/${id}`)
   }
+
+  /**
+   * [GET] get announces by ID
+   */
+  static searchAnnounces(
+    type: string,
+    provinceName: string,
+    topicName: string
+  ): Promise<IinsertAnnounce> {
+    return this._get(
+      `http://127.0.0.1:3000/announces/search?type=${type}&provinceName=${provinceName}&topicName=${topicName}`
+    )
+  }
 }

@@ -173,8 +173,8 @@
           span +เพิ่มอื่นๆ
 
       h4.mt-4 หัวข้อประกาศ*
-        .mt-3.grid.grid-cols-12.gap-3
-          InputProfile.col-span-10(type="text", labels='หัวข้อภาษาไทย*', placeholder="เช่น พี่เบิร์นสุดจ๊าบอยากขายบ้าน" v-model="form.topicName")
+        .mt-3
+          InputProfile(type="text", labels='หัวข้อภาษาไทย*', placeholder="เช่น พี่เบิร์นสุดจ๊าบอยากขายบ้าน" v-model="form.topicName")
 
       h4 รายละเอียดเพิ่มเติม*
         Textarea(type="text" v-model="form.moreDetails")
@@ -384,6 +384,7 @@ export default defineComponent({
 
     if (post) {
       this.form = {
+        ...this.form,
         ...post,
       }
 
@@ -394,12 +395,15 @@ export default defineComponent({
 
   methods: {
     nextPage() {
-      this.form.commonFee = [...this.form.commonFee, this.form.commonFee]
-      delete this.form.commonFee
-      this.form.security = [...this.form.security, this.form.security]
-      delete this.form.security
-      this.form.facilities = [...this.form.facilities, this.form.facilities]
-      delete this.form.facilities
+      this.form.commonFee = [...this.form.commonFee, this.form.commonFeeCustom]
+      delete this.form.commonFeeCustom
+      this.form.security = [...this.form.security, this.form.securityCustom]
+      delete this.form.securityCustom
+      this.form.facilities = [
+        ...this.form.facilities,
+        this.form.facilitiesCustom,
+      ]
+      delete this.form.facilitiesCustom
       this.$store.dispatch('modules/context/SETUP_POST', this.form)
       this.$router.push('/th/announcement_step_3')
     },

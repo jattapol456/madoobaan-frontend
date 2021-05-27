@@ -3,42 +3,24 @@
   section.Rent-dorm.mt-8
     .block-content
     div.flex.w-full.space-x-4.items-center
-      img.img-circle.mt-24(src="~/static/images/profile.png")
+      img.img-profile.mt-24(src="~/static/images/profile.png")
       div
         div.mt-20.flex.space-x-4
-          h3 Fname
-          h3 Lname
+          h3 fn
+          h3 ln
         div.flex.space-x-1.mt-3
           label.label-grey เลขที่สมาชิก
-          label.label-grey xxxxxxxxxx
-          label.label-blue <a href="users/1/user_profile" class="no-underline">แก้ไขโปรไฟล์ &gt;</a>
-    div.mt-6.w-full
-      ul.ulgrey.flex.border-b.space-x-4.mt-12
-        li
-          h5.activeborder <a href="#" class="no-underline">ประกาศของฉัน</a>
-        li
-          h5 <a href="#" class="no-underline">ประกาศที่ดูล่าสุด</a>
-        li
-          h5 <a href="#" class="no-underline">รายการที่ชื่นชอบ</a>
-      div.w-full.ml-1
-        label.mt-3.mb-1.ml-1.label-grey {จำนวน} ประกาศ
-        div.grid.grid-cols-2.flex
-          div.flex
-            img.img-box-small(src="~/static/images/examviewpost.png")
-            div.w-full.mt-4.ml-2.space-y-2
-              label {Topic}
-              div.flex.space-x-1
-                label.label-blue ฿
-                label.label-blue {Price}
-          div.flex.mt-4.flex.flex-row-reverse
-            button.button.button-secondary.ml-1 ลบ
-            button.button.button-secondary แก้ไข
-    .mt-8.flex.justify-center
+          label.label-grey id
+          label.label-blue.cursor-pointer(@click="goToMeProfie") แก้ไขโปรไฟล์
+
+    .w-full.mt-16
+      UserViewpostBlogSection
 
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import UserViewpostBlogSection from '@/components/sections/user/UserViewpostBlogSection.vue'
 import Radios from '@/components/forms/Radios.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
 
@@ -46,6 +28,22 @@ export default defineComponent({
   components: {
     Radios,
     InputProfile,
+    UserViewpostBlogSection,
+  },
+  posts: {},
+  layout: 'post',
+  async mounted() {
+    const data = await fetch(
+      `http://127.0.0.1:3000/users/${this.$route.params.id}`
+    )
+    const raw = await data.clone().json()
+    // - console.log(raw.topicName)
+    this.posts = raw
+  },
+  methods: {
+    goToMeProfie() {
+      this.$router.push({ name: 'lang-users-id', params: { id: 'me' } })
+    },
   },
 })
 </script>
@@ -86,8 +84,9 @@ h5 {
   color: rgb(39, 133, 101);
 }
 
-.img-circle {
-  border-radius: 50%;
+.img-profile {
+  @apply rounded-full object-cover;
+
   height: 110px;
   width: 110px;
 }
@@ -232,11 +231,5 @@ h5 {
 }
 button {
   @apply border-info-500 text-info-500 w-full;
-}
-.addphone {
-  cursor: pointer;
-  &:hover {
-    color: red;
-  }
 }
 </style>

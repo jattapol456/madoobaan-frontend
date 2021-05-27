@@ -1,4 +1,5 @@
 export interface IinsertAnnounce {
+  [x: string]: any
   type?: string
   houseNumber?: string
   moo?: string
@@ -7,7 +8,11 @@ export interface IinsertAnnounce {
   province?: string
   district?: string
   subdistrict?: string
-  zipcode?: string
+  provinceName?: string
+  districtName?: string
+  subDistrictName?: string
+  zipcode?: number
+  zipcodeName?: string
   floor?: string
   bedroom?: string
   bathroom?: string
@@ -18,7 +23,7 @@ export interface IinsertAnnounce {
   ngan?: string
   squareWa?: string
   squareMeter?: string
-  salePrice?: string
+  salePrice?: number
   rentalCommonfee?: string
   roomStatus?: string
   agent?: string

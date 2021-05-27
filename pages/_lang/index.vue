@@ -11,7 +11,7 @@
             .search-zone.bg-white.w-full.p-3
               div(class="grid grid-cols-4 gap-4 md:grid-cols-1 sm:grid-cols-1")
                 .search-project.flex.justify-between
-                  Input(placeholder="ชื่อใบประกาศ")
+                  Input(placeholder="ชื่อใบประกาศ" v-model="search.input")
                   .w-10.h-10.bg-info-900.right-0
                     ion-icon(class="m-3" style="color: #FFFFFF" name="search")
                 Dropdown.type(placeholder='ประเภทอสังหาริมทรัพย์' :options='dropdownType' v-model='seletedType')
@@ -23,7 +23,7 @@
       .title-text
         h3 ค้นหาตามโซน
         .flex
-          nuxt-link(to="/th/zones") ดูทั้งหมด
+          nuxt-link.font-noto.font-semibold(to="/th/zones") ดูทั้งหมด
           ion-icon.mt-2(name='chevron-forward')
       .zones
         .img-container.min-w-full.flex.grid.grid-cols-6.grid-rows-2.gap-3.mt-10
@@ -32,7 +32,7 @@
               img(:src='item.img')
               .zone-title
                 figcaption
-                  p {{ item.subdistrictName }}
+                  p {{ item.subDistrictName }}
 
   section.ads-carousel.mt-8
     .block-content.flex.justify-center.items-center
@@ -52,13 +52,14 @@
       .title-text
         h3 ประกาศแนะนำ
         .flex
-          nuxt-link(to="/th/announces") ดูทั้งหมด
+          div.announceLink(@click='searchPage') ดูทั้งหมด
           ion-icon.mt-2(name='chevron-forward')
       .recommend
         .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
           Card(
             v-for='item in recommendAnnounceList',
             :key='item.id',
+            :idCard='item.id',
             :logo='item.logo',
             :review='item.review',
             :ads='item.ads',
@@ -77,7 +78,7 @@
       .title-text
         h3 ประกาศทั้งหมด
         .flex
-          nuxt-link(to="/th/announces") ดูทั้งหมด
+          div.announceLink(@click='searchPage') ดูทั้งหมด
           ion-icon.mt-2(name='chevron-forward')
       .secondHandAnnouncement
         .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
@@ -85,6 +86,7 @@
             v-for='item in allAnnounceList',
             :key='item.id',
             :logo='item.logo',
+            :idCard='item.id',
             :bedroom='item.bedroom',
             :bathroom='item.bathroom',
             :ads='item.ads',
@@ -130,6 +132,9 @@ export default defineComponent({
 
   data() {
     return {
+      search: {
+        input: '',
+      },
       dropdownProvinces: [
         {
           content: 'น่าน',
@@ -238,8 +243,6 @@ export default defineComponent({
           },
         },
       },
-      tabs: ['tab1', 'tab2', 'tab3', 'tab4', 'tab5'],
-      currentTab: 'tab1',
     }
   },
 
@@ -249,6 +252,19 @@ export default defineComponent({
   },
 
   methods: {
+    shuffle(array) {
+      let currentIndex = array.length
+      let temporaryValue
+      let randomIndex
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
+      }
+      return array
+    },
     fetchSubdistrict() {
       this.loading.fetching.subdistrict = true
 
@@ -264,15 +280,17 @@ export default defineComponent({
       this.loading.fetching.allAnnounce = true
 
       AnnouncesService.getAllAnnounces().then((res) => {
-        this.recommendAnnounceList = res.slice(0, 4).map((item) => {
-          return {
-            ...item,
-            likeIcon: 'like',
-            ads: 'Top Ad',
-            review: 'มาดูบ้านรีวิว',
-            startPrice: 'เริ่มต้นที่',
-          }
-        })
+        this.recommendAnnounceList = this.shuffle(res)
+          .slice(0, 4)
+          .map((item) => {
+            return {
+              ...item,
+              likeIcon: 'like',
+              ads: 'Top Ad',
+              review: 'มาดูบ้านรีวิว',
+              startPrice: 'เริ่มต้นที่',
+            }
+          })
         this.loading.fetching.recommendAnnounce = false
       })
 
@@ -282,7 +300,9 @@ export default defineComponent({
       this.loading.fetching.allAnnounce = false
     },
     searchPage() {
-      this.$router.push('/th/announces')
+      this.$router.push(
+        `/th/announces?name=${this.search.input}&type=${this.seletedType}&provinceName=${this.seletedProvinces}`
+      )
     },
   },
 })
@@ -297,7 +317,7 @@ export default defineComponent({
   align-items: center;
 }
 .title-text {
-  @apply cursor-pointer flex items-center justify-between w-full;
+  @apply flex items-center justify-between w-full;
   a {
     @apply no-underline text-5;
   }
@@ -328,6 +348,9 @@ figure figcaption {
 
   width: 100%;
   height: 30vh;
+}
+.announceLink {
+  @apply text-xl font-noto font-semibold cursor-pointer;
 }
 .img-container {
   width: 100%;
