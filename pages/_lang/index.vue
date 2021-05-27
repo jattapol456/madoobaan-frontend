@@ -269,7 +269,7 @@ export default defineComponent({
       this.loading.fetching.subdistrict = true
 
       ZonesService.getSubDistrict().then((res) => {
-        this.subdistrictList = res.slice(0, 8)
+        this.subdistrictList = res.slice(0, 4)
 
         this.loading.fetching.subdistrict = false
         console.log(this.subdistrictList)
