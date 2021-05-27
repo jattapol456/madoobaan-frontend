@@ -21,7 +21,7 @@
       .secondHandAnnouncement
         .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
           Card(
-            v-for='(item) in allAnnounceList2',
+            v-for='(item) in allAnnounceList',
             :key='item.id',
             :logo='item.logo',
             :bedroom='item.bedroom',
@@ -47,7 +47,7 @@
   section.mt-8
   .block-content
     .section-Pagination.pt-10.flex.justify-center
-      Pagination(:value='value', @change='handleChange')
+      Pagination(:value='value', @change='handleChangeAnnounce')
 
 
 </template>
@@ -61,7 +61,6 @@ import Card from '@/components/menus/Card.vue'
 import Dropdown from '@/components/forms/Dropdown.vue'
 import Input from '@/components/forms/Input.vue'
 import { IinsertAnnounce } from '@/types/announces'
-// import { AnnouncesService } from '@/services'
 import { IinsertZone } from '@/types/zone'
 import { AnnouncesService } from '@/services'
 
@@ -72,7 +71,6 @@ export default defineComponent({
     Dropdown,
     Input,
   },
-  layout: 'post',
   data() {
     return {
       dropdownProvinces: [
@@ -141,6 +139,7 @@ export default defineComponent({
         },
       ] as DropdownOption[],
       seletedType: null,
+
       perPage: 16,
       value: {
         page: 1,
@@ -156,47 +155,16 @@ export default defineComponent({
           allAnnounce: false,
         },
       },
-
-      swiperOption: {
-        slidesPerView: 1,
-        loop: true,
-        autoplay: {
-          delay: 2500,
-          disableOnInteraction: false,
-        },
-        pagination: {
-          el: '.swiper-pagination',
-          type: 'bullets',
-          clickable: true,
-        },
-        breakpoints: {
-          375: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          640: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 1,
-          },
-          1024: {
-            slidesPerView: 1,
-          },
-        },
-      },
     }
   },
 
   mounted() {
     this.fetchAnnounce()
   },
-
   methods: {
-    handleChange(newPage) {
+    handleChangeAnnounce(newPage) {
       this.value.page = newPage
-      this.allAnnounceList2 = this.allAnnounceList.slice(
+      this.allAnnounceList = this.allAnnounceList2.slice(
         (this.value.page - 1) * this.perPage,
         this.value.page * this.perPage
       )
@@ -205,11 +173,11 @@ export default defineComponent({
       this.loading.fetching.allAnnounce = true
 
       AnnouncesService.getAllAnnounces().then((res) => {
-        this.allAnnounceList = res
+        this.allAnnounceList2 = res
         this.value.totalPages = Math.ceil(
-          this.allAnnounceList.length / this.perPage
+          this.allAnnounceList2.length / this.perPage
         )
-        this.allAnnounceList2 = this.allAnnounceList.slice(
+        this.allAnnounceList = this.allAnnounceList2.slice(
           (this.value.page - 1) * this.perPage,
           this.value.page * this.perPage
         )
