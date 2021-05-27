@@ -123,9 +123,9 @@ a {
   @apply fixed py-5 top-0 left-0 w-full h-16 px-16 z-50 transition duration-500 items-center justify-center flex;
 
   &.nav-post {
-    @apply bg-primary-50 shadow-xl;
+    @apply bg-black-500 bg-opacity-75 shadow-xl;
     .item-menu a {
-      color: #000;
+      color: #fff;
     }
     .menubar {
       color: #000;

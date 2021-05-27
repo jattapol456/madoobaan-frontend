@@ -4,6 +4,9 @@
       .item(@click="goToMeProfie")
         p ดูโปรไฟล์
 
+      .item(@click="goToMyAnnounces")
+        p ดูใบประกาศของฉัน
+
     .group
       .item.text-error-500(@click="logout")
         ion-icon(icon="log-out-outline")
@@ -77,6 +80,11 @@ export default defineComponent({
 
     goToMeProfie(e: MouseEvent) {
       this.$router.push({ name: 'lang-users-id', params: { id: 'me' } })
+      this.hide(e)
+    },
+
+    goToMyAnnounces(e: MouseEvent) {
+      this.$router.push('/th/viewpostlist')
       this.hide(e)
     },
 

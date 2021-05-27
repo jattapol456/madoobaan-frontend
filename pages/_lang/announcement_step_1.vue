@@ -30,6 +30,7 @@
       RadioForm(
         :options='announceType',
         name='announceType',
+        :value="form.announceType"
         @input='onAnnounceTypeChange'
       )
       .mt-5
@@ -37,6 +38,7 @@
       RadioForm(
         :options='type',
         name='type',
+        :value="form.type"
         @input='onTypeChange'
       )
       .mt-5
@@ -45,29 +47,30 @@
             Dropdown#province(
               placeholder='จังหวัด',
               name='province',
+              :value='form.province'
               :options='province',
               @input='provinceChange($event)',
-              v-model='form.province'
             )
             Dropdown#district(
               placeholder='อำเภอ',
+              :value='form.district'
               name='district',
               :options='district',
               @input='districtChange($event)',
-              v-model='form.district'
             )
             Dropdown#subDistrict(
               placeholder='ตำบล',
+              :value='form.subDistrict'
               name='subDistrict',
               :options='subDistrict',
               @input='subDistrictChange($event)',
-              v-model='form.subDistrict'
             )
             Dropdown#zipcode(
               placeholder='รหัสไปรษณีย์',
+              :value='form.zipcode'
               name='zipcode',
               :options='zipcode',
-              v-model='form.zipcode'
+              @input='zipCodeChange($event)',
             )
             InputProfile#houseNumber(
               type="text",
@@ -108,31 +111,28 @@
 
         span ข้อมูลติดต่อ*
           .grid.grid-cols-2.gap-4.mt-4
-            InputProfile(type="text", labels='เบอร์โทรศัพท์*')
-            InputProfile(type="text", labels='ข้อมูลผู้ติดต่อ*')
+            InputProfile(type="text", labels='ชื่อ*' disabled v-model='form.firstname')
+            InputProfile(type="text", labels='นามสกุล*' disabled v-model='form.lastname')
 
         .grid.grid-cols-2.grid-rows-2.gap-4.mt-3
-          InputProfile(type="text", labels='Facebook*')
-          InputProfile(type="text", labels='อีเมล*')
-          h1.text-3 *ตัวอย่าง https://www.facebook.com/profile
-
-        .flex.space-x-2(@click='checkboxer()')
-          input#vehicle1(type='checkbox', name='cc', :checked='checked')
-          label(for='cc') ผูกไอดีไลน์กับเบอร์มือถือ
-
-        InputProfile.mt-4(type="text", v-if='!checked', labels='Line id*')
+          InputProfile(type="text", labels='Facebook*' disabled v-model='form.facebook')
+          InputProfile(type="text", labels='อีเมล*' disabled v-model='form.email')
+          InputProfile(type="text", labels='เบอร์โทรศัพท์*' disabled v-model='form.tel')
+          InputProfile(type="text", labels='Line id*' disabled v-model='form.line')
 
         .flex.justify-between.space-x-2.mt-5
           button.button(@click="backPage") ยกเลิก
-          button.button.button-next(to="/th/announcement_step_2" @click='nextPage') ต่อไป
+          button.button.button-next(@click='nextPage') ต่อไป
 
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import RadioForm from '@/components/forms/RadioForm.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
 import Dropdown from '@/components/forms/Dropdown.vue'
+import { omit } from 'lodash'
+import { ValidationObserver } from 'vee-validate'
 import provinceData from '../../helpers/db/Thailand-Address/provinces.json'
 import districtData from '../../helpers/db/Thailand-Address/districts.json'
 import subDistrictData from '../../helpers/db/Thailand-Address/subDistricts.json'
@@ -145,9 +145,22 @@ export default defineComponent({
     RadioForm,
   },
   layout: 'post',
+  setup() {
+    const setupForm = ref<InstanceType<typeof ValidationObserver>>()
+
+    return {
+      setupForm,
+    }
+  },
   data() {
     return {
       form: {
+        firstname: '',
+        lastname: '',
+        tel: '',
+        facebook: '',
+        line: '',
+        email: '',
         houseNumber: '',
         moo: '',
         soi: '',
@@ -155,7 +168,11 @@ export default defineComponent({
         province: '',
         district: '',
         subDistrict: '',
+        provinceName: '',
+        districtName: '',
+        subDistrictName: '',
         zipcode: '',
+        zipcodeName: '',
         announceType: '',
         type: '',
       } as any,
@@ -228,12 +245,18 @@ export default defineComponent({
   mounted() {
     const post = this.$store.getters['modules/context/post']
 
-    this.form.type = 'คอนโด'
     if (post) {
-      // console.log(post)
-      this.form.type = 'คอนโด'
+      this.form = {
+        ...this.form,
+        ...post,
+      }
+      this.provinceChange(this.form.province)
+      this.districtChange(this.form.district)
+      this.subDistrictChange(this.form.subDistrict)
+      this.zipCodeChange(this.form.zipcode)
 
-      console.log('STEP 1: ', this.form)
+      console.log('STEP 1 form: ', this.form)
+      console.log('STEP 1 post: ', post)
     }
 
     this.province = provinceData.map((data) => {
@@ -243,22 +266,28 @@ export default defineComponent({
       }
     })
   },
+  created() {
+    this.form =
+      omit(this.$store.getters['modules/me/profile'], ['id']) || this.form
+  },
   methods: {
     nextPage() {
       this.form = {
+        ...this.form,
         announceType: this.form.announceType,
         type: this.form.type,
-        province: this.province.find((e) => e.value === this.form.province)
+        provinceName: this.province.find((e) => e.value === this.form.province)
           ?.content,
-        district: this.district.find((e) => e.value === this.form.district)
+        districtName: this.district.find((e) => e.value === this.form.district)
           ?.content,
-        subDistrict: this.subDistrict.find(
+        subDistrictName: this.subDistrict.find(
           (e) => e.value === this.form.subDistrict
         )?.content,
-        zipcode: this.zipcode.find((e) => e.value === this.form.zipcode)
+        zipcodeName: this.zipcode.find((e) => e.value === this.form.zipcode)
           ?.content,
       }
-
+      // console.log(this.form)
+      console.log('next form : ', this.form)
       this.$store.dispatch('modules/context/SETUP_POST', this.form)
       this.$router.push('/th/announcement_step_2')
     },
@@ -267,32 +296,50 @@ export default defineComponent({
     },
     provinceChange(event) {
       console.log(event)
-      this.district = districtData.filter((data) => data.PROVINCE_ID === event)
+      if (event) {
+        this.form.province = event
+        this.district = districtData.filter(
+          (data) => data.PROVINCE_ID === event
+        )
+      }
     },
     districtChange(event) {
       console.log(event)
-      this.subDistrict = subDistrictData.filter(
-        (data) => data.DISTRICT_ID === event
-      )
+      if (event) {
+        this.form.district = event
+        this.subDistrict = subDistrictData.filter(
+          (data) => data.DISTRICT_ID === event
+        )
+      }
     },
     subDistrictChange(event) {
       console.log(event)
-      this.zipcode = zipcodeData.filter(
-        (data) => data.SUB_DISTRICT_ID === event
-      )
+      if (event) {
+        this.form.subDistrict = event
+        this.zipcode = zipcodeData.filter(
+          (data) => data.SUB_DISTRICT_ID === event
+        )
+      }
+    },
+    zipCodeChange(event) {
+      console.log(event)
+      if (event) {
+        this.form.zipcode = parseInt(event)
+      }
     },
     checkboxer() {
       this.checked = !this.checked
     },
+
     onAnnounceTypeChange(announceType) {
-      // console.log(announceType)
-      this.form.announceType = announceType
-      // console.log('this floor:', this.form.announceType)
+      if (announceType) {
+        this.form.announceType = announceType
+      }
     },
     onTypeChange(type) {
-      // console.log(type)
-      this.form.type = type
-      // console.log('this type:', this.form.type)
+      if (type) {
+        this.form.type = type
+      }
     },
   },
 })

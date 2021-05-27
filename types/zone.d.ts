@@ -1,4 +1,4 @@
 export interface IinsertZone {
-  subdistrictName: string
+  subDistrictName: string
   img: string
 }
