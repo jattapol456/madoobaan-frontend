@@ -46,7 +46,6 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import TabToPageAnnounce from '@/components/menus/TabToPageAnnounce.vue'
 import Card from '@/components/menus/Card.vue'
 
-import { ANNOUNCE_CARDS, PROJECT_CARDS } from '@/mocks/landing'
 import { IinsertAnnounce } from '@/types/announces'
 import { AnnouncesService } from '@/services'
 
@@ -70,15 +69,6 @@ export default defineComponent({
         },
       },
     }
-  },
-
-  computed: {
-    announceCards() {
-      return ANNOUNCE_CARDS.slice()
-    },
-    projectCards() {
-      return PROJECT_CARDS.slice()
-    },
   },
 
   mounted() {

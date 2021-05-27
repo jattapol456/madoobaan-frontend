@@ -48,60 +48,51 @@
           h3.mt-10 เพิ่มรูปภาพปก
           label.label-grey.mt-3 คำแนะนำ : ควรเป็นรูปภาพแนวนอนสัดส่วน 16:9 เพื่อความสวยงาม ขนาดรูปไม่เกิน 5 MB.
 
-          input.hidden(type="file" id="myFileInput_1")
-          .input(type="button"
-          onclick="document.getElementById('myFileInput_1').click()"
-          value="Select a File").img-box.border-gray.border-redbox-border.border-2.mt-6
-            img.ml-1.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
+          .img.mt-10
+            img.imagePreviewWrapper(:src="previewImage" :style="{ 'background-image': `url(${previewImage})` }")
+            input(type="file" @change="previewFiles" multiple="")
+
 
         .w-full
           h3.mt-8 รูปภาพ
           label.label-grey.mt-3 เพิ่มรูปภาพบรรยากาศ สิ่งอำนวยความสะดวก
 
-        .flex.w-full.items-center.justify-between
-          input.hidden(type="file" id="myFileInput_2")
-          .input(type="button"
-          onclick="document.getElementById('myFileInput_2').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6
-            img.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
+        .mt-5.flex.justify-between
+          UploadImages
+          UploadImages
+          UploadImages
+          UploadImages
 
-          input.hidden(type="file" id="myFileInput_3")
-          .input(type="button"
-          onclick="document.getElementById('myFileInput_3').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6
-            img.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
+    //- .flex.w-full.items-center.justify-between
+    //-   input.hidden(type="file" id="myFileInput_2")
+    //-   .input(type="button"
+    //-   onclick="document.getElementById('myFileInput_2').click()"
+    //-   value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6
+    //-     img.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
 
-          input.hidden(type="file" id="myFileInput_4")
-          .input(type="button"
-          onclick="document.getElementById('myFileInput_4').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6
-            img.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
-
-          input.hidden(type="file" id="myFileInput_5")
-          div.input(type="button"
-          onclick="document.getElementById('myFileInput_5').click()"
-          value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6
-            img.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
-
-        .flex.justify-between.space-x-2.mt-5
-          button.button(@click="backPage") ย้อนกลับ
-          button.button.button-next(@click='nextPage') ต่อไป
+    .flex.justify-between.space-x-2.mt-5
+      button.button(@click="backPage") ย้อนกลับ
+      button.button.button-next(@click='nextPage') ต่อไป
 
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import Radios from '@/components/forms/Radios.vue'
+import UploadImages from '@/components/menus/UploadImages.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
+import firebase from 'firebase'
 
 export default defineComponent({
   components: {
     Radios,
     InputProfile,
+    UploadImages,
   },
   layout: 'post',
   data() {
     return {
+      previewImage: '',
       form: {
         coverPhoto: '',
         photo: [],
@@ -127,6 +118,24 @@ export default defineComponent({
     },
     backPage() {
       this.$router.push('/th/announcement_step_2')
+    },
+    previewFiles(event) {
+      this.previewImage = URL.createObjectURL(event.target.files[0])
+      console.log(this.previewImage)
+      console.log(event.target.files)
+
+      const ref = firebase
+        .storage()
+        .ref('coverPhotos/' + event.target.files[0].name)
+
+      const task = ref.put(event.target.files[0])
+
+      task.on(
+        'state_change',
+        (_snap) => {},
+        (_e) => {},
+        async () => (this.form.coverPhoto = await ref.getDownloadURL())
+      )
     },
   },
 })
@@ -250,15 +259,13 @@ export default defineComponent({
 button {
   @apply border-info-500 text-info-500 w-full;
 }
+.imagePreviewWrapper {
+  @apply left-0 object-contain;
 
-.search {
-  @apply border-2 border-black-400 p-3;
-}
-
-.addphone {
-  cursor: pointer;
-  &:hover {
-    color: red;
-  }
+  width: 400px;
+  height: 200px;
+  display: block;
+  margin: 0 auto 30px;
+  background-size: cover;
 }
 </style>

@@ -3,14 +3,14 @@
   section.Rent-dorm.mt-8
     .block-content
     div.flex.w-full.space-x-4.items-center
-      img.img-circle.mt-24(src="~/static/images/profile.png")
+      img.img-profile.mt-24(src="~/static/images/profile.png")
       div
         div.mt-20.flex.space-x-4
-          h3 Fname
-          h3 Lname
+          h3 fn
+          h3 ln
         div.flex.space-x-1.mt-3
           label.label-grey เลขที่สมาชิก
-          label.label-grey xxxxxxxxxx
+          label.label-grey id
           label.label-blue.cursor-pointer(@click="goToMeProfie") แก้ไขโปรไฟล์
 
     .w-full.mt-16
@@ -30,7 +30,16 @@ export default defineComponent({
     InputProfile,
     UserViewpostBlogSection,
   },
+  posts: {},
   layout: 'post',
+  async mounted() {
+    const data = await fetch(
+      `http://127.0.0.1:3000/users/${this.$route.params.id}`
+    )
+    const raw = await data.clone().json()
+    // - console.log(raw.topicName)
+    this.posts = raw
+  },
   methods: {
     goToMeProfie() {
       this.$router.push({ name: 'lang-users-id', params: { id: 'me' } })
@@ -75,8 +84,9 @@ h5 {
   color: rgb(39, 133, 101);
 }
 
-.img-circle {
-  border-radius: 50%;
+.img-profile {
+  @apply rounded-full object-cover;
+
   height: 110px;
   width: 110px;
 }
@@ -221,11 +231,5 @@ h5 {
 }
 button {
   @apply border-info-500 text-info-500 w-full;
-}
-.addphone {
-  cursor: pointer;
-  &:hover {
-    color: red;
-  }
 }
 </style>

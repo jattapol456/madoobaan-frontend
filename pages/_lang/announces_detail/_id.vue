@@ -1,28 +1,22 @@
 <template lang="pug">
 .management-page
   section
-    .div.mt-16.grid.grid-cols-2
-      .div.h-full
-        .body.h-full
-          img.imgCover(src='https://d35q2c276lvyi.cloudfront.net/hPjRedEqCiUW7DkonKg01VVKHIq8P1gB30TUBg-QJaU/fill/0/540/sm/1/aHR0cHM6Ly9hcGkubmF5b28uY28vYXR0YWNobWVudHMvcHJvamVjdHMvNTMvY292ZXIvaHJUSnpNVVU3YmRKSjAwaGxjb3dJRHVSMlJaeUJGVDMxU1JZTFVGeS5qcGVn')
-      .div.grid-cols-2.grid-rows-2.w-full
-        .row
-          .body
-            img(src='https://d35q2c276lvyi.cloudfront.net/VIg67zBH4fVcDPMd5Fvg9cgVpJVkH1hwD2YmXt3Uj2k/fill/0/540/sm/1/aHR0cHM6Ly9hcGkubmF5b28uY28vYXR0YWNobWVudHMvcG9zdHMvNTMvZ2FsbGVyeS85NmQ1ZWZjYTY2ZTJmNzgzNjAxNjhjMjUyN2ZmZjIxNC5qcGVn')
-          .body
-            img(src='https://d35q2c276lvyi.cloudfront.net/U8s2SQ5hpW2TrF-m211RxbygGCZt_xMM_BZbIdoYhX8/fill/0/540/sm/1/aHR0cHM6Ly9hcGkubmF5b28uY28vYXR0YWNobWVudHMvcG9zdHMvNTMvZ2FsbGVyeS9zMkhjc0I4c1RwaVJkV2NXSmozV3pvOUw0dEQ0WDJNMFlhV2ZJRTdZLmpwZWc')
-        .row
-          .body
-            img(src='https://d35q2c276lvyi.cloudfront.net/voacLPBqhr8lNZiMo80cAbrAT9d90HtPZCY4upmkZjc/fill/0/540/sm/1/aHR0cHM6Ly9hcGkubmF5b28uY28vYXR0YWNobWVudHMvcG9zdHMvNTMvZ2FsbGVyeS9QZW1JU3NaQVZqeUNST3l1REJGZHpIUEpMcWtsTHFHS1hHeGZRbktCLmpwZWc')
-          .body
-            img(src='https://d35q2c276lvyi.cloudfront.net/GrllBxXNGQwM2uk-PCNSwIziqwutJTdj9TFugac4peA/fill/0/540/sm/1/aHR0cHM6Ly9hcGkubmF5b28uY28vYXR0YWNobWVudHMvcG9zdHMvNTMvZ2FsbGVyeS9iODM4Y2VlMmZlYjUwOTE2Y2MzZWI4ZTQ4MDJmNzc2NS5qcGVn')
+    .mt-16.flex.justify-between
+      .bg.object-cover
+        img.imgCover(:src='posts.coverPhoto')
+      .row.grid.grid.grid-cols-2.grid-rows-2
+        //- img(:src='posts.photo')
+        img(:src='posts.coverPhoto')
+        img(:src='posts.coverPhoto')
+        img(:src='posts.coverPhoto')
+        img(:src='posts.coverPhoto')
 
   section.mt-8
     .block-content
 
     .header.mt-5.grid.grid-cols-3
       .showdetail.col-start-1.col-span-2
-        h1.text-2xl {{posts.topicName}}
+        h1.text-2xl {{ posts.topicName }}
         span.colortext.text-xl.mt-2 {{ posts.salePrice }} ฿
         h2.text-2xl.mt-5 ข้อมูลเบื้องต้น
           .flex.grid.grid-cols-2.grid-rows-4.gap-4
@@ -67,14 +61,15 @@
               li.text-black-400.text-4 {{ posts.security }}
 
           h1.mt-8.text-2xl ติดต่อโครงการ
-          .flex.space-y-3.mt-3.justify-between
-            .div.space-y-3
-              InputProfile(type="text", labels='*ชื่อ' disabled)
-              InputProfile(type="text", labels='*เบอร์โทรติดต่อ' disabled)
-              InputProfile(type="text", labels='อีเมล' disabled)
-              InputProfile(type="text", labels='Line ID' disabled)
-              span.text-4.opacity-50 *ข้อความ
-              Textarea
+          .flex.space-y-3.mt-3.justify-between.w-full
+            .space-y-1.grid.grid-rows-6.contact
+              span ชื่อ {{ posts.firstname }}
+              span นามสกุล {{ posts.lastname }}
+              span Facebook {{ posts.facebook }}
+              span Email {{ posts.email }}
+              span เบอร์โทรศัพท์ {{ posts.tel }}
+              span Line Id {{ posts.line }}
+
             .space-y-3.text-center.text-4
               .div.ml-16
                 img.avatar(src='/icon.png')
@@ -93,8 +88,6 @@
                 labes.ml-4 แชทกับผู้ปล่อยเช่า
               .div.text-5
               span(class="text-error-900 text-4") แจ้งไม่เหมาะสม
-            .div
-          button.send.text-4 ส่งข้อความ
 
       .showmore.text-center.col-end-4.space-y-2
         .div.ml-24
@@ -268,15 +261,6 @@ export default defineComponent({
   @apply flex w-full h-full max-w-7xl m-auto;
 }
 
-.row {
-  display: flex;
-}
-
-.test {
-  height: 55px;
-  width: 200px;
-}
-
 .imgCover {
   height: 100% !important;
   width: 100%;
@@ -292,5 +276,12 @@ export default defineComponent({
   color: #fff;
   background-color: #00aeef;
   padding: 0.5rem;
+}
+.row img {
+  width: 800px;
+  height: 200px;
+}
+.contact {
+  font-size: 1rem;
 }
 </style>
