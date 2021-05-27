@@ -4,6 +4,7 @@ import {
   IVerifyEmail,
   IResetPassword,
   ISetNewPassword,
+  IUser,
 } from '@/types/user'
 import { AxiosRequestConfig } from 'axios'
 
@@ -41,4 +42,9 @@ export default class UserService extends BaseService {
       return res
     })
   }
+  
+  static getUserById(id: number): Promise<IUser> {
+    return this._get(`http://127.0.0.1:3000/users/${id}`)
+  }
+
 }
