@@ -3,6 +3,7 @@ import AuthenticationService from './modules/Authentication'
 import UserService from './modules/User'
 import ZonesService from './modules/Zones'
 import AnnouncesService from './modules/Announces'
+import CardService from './modules/Card'
 
 export {
   BaseService,
@@ -10,4 +11,5 @@ export {
   UserService,
   ZonesService,
   AnnouncesService,
+  CardService,
 }
