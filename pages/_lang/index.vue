@@ -23,7 +23,7 @@
       .title-text
         h3 ค้นหาตามโซน
         .flex
-          nuxt-link(to="/th/zones") ดูทั้งหมด
+          nuxt-link.font-noto.font-semibold(to="/th/zones") ดูทั้งหมด
           ion-icon.mt-2(name='chevron-forward')
       .zones
         .img-container.min-w-full.flex.grid.grid-cols-6.grid-rows-2.gap-3.mt-10
@@ -52,7 +52,7 @@
       .title-text
         h3 ประกาศแนะนำ
         .flex
-          nuxt-link(to="/th/announces") ดูทั้งหมด
+          div.announceLink(@click='searchPage') ดูทั้งหมด
           ion-icon.mt-2(name='chevron-forward')
       .recommend
         .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
@@ -78,7 +78,7 @@
       .title-text
         h3 ประกาศทั้งหมด
         .flex
-          nuxt-link(to="/th/announces") ดูทั้งหมด
+          div.announceLink(@click='searchPage') ดูทั้งหมด
           ion-icon.mt-2(name='chevron-forward')
       .secondHandAnnouncement
         .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
@@ -317,7 +317,7 @@ export default defineComponent({
   align-items: center;
 }
 .title-text {
-  @apply cursor-pointer flex items-center justify-between w-full;
+  @apply flex items-center justify-between w-full;
   a {
     @apply no-underline text-5;
   }
@@ -348,6 +348,9 @@ figure figcaption {
 
   width: 100%;
   height: 30vh;
+}
+.announceLink {
+  @apply text-xl font-noto font-semibold cursor-pointer;
 }
 .img-container {
   width: 100%;

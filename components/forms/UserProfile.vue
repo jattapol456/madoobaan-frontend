@@ -8,13 +8,14 @@
     form.w-full(@submit.prevent='handleSubmit(submit)')
       button.hidden(type='submit')
       .grid.grid-cols-5.gap-8.mt-10
-        .w-32.h-32.rounded-full.bg-black-500.flex.items-center.justify-center.relative
-          input.absolute.w-full.h-full.opacity-0(type='file')
-          span.text-4xl.text-white J
 
         //- div
         //-   .imagePreviewWrapper(:style="{ 'background-image': `url(${previewImage})` }" @click="selectImage")
         //-   input.hidden(ref="fileInput" type="file" @input="pickFile")
+
+        .img
+          img.imagePreviewWrapper(:src="previewImage" :style="{ 'background-image': `url(${previewImage})` }")
+          input(type="file" @change="previewFiles" multiple="")
 
         .col-span-2.space-y-5(class='md:col-span-12')
           InputProfile#firstname(
@@ -81,6 +82,7 @@ import { ValidationObserver } from 'vee-validate'
 import UserService from '@/services/modules/User'
 import { IUserPersonalProfile } from '@/types/user'
 import InputProfile from '@/components/forms/InputProfile.vue'
+import firebase from '@/node_modules/firebase'
 
 export default defineComponent({
   meta: {
@@ -104,13 +106,13 @@ export default defineComponent({
   },
   data() {
     return {
-      previewImage: null,
+      previewImage: '',
       phone: [] as number[],
       checked: false,
       form: {
         firstname: '',
         lastname: '',
-        avatar: null,
+        avatar: '',
         tel: '',
         facebook: '',
         line: '',
@@ -128,16 +130,9 @@ export default defineComponent({
       omit(this.$store.getters['modules/me/profile'], ['id']) || this.form
   },
   methods: {
-    addPhone() {
-      this.phone.push(1)
-    },
     checkboxer() {
       this.checked = !this.checked
     },
-    deletePhone() {
-      this.phone.pop()
-    },
-
     validate() {
       this.setupForm?.validate().then((result) => {
         if (result) this.submit()
@@ -146,12 +141,30 @@ export default defineComponent({
 
     submit() {
       this.loading.updating = true
-
       UserService.updateMeProfile(this.form).then((profile) => {
+        console.log(this.form)
         this.$store.dispatch('modules/me/SET_USER_PROFILE', profile)
         this.loading.updating = false
         this.$router.push({ name: 'lang' })
       })
+    },
+    previewFiles(event) {
+      this.previewImage = URL.createObjectURL(event.target.files[0])
+      console.log(this.previewImage)
+      console.log(event.target.files)
+
+      const ref = firebase
+        .storage()
+        .ref('avatars/' + event.target.files[0].name)
+
+      const task = ref.put(event.target.files[0])
+
+      task.on(
+        'state_change',
+        (_snap) => {},
+        (_e) => {},
+        async () => (this.form.avatar = await ref.getDownloadURL())
+      )
     },
 
     // selectImage() {
@@ -181,37 +194,18 @@ export default defineComponent({
 button {
   @apply border-info-500 text-info-500 w-full;
 }
-
-.addphone {
-  cursor: pointer;
-  color: #00aeef;
-  font-weight: 900;
-  text-decoration: none !important;
-  &:hover {
-    color: rgb(178, 137, 231);
-  }
-}
-
 .management-page {
   @apply flex w-full h-full max-w-7xl m-auto;
 }
 .relativeBox {
   position: relative;
 }
-
-.deletePhone {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  opacity: 0.7;
-}
 .imagePreviewWrapper {
-  @apply rounded-full bg-black-500;
+  @apply rounded-full object-cover;
 
   width: 200px;
   height: 200px;
   display: block;
-  cursor: pointer;
   margin: 0 auto 30px;
   background-size: cover;
   background-position: center center;

@@ -111,19 +111,14 @@
 
         span ข้อมูลติดต่อ*
           .grid.grid-cols-2.gap-4.mt-4
-            InputProfile(type="text", labels='เบอร์โทรศัพท์*')
-            InputProfile(type="text", labels='ข้อมูลผู้ติดต่อ*')
+            InputProfile(type="text", labels='ชื่อ*' disabled v-model='form.firstname')
+            InputProfile(type="text", labels='นามสกุล*' disabled v-model='form.lastname')
 
         .grid.grid-cols-2.grid-rows-2.gap-4.mt-3
-          InputProfile(type="text", labels='Facebook*')
-          InputProfile(type="text", labels='อีเมล*')
-          h1.text-3 *ตัวอย่าง https://www.facebook.com/profile
-
-        .flex.space-x-2(@click='checkboxer()')
-          input#vehicle1(type='checkbox', name='cc', :checked='checked')
-          label(for='cc') ผูกไอดีไลน์กับเบอร์มือถือ
-
-        InputProfile.mt-4(type="text", v-if='!checked', labels='Line id*')
+          InputProfile(type="text", labels='Facebook*' disabled v-model='form.facebook')
+          InputProfile(type="text", labels='อีเมล*' disabled v-model='form.email')
+          InputProfile(type="text", labels='เบอร์โทรศัพท์*' disabled v-model='form.tel')
+          InputProfile(type="text", labels='Line id*' disabled v-model='form.line')
 
         .flex.justify-between.space-x-2.mt-5
           button.button(@click="backPage") ยกเลิก
@@ -132,10 +127,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import RadioForm from '@/components/forms/RadioForm.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
 import Dropdown from '@/components/forms/Dropdown.vue'
+import { omit } from 'lodash'
+import { ValidationObserver } from 'vee-validate'
 import provinceData from '../../helpers/db/Thailand-Address/provinces.json'
 import districtData from '../../helpers/db/Thailand-Address/districts.json'
 import subDistrictData from '../../helpers/db/Thailand-Address/subDistricts.json'
@@ -148,9 +145,22 @@ export default defineComponent({
     RadioForm,
   },
   layout: 'post',
+  setup() {
+    const setupForm = ref<InstanceType<typeof ValidationObserver>>()
+
+    return {
+      setupForm,
+    }
+  },
   data() {
     return {
       form: {
+        firstname: '',
+        lastname: '',
+        tel: '',
+        facebook: '',
+        line: '',
+        email: '',
         houseNumber: '',
         moo: '',
         soi: '',
@@ -255,6 +265,10 @@ export default defineComponent({
         content: data.PROVINCE_NAME,
       }
     })
+  },
+  created() {
+    this.form =
+      omit(this.$store.getters['modules/me/profile'], ['id']) || this.form
   },
   methods: {
     nextPage() {

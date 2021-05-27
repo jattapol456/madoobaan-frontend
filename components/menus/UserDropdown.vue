@@ -3,6 +3,7 @@
     .group.header
       .item(@click="goToMeProfie")
         p ดูโปรไฟล์
+
       .item(@click="goToMyAnnounces")
         p ดูใบประกาศของฉัน
 
