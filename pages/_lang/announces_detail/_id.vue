@@ -12,9 +12,9 @@
 
     .header.mt-5.grid.grid-cols-3
       .showdetail.col-start-1.col-span-2
-        h1.text-2xl {{ posts.topicName }}
-        span.colortext.text-xl.mt-2 {{ posts.salePrice }} ฿
-        h5 {{ posts.provinceName }} {{ posts.districtName }} {{ posts.subDistrictName }}
+        h3 {{ posts.topicName }}
+        h1.colortext.mt-4 {{ posts.salePrice }} ฿
+        h5.mt-2 {{ posts.provinceName }} {{ posts.districtName }} {{ posts.subDistrictName }}
         h2.text-2xl.mt-5 ข้อมูลเบื้องต้น
           .flex.grid.grid-cols-2.grid-rows-4.gap-4
             .div
@@ -138,9 +138,9 @@
             :topicName='item.topicName',
             :salePrice='item.salePrice',
             :startPrice='item.startPrice',
-            :subdistrict='item.subdistrict',
-            :district='item.district',
-            :province='item.province'
+            :subDistrictName='item.subDistrictName',
+            :districtName='item.districtName',
+            :provinceName='item.provinceName'
           )
 
 </template>

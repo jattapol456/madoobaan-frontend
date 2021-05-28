@@ -43,7 +43,7 @@ export default class AnnouncesService extends BaseService {
     )
   }
 
-  static myCard(email,type){
+  static myCard(email, type) {
     return this._get(
       `http://127.0.0.1:3000/announces/sort?email=${email}&type=${type}`
     )

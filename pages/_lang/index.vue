@@ -69,9 +69,9 @@
             :topicName='item.topicName',
             :salePrice='item.salePrice',
             :startPrice='item.startPrice',
-            :subdistrict='item.subdistrict'
-            :district='item.district'
-            :province='item.province')
+            :subDistrictName='item.subDistrictName'
+            :districtName='item.districtName'
+            :provinceName='item.provinceName')
 
   section.announce.mt-8
     .block-content
@@ -95,9 +95,9 @@
             :type='item.type',
             :topicName='item.topicName',
             :salePrice='item.salePrice',
-            :subdistrict='item.subdistrict'
-            :district='item.district'
-            :province='item.province')
+            :subDistrictName='item.subDistrictName'
+            :districtName='item.subDistrictName'
+            :provinceName='item.provinceName')
 
   section.mt-8
     .block-content
@@ -269,7 +269,7 @@ export default defineComponent({
       this.loading.fetching.subdistrict = true
 
       ZonesService.getSubDistrict().then((res) => {
-        this.subdistrictList = res.slice(0, 4)
+        this.subdistrictList = res.slice(0, 8)
 
         this.loading.fetching.subdistrict = false
         console.log(this.subdistrictList)

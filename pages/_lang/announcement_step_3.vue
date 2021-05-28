@@ -57,9 +57,11 @@
           .img.mt-10
             img.imagePreviewWrapper(
               :src='previewImage',
+              v-if="previewImage"
               :style='{ "background-image": `url(${previewImage})` }'
             )
             input(type='file', @change='previewFiles', multiple='')
+
 
         .w-full
           h3.mt-8 รูปภาพ
@@ -71,7 +73,7 @@
             v-for='(item, index) in [...Array(4)]',
             :key='index'
           )
-            img.imagePreviewWrapper(
+            img.imagePreviewWrapper2(
               :src='`${previewImage2[index] ? previewImage2[index] : "https://semantic-ui.com/images/wireframe/square-image.png"}`',
               :style='{ "background-image": "https://semantic-ui.com/images/wireframe/square-image.png" }'
             )
@@ -306,7 +308,16 @@ button {
   @apply border-info-500 text-info-500 w-full;
 }
 .imagePreviewWrapper {
-  @apply left-0 object-contain;
+  @apply object-center object-cover;
+
+  width: 400px;
+  height: 200px;
+  display: block;
+  margin: 0 auto 30px;
+  background-size: cover;
+}
+.imagePreviewWrapper2 {
+  @apply px-2 object-center object-cover;
 
   width: 400px;
   height: 200px;
