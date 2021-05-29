@@ -9,12 +9,8 @@
       button.hidden(type='submit')
       .grid.grid-cols-5.gap-8.mt-10
 
-        //- div
-        //-   .imagePreviewWrapper(:style="{ 'background-image': `url(${previewImage})` }" @click="selectImage")
-        //-   input.hidden(ref="fileInput" type="file" @input="pickFile")
-
         .img
-          img.imagePreviewWrapper(:src="previewImage" :style="{ 'background-image': `url(${previewImage})` }")
+          img.imagePreviewWrapper(:src="previewImage" v-if="previewImage" :style="{ 'background-image': `url(${previewImage})` }")
           input(type="file" @change="previewFiles" multiple="")
 
         .col-span-2.space-y-5(class='md:col-span-12')
@@ -22,20 +18,20 @@
             labels='ชื่อ*',
             maxlength='40',
 
-            :disabled='loading.updating',
+
             v-model='form.firstname'
           )
           InputProfile#tel(
             labels='กรุณากรอกเบอร์โทรศัพท์*',
             maxlength='10',
 
-            :disabled='loading.updating',
+
             v-model='form.tel',
           )
           InputProfile#email(
             labels='email*',
             maxlength='10',
-            disabled='loading.updating',
+            disabled,
             v-model='form.email',
           )
 
@@ -48,21 +44,21 @@
             labels='นามสกุล*',
             maxlength='40',
 
-            :disabled='loading.updating',
+
             v-model='form.lastname'
           )
           InputProfile#line(
             labels='line_Id*',
             maxlength='20',
 
-            :disabled='loading.updating',
+
             v-if='!checked',
             v-model='form.line'
           )
           InputProfile#facebook(
             labels='facebook*',
 
-            :disabled='loading.updating',
+
             v-model='form.facebook'
           )
           h1.text-3 *ตัวอย่าง https://www.facebook.com/profile

@@ -17,9 +17,16 @@ export default class AuthenticationService extends BaseService {
       .auth()
       .signInWithEmailAndPassword(data.email, data.password)
       .then(async (res) => {
+        console.log(res)
         cookies.set('firebase_token', await res.user?.getIdToken()!)
         return Promise.resolve(res)
       })
+  }
+
+  static decodeToken(){
+    const cookie = cookies.get('firebase_token')?.split('.')[1]
+    let b = new Buffer(cookie, 'base64')
+    return b.toString();
   }
 
   static fetchSignInMethods(email: string) {

@@ -5,19 +5,16 @@
       .bg.object-cover
         img.imgCover(:src='posts.coverPhoto')
       .row.grid.grid.grid-cols-2.grid-rows-2
-        //- img(:src='posts.photo')
-        img(:src='posts.coverPhoto')
-        img(:src='posts.coverPhoto')
-        img(:src='posts.coverPhoto')
-        img(:src='posts.coverPhoto')
+        img(v-for="(item, index) in posts.photo" :key="index" :src='item')
 
   section.mt-8
     .block-content
 
     .header.mt-5.grid.grid-cols-3
       .showdetail.col-start-1.col-span-2
-        h1.text-2xl {{ posts.topicName }}
-        span.colortext.text-xl.mt-2 {{ posts.salePrice }} ฿
+        h3 {{ posts.topicName }}
+        h1.colortext.mt-4 {{ posts.salePrice }} ฿
+        h5.mt-2 {{ posts.provinceName }} {{ posts.districtName }} {{ posts.subDistrictName }}
         h2.text-2xl.mt-5 ข้อมูลเบื้องต้น
           .flex.grid.grid-cols-2.grid-rows-4.gap-4
             .div
@@ -60,15 +57,27 @@
               span.text-xl ระบบความปลอดภัย
               li.text-black-400.text-4 {{ posts.security }}
 
-          h1.mt-8.text-2xl ติดต่อโครงการ
+          h1.mt-8.text-2xl ติดต่อเจ้าของทรัพย์
           .flex.space-y-3.mt-3.justify-between.w-full
-            .space-y-1.grid.grid-rows-6.contact
-              span ชื่อ {{ posts.firstname }}
-              span นามสกุล {{ posts.lastname }}
-              span Facebook {{ posts.facebook }}
-              span Email {{ posts.email }}
-              span เบอร์โทรศัพท์ {{ posts.tel }}
-              span Line Id {{ posts.line }}
+            .grid.grid-rows-6.contact
+              .contact-title
+                span ชื่อ
+                label {{ posts.firstname }}
+              .contact-title
+                span นามสกุล
+                label {{ posts.lastname }}
+              .contact-title
+                span Facebook
+                label {{ posts.facebook }}
+              .contact-title
+                span Email
+                label {{ posts.email }}
+              .contact-title
+                span เบอร์โทรศัพท์
+                label {{ posts.tel }}
+              .contact-title
+                span Line Id
+                label {{ posts.line }}
 
             .space-y-3.text-center.text-4
               .div.ml-16
@@ -113,7 +122,7 @@
 
   section.mt-8
     .block-content
-      h1.text-2xl.mt-5 โครงการแนะนำ
+      h1.text-2xl.mt-5 ประกาศแนะนำ
       .recommend
         .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
           Card(
@@ -129,29 +138,9 @@
             :topicName='item.topicName',
             :salePrice='item.salePrice',
             :startPrice='item.startPrice',
-            :subdistrict='item.subdistrict',
-            :district='item.district',
-            :province='item.province'
-          )
-
-      .secondHandAnnouncement
-        .grid.grid-cols-4.gap-6(class='sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4')
-          Card(
-            v-for='item in allAnnounceList',
-            :key='item.id',
-            :idCard='item.id',
-            :logo='item.logo',
-            :bedroom='item.bedroom',
-            :bathroom='item.bathroom',
-            :ads='item.ads',
-            :likeIcon='item.likeIcon',
-            :coverPhoto='item.coverPhoto',
-            :type='item.type',
-            :topicName='item.topicName',
-            :salePrice='item.salePrice',
-            :subdistrict='item.subdistrict',
-            :district='item.district',
-            :province='item.province'
+            :subDistrictName='item.subDistrictName',
+            :districtName='item.districtName',
+            :provinceName='item.provinceName'
           )
 
 </template>
@@ -179,12 +168,10 @@ export default defineComponent({
       posts: {},
 
       recommendAnnounceList: [] as IinsertAnnounce[],
-      allAnnounceList: [] as IinsertAnnounce[],
 
       loading: {
         fetching: {
           recommendAnnounce: false,
-          allAnnounce: false,
         },
       },
     }
@@ -200,32 +187,36 @@ export default defineComponent({
     this.fetchAnnounce()
   },
   methods: {
+    shuffle(array) {
+      let currentIndex = array.length
+      let temporaryValue
+      let randomIndex
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
+      }
+      return array
+    },
     fetchAnnounce() {
       this.loading.fetching.recommendAnnounce = true
-      this.loading.fetching.allAnnounce = true
 
       AnnouncesService.getAllAnnounces().then((res) => {
-        this.recommendAnnounceList = res.slice(0, 4).map((item) => {
-          return {
-            ...item,
-            likeIcon: 'like',
-            ads: 'Top Ad',
-            review: 'มาดูบ้านรีวิว',
-            startPrice: 'เริ่มต้นที่',
-          }
-        })
+        this.recommendAnnounceList = this.shuffle(res)
+          .slice(0, 4)
+          .map((item) => {
+            return {
+              ...item,
+              likeIcon: 'like',
+              ads: 'Top Ad',
+              review: 'มาดูบ้านรีวิว',
+              startPrice: 'เริ่มต้นที่',
+            }
+          })
         this.loading.fetching.recommendAnnounce = false
       })
-
-      AnnouncesService.getAllAnnounces().then((res) => {
-        this.allAnnounceList = res.slice(0, 4).map((item) => {
-          return {
-            ...item,
-            likeIcon: 'like',
-          }
-        })
-      })
-      this.loading.fetching.allAnnounce = false
     },
   },
 })
@@ -283,5 +274,9 @@ export default defineComponent({
 }
 .contact {
   font-size: 1rem;
+  width: 70%;
+}
+.contact-title {
+  @apply flex items-center justify-between;
 }
 </style>

@@ -32,25 +32,35 @@
             h5 อนุญาต
             label.mt-3 รูปภาพที่ชัดเจนไม่มืดหรือมัว
             .border-green.border-redbox-border.h-40.w-60.p-4.border-2.mt-6
-              img.object-none.h-full.w-full(src="~/static/images/img-checked-ex-pic-1.svg")
+              img.object-none.h-full.w-full(
+                src='~/static/images/img-checked-ex-pic-1.svg'
+              )
           .mt-5.w-full
             h5 ไม่อนุญาต
             label.mt-3 ไม่อนุญาติรูปภาพที่มีใบหน้าข้อความลายน้ำ
               .border-red.border-redbox-border.h-40.w-60.p-4.border-2.mt-6
-                img.object-none.h-full.w-full(src="~/static/images/img-checked-ex-pic-2.svg")
+                img.object-none.h-full.w-full(
+                  src='~/static/images/img-checked-ex-pic-2.svg'
+                )
           .mt-5.w-full
             h5 ไม่อนุญาต
             label.mt-3 รูปที่มีหลายภาพวางซ้อนทับกัน
               .border-red.border-redbox-border.h-40.w-60.p-4.border-2.mt-6
-                img.object-none.h-full.w-full(src="~/static/images/img-checked-ex-pic-3.svg")
+                img.object-none.h-full.w-full(
+                  src='~/static/images/img-checked-ex-pic-3.svg'
+                )
 
         .w-full
           h3.mt-10 เพิ่มรูปภาพปก
           label.label-grey.mt-3 คำแนะนำ : ควรเป็นรูปภาพแนวนอนสัดส่วน 16:9 เพื่อความสวยงาม ขนาดรูปไม่เกิน 5 MB.
 
           .img.mt-10
-            img.imagePreviewWrapper(:src="previewImage" :style="{ 'background-image': `url(${previewImage})` }")
-            input(type="file" @change="previewFiles" multiple="")
+            img.imagePreviewWrapper(
+              :src='previewImage',
+              v-if="previewImage"
+              :style='{ "background-image": `url(${previewImage})` }'
+            )
+            input(type='file', @change='previewFiles', multiple='')
 
 
         .w-full
@@ -58,28 +68,30 @@
           label.label-grey.mt-3 เพิ่มรูปภาพบรรยากาศ สิ่งอำนวยความสะดวก
 
         .mt-5.flex.justify-between
-          UploadImages
-          UploadImages
-          UploadImages
-          UploadImages
-
-    //- .flex.w-full.items-center.justify-between
-    //-   input.hidden(type="file" id="myFileInput_2")
-    //-   .input(type="button"
-    //-   onclick="document.getElementById('myFileInput_2').click()"
-    //-   value="Select a File").img-box-small.border-gray.border-redbox-border.border-2.mt-6
-    //-     img.object-none.object-center.w-full.h-full(src="~/static/images/img-upload.png")
+          label(
+            :forHtml='`upload_${index}`',
+            v-for='(item, index) in [...Array(4)]',
+            :key='index'
+          )
+            img.imagePreviewWrapper2(
+              :src='`${previewImage2[index] ? previewImage2[index] : "https://semantic-ui.com/images/wireframe/square-image.png"}`',
+              :style='{ "background-image": "https://semantic-ui.com/images/wireframe/square-image.png" }'
+            )
+            input.hidden.cursor-pointer(
+              type='file',
+              :id='`upload_${index}`',
+              @change='previewFiles2($event, index)',
+              multiple=''
+            )
 
     .flex.justify-between.space-x-2.mt-5
-      button.button(@click="backPage") ย้อนกลับ
+      button.button(@click='backPage') ย้อนกลับ
       button.button.button-next(@click='nextPage') ต่อไป
-
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import Radios from '@/components/forms/Radios.vue'
-import UploadImages from '@/components/menus/UploadImages.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
 import firebase from 'firebase'
 
@@ -87,7 +99,6 @@ export default defineComponent({
   components: {
     Radios,
     InputProfile,
-    UploadImages,
   },
   layout: 'post',
   data() {
@@ -97,6 +108,7 @@ export default defineComponent({
         coverPhoto: '',
         photo: [],
       } as any,
+      previewImage2: [] as any,
     }
   },
   mounted() {
@@ -115,6 +127,7 @@ export default defineComponent({
     nextPage() {
       this.$store.dispatch('modules/context/SETUP_POST', this.form)
       this.$router.push('/th/announcement_step_4')
+      console.log(this.form)
     },
     backPage() {
       this.$router.push('/th/announcement_step_2')
@@ -127,6 +140,41 @@ export default defineComponent({
       const ref = firebase
         .storage()
         .ref('coverPhotos/' + event.target.files[0].name)
+
+      const task = ref.put(event.target.files[0])
+
+      task.on(
+        'state_change',
+        (_snap) => {},
+        (_e) => {},
+        async () => (this.form.coverPhoto = await ref.getDownloadURL())
+      )
+    },
+    previewFiles2(event, index: any) {
+      const listFile = this.previewImage2
+      listFile[index] = URL.createObjectURL(event.target.files[0])
+      this.previewImage2 = [...listFile]
+      console.log('event: ', this.previewImage2)
+      console.log(event.target.files)
+
+      const ref = firebase.storage().ref('photos/' + event.target.files[0].name)
+
+      const task = ref.put(event.target.files[0])
+
+      task.on(
+        'state_change',
+        (_snap) => {},
+        (_e) => {},
+        async () =>
+          (this.form.photo = [...this.form.photo, await ref.getDownloadURL()])
+      )
+    },
+    previewArray(event) {
+      this.previewImage = URL.createObjectURL(event.target.files[0])
+      console.log(this.previewImage)
+      console.log(event.target.files)
+
+      const ref = firebase.storage().ref('photos/' + event.target.files[0].name)
 
       const task = ref.put(event.target.files[0])
 
@@ -260,7 +308,16 @@ button {
   @apply border-info-500 text-info-500 w-full;
 }
 .imagePreviewWrapper {
-  @apply left-0 object-contain;
+  @apply object-center object-cover;
+
+  width: 400px;
+  height: 200px;
+  display: block;
+  margin: 0 auto 30px;
+  background-size: cover;
+}
+.imagePreviewWrapper2 {
+  @apply px-2 object-center object-cover;
 
   width: 400px;
   height: 200px;

@@ -1,6 +1,9 @@
 <template lang="pug">
-NuxtLink.card-section.mt-12.text-decoration-none(:to="`/th/announces_detail/${ idCard }`")
-  .card.bg-white.w-full.h-full.border-black-200.border-2.mt-2
+NuxtLink.card-section.mt-12.text-decoration-none(
+  v-if='alive',
+  :to='`/th/announces_detail/${idCard}`'
+)
+  .card-container.bg-white.w-full.h-full.border-black-200.border-2.mt-2
     .grid.grid-cols-5.items-center
       .card-image.text-decoration-none
         .img-card
@@ -14,12 +17,12 @@ NuxtLink.card-section.mt-12.text-decoration-none(:to="`/th/announces_detail/${ i
           h4.text-info-500 {{ salePrice }} ฿
       .card-footer.flex.space-x-2
         button.button แก้ไข
-        button.button ลบ
-
+        button.button(@click.stop.prevent='deleteCard') ลบ
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { CardService } from '@/services'
 export default defineComponent({
   props: {
     coverPhoto: {
@@ -41,6 +44,24 @@ export default defineComponent({
     salePrice: {
       type: Number,
       default: null,
+    },
+  },
+  data() {
+    return {
+      alive: true,
+    }
+  },
+  methods: {
+    async deleteCard() {
+      console.log('delete', this.idCard)
+      if (confirm('are you sure?')) {
+        const deletedata = await CardService.deleteCard(this.idCard)
+        this.alive = false
+      }
+      console.log(this.alive)
+    },
+    inCard(string) {
+      console.log(string)
     },
   },
 })
@@ -65,6 +86,7 @@ p {
 .card-image {
   .img-card img {
     width: 100%;
+    height: 200px;
     object-fit: cover;
   }
 }

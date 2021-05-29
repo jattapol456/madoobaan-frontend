@@ -15,7 +15,7 @@
               .dropdown
                 .grid.grid-cols-3.gap-3
                   Dropdown(placeholder="ทั้งหมด" :options='dropdownAnnounceType' v-model='seletedAnnounceType')
-                  Dropdown(placeholder="อสังหาฯทั้งหมด" :options='dropdownType' v-model='seletedType')
+                  Dropdown(placeholder="อสังหาฯทั้งหมด" :options='dropdownType' @input="dropTown")
                   Dropdown(placeholder="เรียงจากค่าเริ่มต้น" :options='dropdownSort' v-model='seletedSort')
             .w-full
               ViewpostCard(
@@ -44,7 +44,7 @@ import ViewpostCard from '@/components/menus/ViewpostCard.vue'
 import RadioForm from '@/components/forms/RadioForm.vue'
 import Pagination from '@/components/menus/Pagination.vue'
 import { IinsertAnnounce } from '@/types/announces'
-import { AnnouncesService } from '@/services'
+import { AnnouncesService, AuthenticationService } from '@/services'
 import { DropdownOption } from '@/components/menus/Dropdown.vue'
 
 export default defineComponent({
@@ -138,9 +138,17 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.fetchAnnounce()
+    this.fetchAnnounce('')
   },
+
   methods: {
+    dropTown(event){
+      if(event){
+        console.log(event)
+        let data = event == 'อสังหาฯทั้งหมด'?'':event
+        this.fetchAnnounce(data)
+      }
+    },
     onTabChange(tab) {
       console.log(tab)
       this.currentTab = tab
@@ -152,10 +160,11 @@ export default defineComponent({
         this.value.page * this.perPage
       )
     },
-    fetchAnnounce() {
+    fetchAnnounce(type) {
       this.loading.fetching.allAnnounce = true
+      const data = JSON.parse(AuthenticationService.decodeToken())
 
-      AnnouncesService.getAllAnnounces().then((res) => {
+      AnnouncesService.myCard(data.email,type).then((res) => {
         this.allAnnounceList = res
         this.value.totalPages = Math.ceil(
           this.allAnnounceList.length / this.perPage

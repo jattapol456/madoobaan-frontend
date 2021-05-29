@@ -3,14 +3,13 @@
   section.Rent-dorm.mt-8
     .block-content
     div.flex.w-full.space-x-4.items-center
-      img.img-profile.mt-24(src="~/static/images/profile.png")
+      img.img-profile.mt-24(:src="form.avatar")
       div
         div.mt-20.flex.space-x-4
-          h3 fn
-          h3 ln
+          h3 {{form.firstname}}
+          h3 {{form.lastname}}
         div.flex.space-x-1.mt-3
-          label.label-grey เลขที่สมาชิก
-          label.label-grey id
+          label.label-grey {{form.email}}
           label.label-blue.cursor-pointer(@click="goToMeProfie") แก้ไขโปรไฟล์
 
     .w-full.mt-16
@@ -23,6 +22,8 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import UserViewpostBlogSection from '@/components/sections/user/UserViewpostBlogSection.vue'
 import Radios from '@/components/forms/Radios.vue'
 import InputProfile from '@/components/forms/InputProfile.vue'
+import { omit } from 'lodash'
+import { id } from 'date-fns/locale'
 
 export default defineComponent({
   components: {
@@ -32,13 +33,22 @@ export default defineComponent({
   },
   posts: {},
   layout: 'post',
+  data() {
+    return {
+      form: {},
+    }
+  },
   async mounted() {
-    const data = await fetch(
-      `http://127.0.0.1:3000/users/${this.$route.params.id}`
-    )
+    const data = await fetch(`http://127.0.0.1:3000/users/${id}`)
     const raw = await data.clone().json()
     // - console.log(raw.topicName)
     this.posts = raw
+  },
+  created() {
+    this.form =
+      omit(this.$store.getters['modules/me/profile'], ['id']) || this.form
+
+    console.log(this.form)
   },
   methods: {
     goToMeProfie() {
